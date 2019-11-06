@@ -6,12 +6,14 @@ Population to Building Ratio : https://csbp-cpse.github.io/lode-viewer/index-en.
 Building provenance : https://csbp-cpse.github.io/lode-viewer/index-en.html?context=source<br>
 Building Area to Vertices Ratio: https://csbp-cpse.github.io/lode-viewer/index-en.html?context=geometry<br>
 Proximity to public transit: https://csbp-cpse.github.io/lode-viewer/index-en.html?context=trips<br>
+Proximity to education facilities: https://csbp-cpse.github.io/lode-viewer/index-en.html?context=education<br>
 
 ---------------------------------------------------------------------
 
 Une visionneuse pour les données de l'ECDO, incluant la base de données ouvertes de bâtiments (ODB). La visionneuse offre présentement des cartes pour plusieurs indicateurs. Les liens sont fournis ci-bas:
 
-Population to Building Ratio : https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=boundary<br>
-Building provenance : https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=source<br>
-Building Area to Vertices Ratio: https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=geometry<br>
-Proximity to public transit: https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=trips<br>
+Proportion population à bâtiments : https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=boundary<br>
+Source des bâtiments : https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=source<br>
+Proportion surface à vertex: https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=geometry<br>
+Proximité au transport en commun: https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=trips<br>
+Proximité aux établissements d'éducation: https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=education<br>
