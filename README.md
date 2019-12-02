@@ -6,7 +6,7 @@ Population to Building Ratio : https://csbp-cpse.github.io/lode-viewer/index-en.
 Building provenance : https://csbp-cpse.github.io/lode-viewer/index-en.html?context=source<br>
 Building Area to Vertices Ratio: https://csbp-cpse.github.io/lode-viewer/index-en.html?context=geometry<br>
 Proximity to public transit: https://csbp-cpse.github.io/lode-viewer/index-en.html?context=trips<br>
-Proximity to education facilities: https://csbp-cpse.github.io/lode-viewer/index-en.html?context=education<br>
+Proximity to libraries: https://csbp-cpse.github.io/lode-viewer/index-en.html?context=libraryn<br>
 
 ---------------------------------------------------------------------
 
@@ -16,4 +16,4 @@ Proportion population à bâtiments : https://csbp-cpse.github.io/lode-viewer/in
 Source des bâtiments : https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=source<br>
 Proportion surface à vertex: https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=geometry<br>
 Proximité au transport en commun: https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=trips<br>
-Proximité aux établissements d'éducation: https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=education<br>
+Proximité aux bibliothèques: https://csbp-cpse.github.io/lode-viewer/index-fr.html?context=library<br>
