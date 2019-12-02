@@ -6,7 +6,7 @@ Population to Building Ratio : https://csbp-cpse.github.io/lode-viewer/index-en.
 Building provenance : https://csbp-cpse.github.io/lode-viewer/index-en.html?context=source<br>
 Building Area to Vertices Ratio: https://csbp-cpse.github.io/lode-viewer/index-en.html?context=geometry<br>
 Proximity to public transit: https://csbp-cpse.github.io/lode-viewer/index-en.html?context=trips<br>
-Proximity to libraries: https://csbp-cpse.github.io/lode-viewer/index-en.html?context=libraryn<br>
+Proximity to libraries: https://csbp-cpse.github.io/lode-viewer/index-en.html?context=library<br>
 
 ---------------------------------------------------------------------
 
