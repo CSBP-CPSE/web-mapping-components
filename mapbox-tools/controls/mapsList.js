@@ -1,6 +1,7 @@
 import Control from '../components/control.js';
 import Core from '../../basic-tools/tools/core.js';
 import Dom from '../../basic-tools/tools/dom.js';
+import Tooltip from '../../basic-tools/components/tooltip.js';
 
 export default class MapsList extends Control { 
 		
@@ -9,26 +10,40 @@ export default class MapsList extends Control {
 		
 		this._container = this.Node('root');
 		
-		for (var id in options.maps) this.AddMapItem(options.maps[id]);
+		this.tooltip = new Tooltip();
+		
+		for (var id in options.maps) this.AddMapItem(id, options.maps[id]);
 	}
 
-	AddMapItem(map) {
-		var li = Dom.Create('li', { className:"maps-list-item", innerHTML:map.title[Core.locale] }, this.Node("ul"));
+	AddMapItem(id, map) {
+		var li = Dom.Create('li', { className:"maps-list-item", innerHTML:map.title }, this.Node("ul"));
 		
-		li.addEventListener("click", this.OnLiClick_Handler.bind(this, map));
+		li.addEventListener("mousemove", this.OnLiMouseMove_Handler.bind(this, id, map));
+		li.addEventListener("mouseleave", this.OnLiMouseLeave_Handler.bind(this, id, map));
+		li.addEventListener("click", this.OnLiClick_Handler.bind(this, id, map));
 	}
 	
-	OnLiClick_Handler(map, ev) {		
-		this.Emit("MapSelected", { map:map });
+	OnLiMouseMove_Handler(id, map, ev) {	
+		this.tooltip.Node("content").innerHTML = map.description;
+		this.tooltip.Show(ev.x + 20, ev.y);
+	}
+	
+	OnLiMouseLeave_Handler(id, map, ev) {	
+		this.tooltip.Hide();
+	}
+	
+	OnLiClick_Handler(id, map, ev) {		
+		this.Emit("MapSelected", { id:id, map:map });
 	}
 	
 	Template() {
 		return "<div handle='root' class='maps'>" + 
-				"<div class='maps-header-container'>" + 
-					"<img class='maps-header-icon' src='assets/layers.png'></img>" +
-					"<h2 class='maps-header'>nls(Maps_Header)</h2>" +
-				"</div>" +
-				"<ul handle='ul' class='maps-list'></ul>" + 
+				  "<div class='maps-header-container'>" + 
+					 "<img class='maps-header-icon' src='assets/layers.png'></img>" +
+					 "<h2 class='maps-header'>nls(Maps_Header)</h2>" +
+				  "</div>" +
+				  "<ul handle='ul' class='maps-list'></ul>" + 
+				  "<div handle='description' class='maps-description'>nls(Maps_Description)</div>" +
 			   "</div>"
 	}
 }

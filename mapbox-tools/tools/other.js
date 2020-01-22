@@ -21,7 +21,7 @@ export default class Other {
         var html = "";
 		
 		fields.forEach(function(f) {
-			var label = f.label[Core.locale];
+			var label = f.label;
 			var value = na;
 			
 			if (json.hasOwnProperty(f.id) || f.polish) {
@@ -35,18 +35,4 @@ export default class Other {
         
 		return `<div class='popup-inner'>${html}</div>`;
     }
-
-	static Classes(classes, legend, opacity) {		
-		return classes.map(function(c) {
-			if (typeof c != 'string') return c;
-			
-			var j = c.indexOf('#color');
-					
-			if (j == -1) return c;
-			
-			var c = legend[c[6] - 1].color
-			
-			return `rgba(${c.join(',')},${opacity})`;
-		});
-	}
 }

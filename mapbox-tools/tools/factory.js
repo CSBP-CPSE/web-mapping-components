@@ -1,11 +1,19 @@
 import Legend from '../controls/legend.js';
+import Toc from '../controls/toc.js';
+import Opacity from '../controls/opacity.js';
+import Download from '../controls/download.js';
 import MapsList from '../controls/mapsList.js';
+import Bookmarks from '../controls/bookmarks.js';
 import Menu from '../controls/menu.js';
+import Group from '../controls/group.js';
+import Map from '../components/map.js';
 
 export default class Factory {
 
-	static Map(container, style, center, zoom) {
-		return new mapboxgl.Map({ container: container, style: style, center: center, zoom: zoom });
+	static Map(container, token, style, center, zoom) {
+		Map.Token = token;
+		
+		return new Map({ container: container, style: style, center: center, zoom: zoom });
 	}
 	
 	static NavigationControl() {
@@ -30,15 +38,36 @@ export default class Factory {
 		return new mapboxgl.AttributionControl({ compact: true });
 	}
 	
-	static LegendControl(toc, selected, legend, title, subtitle) {
-		return new Legend({ toc:toc, selected:selected, legend:legend, title:title, subtitle:subtitle });
+	// TODO : LegendControl requires too many parameters
+	static LegendControl(legend, title, subtitle) {
+		return new Legend({ legend:legend, title:title, subtitle:subtitle });
+	}	
+	
+	static TocControl(toc) {
+		return new Toc({ toc:toc });
 	}
 	
-	static MapsListControl(maps, selected) {
-		return new MapsList({ maps:maps, selected:selected });
+	static OpacityControl(opacity) {
+		return new Opacity({ opacity:opacity });
 	}
 	
-	static MenuControl() {
-		return new Menu();
+	static DownloadControl(link) {
+		return new Download({ link:link });
+	}
+	
+	static MapsListControl(maps) {
+		return new MapsList({ maps:maps });
+	}
+	
+	static BookmarksControl(items) {
+		return new Bookmarks({ items:items });
+	}
+	
+	static MenuControl(items) {
+		return new Menu({ items:items });
+	}
+	
+	static Group(controls) {
+		return new Group({ controls:controls });
 	}
 }
