@@ -4,6 +4,7 @@ import Opacity from '../controls/opacity.js';
 import Download from '../controls/download.js';
 import MapsList from '../controls/mapsList.js';
 import Bookmarks from '../controls/bookmarks.js';
+import Search from '../controls/search.js';
 import Menu from '../controls/menu.js';
 import Group from '../controls/group.js';
 import Map from '../components/map.js';
@@ -65,6 +66,10 @@ export default class Factory {
 	
 	static MenuControl(items) {
 		return new Menu({ items:items });
+	}
+	
+	static SearchControl(placeholder) {
+		return new Search({ placeholder:placeholder });
 	}
 	
 	static Group(controls) {
