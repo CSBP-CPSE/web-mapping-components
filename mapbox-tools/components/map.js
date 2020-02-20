@@ -63,11 +63,11 @@ export default class Map extends Evented {
 		this.original = {};
 	}
 	
-	Choropleth(layers, legend, opacity) {
+	Choropleth(layers, property, legend, opacity) {
 		var classes = ['case'];
 		
-		legend.forEach(function(l) {
-			var color = `rgba(${l.color.join(',')},${opacity})`;
+		legend.forEach(function(l) {			
+			var color = l.color.length == 3 ? `rgba(${l.color.join(',')},${opacity})` : `rgba(${l.color.join(',')})`;
 			
 			if (l.value) classes.push(l.value);
 			
@@ -75,9 +75,9 @@ export default class Map extends Evented {
 		});
 		
 		layers.forEach(l => {
-			this.original[l] = this.map.getPaintProperty(l, 'fill-color');
+			this.original[l] = this.map.getPaintProperty(l, property);
 			
-			this.map.setPaintProperty(l, 'fill-color', classes)
+			this.map.setPaintProperty(l, property, classes)
 		});
 	}
 	
@@ -103,6 +103,10 @@ export default class Map extends Evented {
 	
 	ShowLayers(layers) {
 		layers.forEach(l => this.ShowLayer(l));
+	}
+	
+	FitBounds(bounds, options) {		
+		this.map.fitBounds(bounds, options);
 	}
 	
 	SetStyle(style) {

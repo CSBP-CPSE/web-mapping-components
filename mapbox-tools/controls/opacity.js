@@ -4,6 +4,8 @@ import Dom from '../../basic-tools/tools/dom.js';
 
 export default class Legend extends Control { 
 		
+	set title(value) { this.Node("slider").title = value; }
+	
 	constructor(options) {	
 		super(options);
 		

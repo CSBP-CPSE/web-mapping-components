@@ -15,9 +15,18 @@ export default class Bookmarks extends Control {
 	}
 	
 	AddBookmark(item) {
-		var li = Dom.Create('li', { className:"bookmarks-list-item", innerHTML:item.label[Core.locale] }, this.Node("ul"));
+		var li = Dom.Create('li', { className:"bookmarks-list-item", innerHTML:item.label[Core.locale], tabIndex:0 }, this.Node("ul"));
 		
+		li.addEventListener("keydown", this.OnLiKeydown_Handler.bind(this, item));
 		li.addEventListener("click", this.OnLiClick_Handler.bind(this, item));
+	}
+	
+	OnLiKeydown_Handler(item, ev) {		
+		if (ev.keyCode != 13) return;
+		
+		ev.preventDefault();
+		
+		this.Emit("BookmarkSelected", { item:item });
 	}
 	
 	OnLiClick_Handler(item, ev) {		

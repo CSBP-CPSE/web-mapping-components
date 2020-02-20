@@ -16,8 +16,8 @@ export default class Menu extends Control {
 		if (this.buttons[id]) throw new Error("Button already exists in menu.");
 		
 		var root = this.Node("root");
-		var btn = Dom.Create("button", { "title":title, "aria-label":title, "type":"button" }, root);
-		var img = Dom.Create("img", { "className":"mapboxgl-ctrl-icon", "src":icon }, btn);
+		var btn = Dom.Create("button", { "title":title, "aria-label":title, "type":"button", "className":"mapboxgl-ctrl-icon" }, root);
+		var img = Dom.Create("img", { "src":icon }, btn);
 		
 		btn.addEventListener("click", hClick);
 		
@@ -31,7 +31,9 @@ export default class Menu extends Control {
 		
 		popup.Content = widget.Node("root");
 		
-		this.AddButton(id, icon, title, (ev) => { popup.Show(); });
+		var button = this.AddButton(id, icon, title, (ev) => { popup.Show(); });
+		
+		popup.On("Hide", this.OnPopupHide_Handler.bind(this, button));
 		
 		this.buttons[id].popup = popup;
 		
@@ -40,6 +42,10 @@ export default class Menu extends Control {
 	
 	Button(id) {
 		return this.buttons[id] || null;
+	}
+	
+	OnPopupHide_Handler(button, ev) {
+		button.focus();
 	}
 	
 	Template() {

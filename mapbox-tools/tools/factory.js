@@ -17,8 +17,12 @@ export default class Factory {
 		return new Map({ container: container, style: style, center: center, zoom: zoom });
 	}
 	
-	static NavigationControl() {
-		return new mapboxgl.NavigationControl();
+	static NavigationControl(showCompass, showZoom) {
+		return new mapboxgl.NavigationControl({ showCompass:showCompass, showZoom:showZoom });
+	}
+	
+	static FullscreenControl() {
+		return new mapboxgl.FullscreenControl();
 	}
 	
 	static GeolocateControl() {
@@ -68,8 +72,8 @@ export default class Factory {
 		return new Menu({ items:items });
 	}
 	
-	static SearchControl(placeholder) {
-		return new Search({ placeholder:placeholder });
+	static SearchControl(items, placeholder, title) {
+		return new Search({ items:items, placeholder:placeholder, title:title });
 	}
 	
 	static Group(controls) {
