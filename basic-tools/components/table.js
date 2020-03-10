@@ -13,12 +13,11 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 	
 	Template() {
 
-		let a = [1, 2, 3, 4, 5];
-
 		//return "<table id= 'myTable'> <tr> <th>Name</th> <th>Favorite Color</th> </tr> <tr> <td>Bob</td> <td>Yellow</td> </tr> <tr> <td>Michelle</td> <td>Purple</td> </tr> </table>"
-
 		//return "<div> <table id ='myTable'> <thead> <tr> <th>Id</th><th>Name</th><th>Mark</th> </tr> </thead> </table> </div>"
+    //return "<div> <table id ='myTable'> <tr> <th>DBUID</th> <th>pharm.idx</th> <th>child.idx</th> <th>health.idx</th> <th>groc.idx</th> <th>edupri.idx</th> <th>edusec.idx</th> <th>lib.idx</th> <th>parks.idx</th> <th>trans.idx</th> <th>close</th> <th>uppressed</th> </tr>  </table> </div>"
     return "<div> <table id ='myTable'>   </table> </div>"
+
 	}
 
 
@@ -31,16 +30,18 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
     var csvData
     var currId = id
     var currFileName
+    var maxNoFiles
 
 
-    var genFileName = function(ev){
+    var genNameAndGetMax = function(ev){
       var summery = ev.result
       console.log(summery)
       var id_str = currId.toString()
       console.log("id_str: " + id_str)
-      var num = summery[id_str]
-      console.log("number is " + num)
-      var name =  id_str + "_" + num
+      var maxNoFiles = summery[id_str]
+      if(typeof maxNoFiles === 'undefined') maxNoFiles = 1;
+      console.log("max num of files is " + maxNoFiles)
+      var name =  id_str + "_1"
       //console.log("file name is " + name)
       return name
     }
@@ -58,6 +59,10 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 
     var populateTable = function(csvArray){
       let tableRef = document.getElementById('myTable');
+      //clear the table rows
+      tableRef.innerHTML = "";
+
+
       //console.log("num of col " + csvArray.length)
       var columnCount = csvArray[0].length;
       //Add the header row.
@@ -66,9 +71,10 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
               var headerCell = document.createElement("TH");
               headerCell.innerHTML = csvArray[0][i];
               row.appendChild(headerCell);
-          }
+          } 
+
         //Add the data rows.
-        for (var i = 1; i < csvArray.length; i++) {
+        for (var i = 1; i < csvArray.length-1; i++) {
           row = tableRef.insertRow(-1);
           for (var j = 0; j < columnCount; j++) {
             var cell = row.insertCell(-1);
@@ -110,44 +116,7 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
       } 
 
 
-      p1.then(genFileName, failure).then(p2)
+      p1.then(genNameAndGetMax, failure).then(p2)
     }
 
-
-
-
-
-
-
-  addOneRow(table){
-
-  	 	const FIELDS = ["id", "name", "mark"];
-  	 	const values  = ["aaa","aaa","aaa"];
-
-
-       let tableRef = document.getElementById('myTable');
-       let row = tableRef.insertRow();
-       for (const value of values) {
-       	row.insertCell().textContent = value;
-              
-      }
-  }
-
-
-    addOneRow2(table){
-    	let tableRef = document.getElementById('myTable');
-      // Insert a row at the end of the table
-      let newRow = tableRef.insertRow(-1);
-      // Insert a cell in the row at index 0
-      let newCell = newRow.insertCell(0);
-      // Append a text node to the cell
-      let newText = document.createTextNode('New bottom row');
-      newCell.appendChild(newText);
-    }
-
-
-
-
-
-
-})
+  })
