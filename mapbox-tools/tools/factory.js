@@ -5,6 +5,7 @@ import Download from '../controls/download.js';
 import MapsList from '../controls/mapsList.js';
 import Bookmarks from '../controls/bookmarks.js';
 import Search from '../controls/search.js';
+import Fullscreen from '../controls/fullscreen.js';
 import Menu from '../controls/menu.js';
 import Group from '../controls/group.js';
 import Map from '../components/map.js';
@@ -22,7 +23,7 @@ export default class Factory {
 	}
 	
 	static FullscreenControl() {
-		return new mapboxgl.FullscreenControl();
+		return new Fullscreen();
 	}
 	
 	static GeolocateControl() {
@@ -44,8 +45,8 @@ export default class Factory {
 	}
 	
 	// TODO : LegendControl requires too many parameters
-	static LegendControl(legend, title, subtitle) {
-		return new Legend({ legend:legend, title:title, subtitle:subtitle });
+	static LegendControl(legend, title, banner, subtitle) {
+		return new Legend({ legend:legend, title:title, banner:banner, subtitle:subtitle });
 	}	
 	
 	static TocControl(toc) {

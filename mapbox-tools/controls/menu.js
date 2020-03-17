@@ -26,8 +26,8 @@ export default class Menu extends Control {
 		return btn;
 	}
 	
-	AddPopupButton(id, icon, title, widget) {
-		var popup = new Popup("modal");
+	AddPopupButton(id, icon, title, widget, container) {
+		var popup = new Popup("modal", container);
 		
 		popup.Content = widget.Node("root");
 		

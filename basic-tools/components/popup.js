@@ -13,9 +13,9 @@ export default class Popup extends Templated {
 	
 	get Content() { return this.content; }
 	
-	constructor(css) {	
-		super(document.body);
-		
+	constructor(css, container) {	
+		super(container || document.body);
+				
 		this.onBody_KeyUp_Bound = this.onBody_KeyUp.bind(this);
 		
 		this.content = null;

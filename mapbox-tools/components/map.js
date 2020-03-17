@@ -6,6 +6,10 @@ export default class Map extends Evented {
 	
 	static get Token() { return mapboxgl.accessToken; }
 	
+	get Container() {
+		return this.map._container;
+	}
+	
 	get Center() {
 		return this.map.getCenter();
 	}

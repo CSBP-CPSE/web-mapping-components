@@ -9,7 +9,7 @@ export default class Download extends Control {
 		
 		this._container = this.Node('root');
         		
-		this.Node('link').setAttribute('href', options.link); 
+		if (options.link) this.Node('link').setAttribute('href', options.link); 
 	}
 	
 	Template() {        

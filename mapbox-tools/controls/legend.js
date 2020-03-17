@@ -9,15 +9,19 @@ export default class Legend extends Control {
 		
 		this._container = this.Node('root');
         
-		this.Reload(options.legend, options.title, options.subtitle);
+		this.Reload(options.legend, options.title, options.banner, options.subtitle);
 	}
 	
-	Reload(legend, title, subtitle) {		
+	Reload(legend, title, banner, subtitle) {		
 		this.LoadLegend(legend);
 						
+		if (banner) this.Node('banner').innerHTML = banner;
 		if (title) this.Node('title').innerHTML = title;
-		
 		if (subtitle) this.Node('subtitle').innerHTML = subtitle;
+		
+		Dom.ToggleCss(this.Node("banner"), "hidden", !banner);
+		Dom.ToggleCss(this.Node("title"), "hidden", !title);
+		Dom.ToggleCss(this.Node("subtitle"), "hidden", !subtitle);
 	}
 	
 	LoadLegend(config) {
@@ -43,8 +47,11 @@ export default class Legend extends Control {
 	
 	Template() {        
 		return "<div handle='root' class='legend mapboxgl-ctrl'>" +
-				  "<div handle='title' class='control-label'>nls(Toc_Legend)</div>" +
-				  "<div handle='subtitle' class='control-label'></div>" +
+				  "<div handle='banner' class='control-label legend-banner'></div>" +
+				  "<div>" +
+					  "<div handle='title' class='control-label'>nls(Toc_Legend)</div>" +
+					  "<div handle='subtitle' class='control-label legend-subtitle'></div>" +
+				  "</div>" +
 				  "<div handle='legend' class='legend-container'></div>" +
 			   "</div>";
 	}
