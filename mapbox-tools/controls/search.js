@@ -14,6 +14,7 @@ export default class Search extends Control {
 		this.field = options.field;
 		this.color = options.color;
 		
+		// TODO : This should probably happen outside of the widget.
 		this.Node('typeahead').items = this.Itemize(options.items);
 		this.Node('typeahead').placeholder = options.placeholder;
 		this.Node('typeahead').title = options.title;
