@@ -22,7 +22,11 @@ export default class Net {
 			// TODO : Switched to this.response, check if it breaks anything
 			if (this.status == 200) d.Resolve(this.response);
 			
-			else d.Reject({ status:this.status, response:this.response });
+			else {
+				var error = new Error(this.status + " " + this.statusText);
+
+				d.Reject(error);
+			}
 		};
 		
 		xhttp.open("GET", url, true);

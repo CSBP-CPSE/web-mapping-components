@@ -72,6 +72,13 @@ export default class Util {
 		
 		return obj[props[0]];
 	}
+
+	static parseCsv = function(csv) {
+		
+		return csv.trim().split(/\r\n|\n/).map(l => {
+			return l.split(',');
+		});
+	}
 	
 	static DisableFocusable(nodes, disabled) {
 		var focusable = ["button", "fieldset", "input", "optgroup", "option", "select", "textarea"];
