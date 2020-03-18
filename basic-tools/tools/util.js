@@ -73,7 +73,7 @@ export default class Util {
 		return obj[props[0]];
 	}
 
-	static parseCsv = function(csv) {
+	static ParseCsv(csv) {
 		
 		return csv.trim().split(/\r\n|\n/).map(l => {
 			return l.split(',');
