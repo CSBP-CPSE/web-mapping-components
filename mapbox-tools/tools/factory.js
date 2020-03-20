@@ -6,6 +6,7 @@ import MapsList from '../controls/mapsList.js';
 import Bookmarks from '../controls/bookmarks.js';
 import Search from '../controls/search.js';
 import Fullscreen from '../controls/fullscreen.js';
+import Navigation from '../controls/navigation.js';
 import Menu from '../controls/menu.js';
 import Group from '../controls/group.js';
 import Map from '../components/map.js';
@@ -17,13 +18,17 @@ export default class Factory {
 		
 		return new Map({ container: container, style: style, center: center, zoom: zoom });
 	}
-	
+	/*
 	static NavigationControl(showCompass, showZoom) {
 		return new mapboxgl.NavigationControl({ showCompass:showCompass, showZoom:showZoom });
 	}
+	*/
+	static NavigationControl(showCompass, showZoom, titleIn, titleOut) {
+		return new Navigation({ showCompass:showCompass, showZoom:showZoom, titleIn:titleIn, titleOut:titleOut });
+	}
 	
-	static FullscreenControl() {
-		return new Fullscreen();
+	static FullscreenControl(title) {
+		return new Fullscreen({ title:title });
 	}
 	
 	static GeolocateControl() {

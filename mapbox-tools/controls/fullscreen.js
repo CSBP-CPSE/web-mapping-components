@@ -11,6 +11,8 @@ export default class Fullscreen extends Evented {
 		super();
 		
 		this._fs = new mapboxgl.FullscreenControl();
+		
+		this.options = options;
 	}
 			
 	onFullscreenClick_Handler(ev) {		
@@ -24,6 +26,8 @@ export default class Fullscreen extends Evented {
 		
 		this._fs._controlContainer.firstChild.addEventListener("click", this.onFullscreenClick_Handler.bind(this));
 		this._fs._controlContainer.firstChild.removeAttribute("aria-label");
+		
+		this.title = this.options.title;
 		
         this._map = map;
 		

@@ -49,7 +49,7 @@ export default class Legend extends Control {
 		return "<div handle='root' class='legend mapboxgl-ctrl'>" +
 				  "<div handle='banner' class='control-label legend-banner'></div>" +
 				  "<div>" +
-					  "<div handle='title' class='control-label'>nls(Toc_Legend)</div>" +
+					  "<div handle='title' class='control-label'></div>" +
 					  "<div handle='subtitle' class='control-label legend-subtitle'></div>" +
 				  "</div>" +
 				  "<div handle='legend' class='legend-container'></div>" +
