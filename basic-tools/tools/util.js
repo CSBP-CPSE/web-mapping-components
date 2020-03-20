@@ -74,7 +74,6 @@ export default class Util {
 	}
 
 	static ParseCsv(csv) {
-		
 		return csv.trim().split(/\r\n|\n/).map(l => {
 			return l.split(',');
 		});

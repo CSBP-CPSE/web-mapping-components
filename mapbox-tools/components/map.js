@@ -48,6 +48,10 @@ export default class Map extends Evented {
 		this.WrapEvent('load', 'Load');
 	}
 	
+	AddSource(name, data) {
+		this.map.addSource('odhf', data);
+	}
+	
 	AddControl(control, location) {
 		this.map.addControl(control, location);
 	}
