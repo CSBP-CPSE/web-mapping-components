@@ -71,23 +71,68 @@ export default class Map extends Evented {
 		this.original = {};
 	}
 	
+
+	/*This is used with an array of colors and (single opacity or array of opacity values)*/
 	Choropleth(layers, property, legend, opacity) {
 		var classes = ['case'];
-		
-		legend.forEach(function(l) {			
+
+		if(Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1){
+			legend.forEach(function(l, index) {			
+			var color = l.color.length == 3 ? `rgba(${l.color.join(',')},${opacity[index]})` : `rgba(${l.color.join(',')})`;
+			
+			if (l.value) classes.push(l.value);
+			
+			classes.push(color);
+		});
+		}
+		else if(!Array.isArray(opacity) &&  Array.isArray(legend) && legend.length > 1) {
+			legend.forEach(function(l) {			
 			var color = l.color.length == 3 ? `rgba(${l.color.join(',')},${opacity})` : `rgba(${l.color.join(',')})`;
 			
 			if (l.value) classes.push(l.value);
 			
 			classes.push(color);
 		});
-		
+		}
+
 		layers.forEach(l => {
 			this.original[l] = this.map.getPaintProperty(l, property);
 			
 			this.map.setPaintProperty(l, property, classes)
 		});
 	}
+
+
+
+
+	/*This is used with a signle color value and an array of opacity values)*/
+	ChoroplethVarOpac(layers, property, legend, opacity) {
+		var classes = ['case'];
+
+		var col = [0,0,0];
+
+		if(Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1){
+			legend.forEach(function(l, index) {			
+			//var color = l.stroke.length == 3 ? `rgba(${l.stroke.join(',')},${opacity[index]})` : `rgba(${l.stroke.join(',')})`;
+
+			var color = `rgba(${col.join(',')},${opacity[index]})`;
+
+			
+			if (l.value) classes.push(l.value);
+			
+			classes.push(color);
+		});
+		}
+
+		layers.forEach(l => {
+			this.original[l] = this.map.getPaintProperty(l, property);
+			this.map.setPaintProperty(l, property, classes)			
+		});
+	}
+
+
+
+
 	
 	ReorderLayers(layers) {
 		layers.forEach(l => this.map.moveLayer(l));
