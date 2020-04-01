@@ -50,8 +50,8 @@ export default class Factory {
 	}
 	
 	// TODO : LegendControl requires too many parameters
-	static LegendControl(legend, title, banner, subtitle) {
-		return new Legend({ legend:legend, title:title, banner:banner, subtitle:subtitle });
+	static LegendControl(legend, title, banner, subtitle, hasCheckbox) {
+		return new Legend({ legend:legend, title:title, banner:banner, subtitle:subtitle, hasCheckbox:hasCheckbox});
 	}	
 	
 	static TocControl(toc) {
