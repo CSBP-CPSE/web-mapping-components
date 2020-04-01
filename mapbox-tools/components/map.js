@@ -102,10 +102,7 @@ export default class Map extends Evented {
 		});
 	}
 
-
-
-
-	/*This is used with a signle color value and an array of opacity values)*/
+	/*This is used with a single color value and an array of opacity values)*/
 	ChoroplethVarOpac(layers, property, legend, opacity) {
 		var classes = ['case'];
 
@@ -113,10 +110,8 @@ export default class Map extends Evented {
 
 		if(Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1){
 			legend.forEach(function(l, index) {			
-			//var color = l.stroke.length == 3 ? `rgba(${l.stroke.join(',')},${opacity[index]})` : `rgba(${l.stroke.join(',')})`;
-
+			
 			var color = `rgba(${col.join(',')},${opacity[index]})`;
-
 			
 			if (l.value) classes.push(l.value);
 			
@@ -130,10 +125,6 @@ export default class Map extends Evented {
 		});
 	}
 
-
-
-
-	
 	ReorderLayers(layers) {
 		layers.forEach(l => this.map.moveLayer(l));
 	}
