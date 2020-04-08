@@ -8,28 +8,26 @@ export default class Legend extends Control {
 		super(options);
 		
 		this._container = this.Node('root');
-        debugger;
+
 		this.chkBoxes = null;
 		this.chkBoxesState = null;
-		var hasCheckbox = (options.hasCheckbox.toLowerCase());
-
-		this.Reload(options.legend, options.title, options.banner, options.subtitle, hasCheckbox);
+		
+		this.Reload(options.legend, options.title, options.banner, options.subtitle);
 	}
 	
-	Reload(legend, title, banner, subtitle, hasCheckbox) {		
-		this.LoadLegend(legend, hasCheckbox);
+	Reload(legend, title, banner, subtitle) {		
+		this.LoadLegend(legend);
 						
 		if (banner) this.Node('banner').innerHTML = banner;
 		if (title) this.Node('title').innerHTML = title;
 		if (subtitle) this.Node('subtitle').innerHTML = subtitle;
 		
-		debugger;
 		Dom.ToggleCss(this.Node("banner"), "hidden", !banner);
 		Dom.ToggleCss(this.Node("title"), "hidden", !title);
 		Dom.ToggleCss(this.Node("subtitle"), "hidden", !subtitle);
 	}
 	
-	LoadLegend(config, hasCheckbox) {
+	LoadLegend(config) {
 		this.chkBoxes = []
 		this.chkBoxesState = [];
 
@@ -37,43 +35,21 @@ export default class Legend extends Control {
 		
 		if (!config) return;
 
-		if(hasCheckbox == 'true'){
-			config.forEach(i => this.AddLegendItemWiCheck(i));
-		}
-		else{
-			config.forEach(i => this.AddLegendItem(i));			
-		}
-		
+		config.forEach(i => this.AddLegendItem(i));
 	}
 
 	AddLegendItem(item) {
 		if (!item.label) return;
 		
 		var div = Dom.Create("div", { className:"legend-item legend-item-1" }, this.Node("legend"));
-		var icn = Dom.Create("div", { className:"legend-icon" }, div);
-		var lbl = Dom.Create("div", { innerHTML:item.label.en }, div);
-		
-		icn.style.backgroundColor = `rgb(${item.color.join(",")})`;
-		icn.style.border = "solid thin silver";
-
-		return div;
-	}
-
-	AddLegendItemWiCheck(item) {
-		if (!item.label) return;
-		
-		var div = Dom.Create("div", { className:"legend-item legend-item-1" }, this.Node("legend"));
- 
-		var chkBox = Dom.Create("input", {handle: "checkBox", className: "legend-tickbox" , type: "checkbox"}, div);
-
-		chkBox.addEventListener("change", this.OnCheckbox_Checked.bind(this));
-		chkBox.checked = true;
-
-		this.chkBoxes.push(chkBox)
-
+		var chkBox = Dom.Create("input", {handle: "checkBox", className: "legend-tickbox" , type: "checkbox", checked:true }, div);
  		var icn = Dom.Create("div", { className:"legend-icon" }, div);
 		var lbl = Dom.Create("div", { innerHTML:item.label }, div);
 
+		this.chkBoxes.push(chkBox)
+		
+		chkBox.addEventListener("change", this.OnCheckbox_Checked.bind(this));
+		
 		icn.style.backgroundColor = `rgb(${item.color.join(",")})`;
 		icn.style.border = "solid thin silver";
 		

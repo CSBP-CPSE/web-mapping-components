@@ -30,7 +30,7 @@ export default class Other {
 				if (f.fixed) value = value.toFixed(f.fixed);
 			}
 			
-            html += `<div class='row'><span>${label} : </span><span>${value}</span></div>`;
+            html += `<div><span>${label} : </span><span>${value}</span></div>`;
 		}) 
         
 		return `<div class='popup-inner'>${html}</div>`;

@@ -43,6 +43,8 @@ export default class Map extends Evented {
 		
 		this.map.once('styledata', this.OnceStyleData_Handler.bind(this));
 		
+		this.map.on('click', this.click);
+		
 		this.WrapEvent('moveend', 'MoveEnd');
 		this.WrapEvent('zoomend', 'ZoomEnd');
 		this.WrapEvent('load', 'Load');
@@ -161,12 +163,20 @@ export default class Map extends Evented {
 		this.map.setStyle(style);
 	}
 	
+	SetClickableMap(layers) {				
+		this.map.on('click', this.click);
+	}
+	
 	SetClickableLayers(layers) {
 		this.layers.forEach(l => this.map.off('click', l, this.click)); 
 		
 		this.layers = layers;
 		
 		this.layers.forEach(l => this.map.on('click', l, this.click));
+	}
+	
+	QueryRenderedFeatures(point, layers) {
+		return this.map.queryRenderedFeatures(point, { layers: layers });
 	}
 	
 	OnceStyleData_Handler(ev) {

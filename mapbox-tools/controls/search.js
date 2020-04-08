@@ -22,15 +22,7 @@ export default class Search extends Control {
 		this.Node('typeahead').On('Change', this.onTypeaheadChange_Handler.bind(this));
 	}
 	
-	Itemize(data) {		
-		var items = data.map(i => {
-			return { 
-				id : i[0], 
-				label : `(${i[0]}) ${i[1]}`, 
-				extent : [[i[2], i[3]], [i[4], i[5]]] 
-			}
-		});
-		
+	Itemize(items) {		
 		return items.sort((a, b) => { return a.label > b.label ? 1 : -1 });
 	}
 	
