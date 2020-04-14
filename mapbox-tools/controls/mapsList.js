@@ -26,7 +26,7 @@ export default class MapsList extends Control {
 	
 	OnLiMouseMove_Handler(id, map, ev) {	
 		this.tooltip.Node("content").innerHTML = map.description;
-		this.tooltip.Show(ev.x + 20, ev.y);
+		this.tooltip.Show(ev.pageX + 20, ev.pageY);
 	}
 	
 	OnLiMouseLeave_Handler(id, map, ev) {	

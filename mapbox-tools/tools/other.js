@@ -28,6 +28,13 @@ export default class Other {
 				value = f.polish ? Other.Polish(json, f.polish, 2) : json[f.id];
 				
 				if (f.fixed) value = value.toFixed(f.fixed);
+				
+				else if (f.lookup) {
+					var look = f.lookup[value];
+					
+					var value = (look == undefined) ? value : look[Core.locale];
+				}
+				
 			}
 			
             html += `<div><span>${label} : </span><span>${value}</span></div>`;
