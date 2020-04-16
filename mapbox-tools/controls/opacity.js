@@ -25,10 +25,9 @@ export default class Legend extends Control {
 	
 	Template() {        
 		return "<div handle='root' class='opacity mapboxgl-ctrl'>" +
-				  "<div class='control-label'>nls(Toc_Opacity)</div>" +
-				  "<div class='opacity-slider'>" +
-					"<input handle='slider' type='range' min='0' max='100' value='75' class='slider'>" +
-				  "</div>" +
+				  "<label class='control-label'>nls(Toc_Opacity)" +
+					  "<input handle='slider' type='range' min='0' max='100' value='75' class='slider'>" +
+				  "</label>" + 
 			   "</div>";
 	}
 }
