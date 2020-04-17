@@ -43,7 +43,7 @@ export default class Map extends Evented {
 		
 		this.map.once('styledata', this.OnceStyleData_Handler.bind(this));
 		
-		this.map.on('click', this.click);
+		// this.map.on('click', this.click);
 		
 		this.WrapEvent('moveend', 'MoveEnd');
 		this.WrapEvent('zoomend', 'ZoomEnd');
@@ -168,7 +168,7 @@ export default class Map extends Evented {
 	}
 	
 	SetClickableLayers(layers) {
-		this.layers.forEach(l => this.map.off('click', l, this.click)); 
+		layers.forEach(l => this.map.off('click', l, this.click)); 
 		
 		this.layers = layers;
 		
