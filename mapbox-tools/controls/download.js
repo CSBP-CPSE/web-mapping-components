@@ -15,7 +15,7 @@ export default class Download extends Control {
 	Template() {        
 		return "<div handle='root' class='download mapboxgl-ctrl'>" +
 				  "<div class='control-label'>" + 
-					"<a handle='link' class='link'>nls(Download_Title)</a>" + 
+					"<a handle='link' target='_blank' class='link'>nls(Download_Title)</a>" + 
 				  "</div>" +
 			   "</div>";
 	}
