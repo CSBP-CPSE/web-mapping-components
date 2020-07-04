@@ -73,10 +73,45 @@ export default class Util {
 		return obj[props[0]];
 	}
 
-	static ParseCsv(csv) {
-		return csv.trim().split(/\r\n|\n/).map(l => {
-			return l.split(',');
-		});
+	static ParseCsv(csv) {		
+		var s = 0;
+		var i = 0;
+		
+		var lines = [[]];
+		
+		while (s < csv.length) {
+			if (csv[s] == '"') {
+				s++;
+				
+				var e = csv.indexOf('"', s);
+				
+				lines[i].push(csv.substr(s, e - s));
+				
+				e++;
+			}
+			else {
+				var e1 = csv.indexOf(',', s);
+				var e2 = csv.indexOf('\n', s);
+								
+				var e = (e1 > -1 && e1 < e2) ? e1 : e2;							
+								
+				lines[i].push(csv.substr(s, e - s));
+					
+				if (e == e2) {					
+					lines.push([]);
+					
+					i++;
+				}
+			}
+				
+			s = e + 1;
+		}
+		
+		return lines;
+		
+		//return csv.trim().split(/\r\n|\n/).map(l => {
+		//	return l.split(',');
+		//});
 	}
 	
 	static DisableFocusable(nodes, disabled) {
