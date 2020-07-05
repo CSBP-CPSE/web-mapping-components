@@ -2,6 +2,8 @@ import Control from '../components/control.js';
 import Core from '../../basic-tools/tools/core.js';
 import Dom from '../../basic-tools/tools/dom.js';
 
+let n = 0;
+
 export default class Legend extends Control { 
 		
 	constructor(options) {	
@@ -41,10 +43,13 @@ export default class Legend extends Control {
 	AddLegendItem(item) {
 		if (!item.label) return;
 		
+		var id = "legend-check-" + ++n;
 		var div = Dom.Create("div", { className:"legend-item legend-item-1" }, this.Node("legend"));
-		var chkBox = Dom.Create("input", {handle: "checkBox", className: "legend-tickbox" , type: "checkbox", checked:true }, div);
+		var chkBox = Dom.Create("input", { id:id, title: item.title, className: "legend-tickbox", type:"checkbox", checked:true }, div);
  		var icn = Dom.Create("div", { className:"legend-icon" }, div);
-		var lbl = Dom.Create("div", { innerHTML:item.label }, div);
+		var lbl = Dom.Create("label", { innerHTML:item.label }, div);
+
+		lbl.setAttribute("for", id);
 
 		this.chkBoxes.push(chkBox)
 		
