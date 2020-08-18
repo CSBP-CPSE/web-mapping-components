@@ -23,23 +23,29 @@ export default class Other {
 		fields.forEach(function(f) {
 			var label = f.label;
 			var value = na;
+			var inner = Core.Nls("Gen_Label_Field", [label, json[f.id]]);
 			
-			if (json.hasOwnProperty(f.id) || f.polish) {
-				value = f.polish ? Other.Polish(json, f.polish, 2) : json[f.id];
-				
-				if (f.fixed) value = value.toFixed(f.fixed);
-				
-				else if (f.lookup) {
-					var look = f.lookup[value];
-					
-					var value = (look == undefined) ? value : look[Core.locale];
-				}
-				
-			}
-			
-            html += `<div><span>${label} : </span><span>${value}</span></div>`;
+            html += `<li tabIndex=0><label>${inner}</label></li>`;
 		}) 
         
-		return `<div class='popup-inner'>${html}</div>`;
+		return `<ul class='popup-inner'>${html}</ul>`;
     }
+	
+	static LookupProvince(abbr, locale) {
+		abbr = abbr.trim();	// Hidden whitespace character at the end, weird.
+		
+		if (abbr == 'nl') return locale == "en" ? "Newfoundland and Labrador" : "Terre-Neuve-et-Labrador";
+		if (abbr == 'pe') return locale == "en" ? "Prince Edward Island" : "Île-du-Prince-Édouard";
+		if (abbr == 'ns') return locale == "en" ? "Nova Scotia" : "Nouvelle-Écosse";
+		if (abbr == 'nb') return locale == "en" ? "New Brunswick" : "Nouveau-Brunswick";
+		if (abbr == 'qc') return locale == "en" ? "Quebec" : "Québec";
+		if (abbr == 'on') return locale == "en" ? "Ontario" : "Ontario";
+		if (abbr == 'mb') return locale == "en" ? "Manitoba" : "Manitoba";
+		if (abbr == 'sk') return locale == "en" ? "Saskatchewan" : "Saskatchewan";
+		if (abbr == 'ab') return locale == "en" ? "Alberta" : "Alberta";
+		if (abbr == 'bc') return locale == "en" ? "British Columbia" : "Colombie-Britannique";
+		if (abbr == 'yt') return locale == "en" ? "Yukon" : "Yukon";
+		if (abbr == 'nt') return locale == "en" ? "Northwest Territories" : "Territoires du Nord-Ouest";
+		if (abbr == 'nu') return locale == "en" ? "Nunavut" : "Nunavut";
+	}
 }

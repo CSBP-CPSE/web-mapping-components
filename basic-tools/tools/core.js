@@ -3,10 +3,15 @@
 import Util from "./util.js"
 
 let _nls = null;
+let _root = "./";
 let _locale = null;
 let _templatables = {}
 
 export default class Core {
+	
+	static set root(value) { this._root = value; }
+	
+	static get root() { return this._root; }
 	
 	/**
 	* Gets the nls ressources

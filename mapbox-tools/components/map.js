@@ -1,3 +1,4 @@
+import Core from '../../basic-tools/tools/core.js'
 import Evented from '../../basic-tools/components/evented.js'
 
 export default class Map extends Evented {
@@ -48,6 +49,11 @@ export default class Map extends Evented {
 		this.WrapEvent('moveend', 'MoveEnd');
 		this.WrapEvent('zoomend', 'ZoomEnd');
 		this.WrapEvent('load', 'Load');
+		
+		this.map.once('load', ev => {
+			// Fix for improve this map in french
+			this.map.getContainer().querySelector('.mapbox-improve-map').innerHTML = Core.Nls("Mapbox_Improve");
+		})
 	}
 	
 	AddSource(name, data) {
@@ -63,6 +69,10 @@ export default class Map extends Evented {
 								.setLngLat(lngLat)
 								.setHTML(html)
 								.addTo(this.map);
+					
+		popup._closeButton.innerHTML = '<i class="fa fa-times" aria-hidden="true"></i>';
+		popup._closeButton.setAttribute('aria-label', Core.Nls('Mapbox_Close_Popup'));
+		popup._closeButton.title = Core.Nls('Mapbox_Close_Popup');
 	}
 	
 	Reset(layers) {

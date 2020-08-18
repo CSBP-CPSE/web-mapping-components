@@ -46,7 +46,8 @@ export default class Legend extends Control {
 		var id = "legend-check-" + ++n;
 		var div = Dom.Create("div", { className:"legend-item legend-item-1" }, this.Node("legend"));
 		var chkBox = Dom.Create("input", { id:id, title: item.title, className: "legend-tickbox", type:"checkbox", checked:true }, div);
- 		var icn = Dom.Create("div", { className:"legend-icon" }, div);
+ 		var svg = Dom.CreateSVG("svg", { width:15, height:15 }, div);
+ 		var icn = Dom.CreateSVG("rect", { width:15, height:15 }, svg);
 		var lbl = Dom.Create("label", { innerHTML:item.label }, div);
 
 		lbl.setAttribute("for", id);
@@ -55,9 +56,8 @@ export default class Legend extends Control {
 		
 		chkBox.addEventListener("change", this.OnCheckbox_Checked.bind(this));
 		
-		icn.style.backgroundColor = `rgb(${item.color.join(",")})`;
-		icn.style.border = "solid thin silver";
-		
+		icn.setAttribute('fill', `rgb(${item.color.join(",")})`);
+				
 		this.chkBoxesState.push({ item:item, checkbox:chkBox });
 
 		return div;

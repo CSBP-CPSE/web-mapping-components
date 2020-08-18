@@ -17,7 +17,7 @@ export default class Menu extends Control {
 		
 		var root = this.Node("root");
 		var btn = Dom.Create("button", { "title":title, "aria-label":title, "type":"button", "className":"mapboxgl-ctrl-icon" }, root);
-		var img = Dom.Create("img", { "src":icon }, btn);
+		var img = Dom.Create("img", { "alt":title, "src":icon }, btn);
 		
 		btn.addEventListener("click", hClick);
 		
