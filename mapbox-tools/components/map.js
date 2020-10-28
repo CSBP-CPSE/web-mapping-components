@@ -60,8 +60,23 @@ export default class Map extends Evented {
 		})
 	}
 	
+	/**
+	 * Add a data source to the map
+	 * @param {string} name - name of a data source
+	 * @param {object} data - object containing the details of the data source
+	 * - Data Source Example:
+	 * 	{
+	 * 		type: "geojson",
+	 * 		data: "https://example.org/mydata.json",
+	 * 		cluster: true,
+	 * 		clusterMaxZoom: 14,
+	 * 		clusterRadius: 50
+	 * 	}
+	 */
 	AddSource(name, data) {
-		this.map.addSource('odhf', data);
+		this.map.addSource(name, data);
+	}
+
 	}
 	
 	AddControl(control, location) {
