@@ -77,6 +77,26 @@ export default class Map extends Evented {
 		this.map.addSource(name, data);
 	}
 
+	/**
+	 * Add layer to the map
+	 * @param {object} layer - object containing the details of the layer
+	 * - Layer Example:
+	 * 	{
+	 * 		id: 'mylayer',
+	 * 		source: 'mydatasource',
+	 *		type: 'circle',
+	 *		paint: {
+	 *			circle-color: "#000000",
+	 *			circle-radius: 8
+	 *		}
+	 * 	}
+	 */
+	AddLayer(layer) {
+		if (layer.id && layer.type) {
+			this.map.addLayer(layer);
+		}
+	}
+	
 	}
 	
 	AddControl(control, location) {
