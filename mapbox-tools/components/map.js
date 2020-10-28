@@ -89,9 +89,9 @@ export default class Map extends Evented {
 	
 	InfoPopup(lngLat, html) {	
 		var popup = new mapboxgl.Popup({ closeOnClick: true })
-								.setLngLat(lngLat)
-								.setHTML(html)
-								.addTo(this.map);
+			.setLngLat(lngLat)
+			.setHTML(html)
+			.addTo(this.map);
 					
 		popup._closeButton.innerHTML = '<i class="fa fa-times" aria-hidden="true"></i>';
 		popup._closeButton.setAttribute('aria-label', Core.Nls('Mapbox_Close_Popup'));
@@ -111,23 +111,22 @@ export default class Map extends Evented {
 	Choropleth(layers, property, legend, opacity) {
 		var classes = ['case'];
 
-		if(Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1){
+		if (Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1) {
 			legend.forEach(function(l, index) {			
-			var color = l.color.length == 3 ? `rgba(${l.color.join(',')},${opacity[index]})` : `rgba(${l.color.join(',')})`;
+				var color = l.color.length == 3 ? `rgba(${l.color.join(',')}, ${opacity[index]})` : `rgba(${l.color.join(',')})`;
 			
-			if (l.value) classes.push(l.value);
+				if (l.value) classes.push(l.value);
 			
-			classes.push(color);
-		});
-		}
-		else if(!Array.isArray(opacity) &&  Array.isArray(legend) && legend.length > 1) {
+				classes.push(color);
+			});
+
+		} else if (!Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1) {
 			legend.forEach(function(l) {			
-			var color = l.color.length == 3 ? `rgba(${l.color.join(',')},${opacity})` : `rgba(${l.color.join(',')})`;
+				var color = l.color.length == 3 ? `rgba(${l.color.join(',')}, ${opacity})` : `rgba(${l.color.join(',')})`;
 			
-			if (l.value) classes.push(l.value);
-			
-			classes.push(color);
-		});
+				if (l.value) classes.push(l.value);
+				classes.push(color);
+			});
 		}
 
 		layers.forEach(l => {
@@ -143,15 +142,14 @@ export default class Map extends Evented {
 
 		var col = [0,0,0];
 
-		if(Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1){
-			legend.forEach(function(l, index) {			
+		if (Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1) {
+			legend.forEach(function(l, index) {		
+				var color = `rgba(${col.join(',')}, ${opacity[index]})`;
 			
-			var color = `rgba(${col.join(',')},${opacity[index]})`;
+				if (l.value) classes.push(l.value);
 			
-			if (l.value) classes.push(l.value);
-			
-			classes.push(color);
-		});
+				classes.push(color);
+			});
 		}
 
 		layers.forEach(l => {
