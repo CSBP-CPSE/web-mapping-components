@@ -36,16 +36,12 @@ export default class Map extends Evented {
 		
 		this.layers = [];
 		this.original = {};
-		this.maxExtent = [[-162.0, 41.0], [-32.0, 83.5]];
 		this.style = options.style;
 		
-		this.click = this.OnLayerClick_Handler.bind(this);;
+		this.click = this.OnLayerClick_Handler.bind(this);
 		
 		this.map = new mapboxgl.Map(options); 
 		
-		// Set the maximum bounds of the map
-		this.SetMaxBounds(this.maxExtent);
-
 		this.map.once('styledata', this.OnceStyleData_Handler.bind(this));
 		
 		// this.map.on('click', this.click);
