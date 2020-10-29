@@ -93,6 +93,42 @@ export default class Map extends Evented {
 		}
 	}
 	
+	/**
+	 * Add layers for clustering the data.
+	 * @param {string} sourceName - string of the id for a data source added
+	 * with the AddSource method.
+	 */
+	AddClusters(sourceName) {
+		// Add clusters layer for source
+		this.map.addLayer({
+			id: sourceName + '_clusters',
+			type: 'circle',
+			source: sourceName,
+			filter: ['has', 'point_count'],
+			paint: {
+				'circle-color': ['step', ['get', 'point_count'], '#66c2a5', 50, '#fc8d62', 500, '#8da0cb'],
+				'circle-radius': ['step', ['get', 'point_count'], 15, 50, 25, 500, 35 ],
+				'circle-stroke-width': 0.5,
+				'circle-stroke-color': '#000000'
+			}
+		});
+		 
+		// Add cluster count labels layer
+		this.map.addLayer({
+			id: sourceName + '_cluster-count',
+			type: 'symbol',
+			source: sourceName,
+			filter: ['has', 'point_count'],
+			layout: {
+				'text-allow-overlap': true,
+				'text-field': '{point_count_abbreviated}',
+				'text-font': ['Open Sans Regular'],
+				'text-size': 12
+			},
+			print: {
+				'text-color': '#000000'
+			}
+		});
 	}
 	
 	AddControl(control, location) {
