@@ -1,5 +1,6 @@
 import Core from '../../basic-tools/tools/core.js'
 import Evented from '../../basic-tools/components/evented.js'
+import Util from '../../basic-tools/tools/util.js'
 
 export default class Map extends Evented {
 				
@@ -95,39 +96,56 @@ export default class Map extends Evented {
 	
 	/**
 	 * Add layers for clustering the data.
-	 * @param {string} sourceName - string of the id for a data source added
-	 * with the AddSource method.
+	 * @param {object} definedOpts - an object containing all of the cluster options
+	 * {
+	 * 		source: data-source-id, 
+	 * 		id: cluster-layer-id,
+	 * 		filter: mapbox-expression,
+	 * 		circle_paint: object containing the paint properties for the cluster circle,
+	 * 		circle_layout: object containing the layout properties for the cluster circle,
+	 * 		label_paint: object containing the paint properties for the cluster label,
+	 * 		label_layout: object containing the layout properties for the cluster label
+	 * }
 	 */
-	AddClusters(sourceName) {
-		// Add clusters layer for source
-		this.map.addLayer({
-			id: sourceName + '_clusters',
-			type: 'circle',
-			source: sourceName,
+	AddClusters(definedOpts) {
+		let defaultOpts = {
 			filter: ['has', 'point_count'],
-			paint: {
+			circle_paint: {
 				'circle-color': ['step', ['get', 'point_count'], '#66c2a5', 50, '#fc8d62', 500, '#8da0cb'],
 				'circle-radius': ['step', ['get', 'point_count'], 15, 50, 25, 500, 35 ],
 				'circle-stroke-width': 0.5,
 				'circle-stroke-color': '#000000'
-			}
-		});
-		 
-		// Add cluster count labels layer
-		this.map.addLayer({
-			id: sourceName + '_cluster-count',
-			type: 'symbol',
-			source: sourceName,
-			filter: ['has', 'point_count'],
-			layout: {
+			},
+			label_paint: {
+				'text-color': '#000000'
+			},
+			label_layout: {
 				'text-allow-overlap': true,
 				'text-field': '{point_count_abbreviated}',
 				'text-font': ['Open Sans Regular'],
 				'text-size': 12
-			},
-			print: {
-				'text-color': '#000000'
 			}
+		};
+		
+		let options = Util.Mixin(defaultOpts, definedOpts);
+
+		// Add clusters layer for source
+		this.map.addLayer({
+			id: (options.id || options.source) + '_clusters',
+			type: 'circle',
+			source: options.source,
+			filter: options.filter, 
+			paint: options.circle_paint
+		});
+		 
+		// Add cluster count labels layer
+		this.map.addLayer({
+			id: (options.id || options.source) + '_cluster-count',
+			type: 'symbol',
+			source: options.source,
+			filter: options.filter,
+			layout: options.label_layout,
+			paint: options.label_paint 
 		});
 	}
 	
