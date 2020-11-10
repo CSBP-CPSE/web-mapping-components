@@ -163,9 +163,11 @@ export default class Map extends Evented {
 		}
 
 		layers.forEach(l => {
-			this.original[l] = this.map.getPaintProperty(l, property);
+			if (property && this.map.getPaintProperty(l, property)) {
+				this.original[l] = this.map.getPaintProperty(l, property);
 			
 			this.map.setPaintProperty(l, property, classes)
+			}
 		});
 	}
 
@@ -187,8 +189,12 @@ export default class Map extends Evented {
 		}
 
 		layers.forEach(l => {
-			this.original[l] = this.map.getPaintProperty(l, property);
+			if (property && this.map.getPaintProperty(l, property)) {
+				this.original[l] = this.map.getPaintProperty(l, property);
+				this.map.setPaintProperty(l, property, classes)			
 			this.map.setPaintProperty(l, property, classes)			
+				this.map.setPaintProperty(l, property, classes)			
+			}
 		});
 	}
 
