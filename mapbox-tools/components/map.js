@@ -111,7 +111,7 @@ export default class Map extends Evented {
 		let defaultOpts = {
 			filter: ['has', 'point_count'],
 			circle_paint: {
-				'circle-color': ['step', ['get', 'point_count'], '#66c2a5', 50, '#fc8d62', 500, '#8da0cb'],
+				'circle-color': ['step', ['get', 'point_count'], '#c1cede', 50, '#c1cede', 500, '#c1cede'],
 				'circle-radius': ['step', ['get', 'point_count'], 15, 50, 25, 500, 35 ],
 				'circle-stroke-width': 0.5,
 				'circle-stroke-color': '#000000'
