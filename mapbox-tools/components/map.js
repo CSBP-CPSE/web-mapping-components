@@ -172,6 +172,21 @@ export default class Map extends Evented {
 		this.original = {};
 	}
 	
+	/**
+	 * Retrieves the layer type 
+	 * @param {string} layerId - id of the map layer
+	 */
+	GetLayerType(layerId) {
+		const layer = this.map.getLayer(layerId);
+		let layerType;
+
+		if (layer.type) {
+			layerType = layer.type;
+		}
+
+		return layerType;
+	}
+
 
 	/*This is used with an array of colors and (single opacity or array of opacity values)*/
 	Choropleth(layers, property, legend, opacity) {
