@@ -173,9 +173,12 @@ export default class Map extends Evented {
 
 	/*This is used with a single color value and an array of opacity values)*/
 	ChoroplethVarOpac(layers, property, legend, opacity) {
+		var col = [0,0,0];
 		var classes = ['case'];
 
-		var col = [0,0,0];
+		if (property === 'text-halo-color') {
+			col = [255,255,255];
+		}
 
 		if(Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1){
 			legend.forEach(function(l, index) {			
