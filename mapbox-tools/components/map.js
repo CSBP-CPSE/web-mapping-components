@@ -187,6 +187,41 @@ export default class Map extends Evented {
 		return layerType;
 	}
 
+	/**
+	 * Get the layer color paint property name based on layer type
+	 * @param {string} layerType - The layer type 
+	 */
+	GetLayerColorPropertyByType(layerType) {
+		let layerPaintProperty;
+
+		switch (layerType) {
+			case 'circle':
+				layerPaintProperty = 'circle-color';
+				break;
+			case 'line':
+				layerPaintProperty = 'line-color';
+				break;
+			case 'fill':
+				layerPaintProperty = 'fill-color';
+				break;
+			case 'symbol':
+				layerPaintProperty = 'icon-color';
+				break;
+			case 'background':
+				layerPaintProperty = 'background-color';
+				break;
+			case 'heatmap':
+				layerPaintProperty = 'heatmap-color';
+				break;
+			case 'fill-extrusion':
+				layerPaintProperty = 'fill-extrusion-color';
+				break;
+			default:
+				layerPaintProperty = 'circle-color';
+		}		
+
+		return layerPaintProperty;
+	}
 
 	/*This is used with an array of colors and (single opacity or array of opacity values)*/
 	Choropleth(layers, property, legend, opacity) {
