@@ -30,7 +30,7 @@ export default class Legend extends Control {
 	}
 	
 	LoadLegend(config) {
-		this.chkBoxes = []
+		this.chkBoxes = [];
 		this.chkBoxesState = [];
 
 		Dom.Empty(this.Node("legend"));
