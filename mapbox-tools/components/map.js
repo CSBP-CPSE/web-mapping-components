@@ -138,6 +138,18 @@ export default class Map extends Evented {
 		return layerPaintProperty;
 	}
 
+	/**
+	 * Method to update a style property for a layer
+	 * @param {string} layerId - Name of the map layer
+	 * @param {string} paintProperty - Paint Property of the map layer
+	 * @param {array || string} styleRules - Mapbox expression of style rules or a rgba string value.
+	 */
+	SetPaintProperty(layerId, paintProperty, styleRules) {
+		// Check that layer exists in map
+		if (this.map.getLayer(layerId)) {
+			this.map.setPaintProperty(layerId, paintProperty, styleRules);
+		}
+	}
 
 	/*This is used with an array of colors and (single opacity or array of opacity values)*/
 	Choropleth(layers, property, legend, opacity) {
@@ -163,7 +175,7 @@ export default class Map extends Evented {
 		}
 		layers.forEach(l => {
 			this.original[l] = this.map.getPaintProperty(l, property);
-			this.map.setPaintProperty(l, property, classes);
+			this.SetPaintProperty(l, property, classes);
 		});
 	}
 
@@ -189,7 +201,7 @@ export default class Map extends Evented {
 
 		layers.forEach(l => {
 			this.original[l] = this.map.getPaintProperty(l, property);
-			this.map.setPaintProperty(l, property, classes);
+			this.SetPaintProperty(l, property, classes);
 		});
 	}
 
