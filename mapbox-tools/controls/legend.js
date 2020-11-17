@@ -49,9 +49,11 @@ export default class Legend extends Control {
 		
 		var id = "legend-check-" + ++n;
 		var div = Dom.Create("div", { className:"legend-item legend-item-1" }, this.Node("legend"));
+
 		if (item.heading) {
 			Dom.Create('div', {className: "legend-heading", innerHTML: item.heading}, div);
 		}
+
 		var chkBox = Dom.Create("input", { id:id, title: item.title, className: "legend-tickbox", type:"checkbox", checked:true }, div);
  		var svg = Dom.CreateSVG("svg", { width:15, height:15 }, div);
  		var icn = Dom.CreateSVG("rect", { width:15, height:15 }, svg);
