@@ -30,14 +30,18 @@ export default class Legend extends Control {
 	}
 	
 	LoadLegend(config) {
+		let i, legendItem;
 		this.chkBoxes = [];
 		this.chkBoxesState = [];
 
 		Dom.Empty(this.Node("legend"));
 		
-		if (!config) return;
-
-		config.forEach(i => this.AddLegendItem(i));
+		if (Array.isArray(config)) {
+			for (i = 0; i < config.length; i += 1) {
+				legendItem = config[i];
+				this.AddLegendItem(legendItem);
+			}
+		}
 	}
 
 	AddLegendItem(item) {
@@ -45,6 +49,9 @@ export default class Legend extends Control {
 		
 		var id = "legend-check-" + ++n;
 		var div = Dom.Create("div", { className:"legend-item legend-item-1" }, this.Node("legend"));
+		if (item.heading) {
+			Dom.Create('div', {className: "legend-heading", innerHTML: item.heading}, div);
+		}
 		var chkBox = Dom.Create("input", { id:id, title: item.title, className: "legend-tickbox", type:"checkbox", checked:true }, div);
  		var svg = Dom.CreateSVG("svg", { width:15, height:15 }, div);
  		var icn = Dom.CreateSVG("rect", { width:15, height:15 }, svg);
