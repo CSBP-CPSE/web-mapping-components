@@ -5,8 +5,7 @@ import Dom from '../../basic-tools/tools/dom.js';
 export default class Legend extends Control { 
 		
 	set label(value) {
-		let labelnode = Dom.Node(this._container, ".control-label");
-		labelnode.innerHTML = value;
+		Dom.Node(this._container, ".control-label").innerHTML = value;
 	}
 
 	set title(value) {
