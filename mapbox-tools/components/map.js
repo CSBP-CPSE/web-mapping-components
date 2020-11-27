@@ -4,14 +4,26 @@ import Util from '../../basic-tools/tools/util.js'
 
 export default class Map extends Evented {
 				
-	static set Token(value) { mapboxgl.accessToken = value; }
+	/**
+	 * Set the map box access token
+	 * @param {string} value - map box access token
+	 */
+	static set Token(value) { 
+		mapboxgl.accessToken = value; 
+	}
 	
-	static get Token() { return mapboxgl.accessToken; }
+	// Get the access token
+	static get Token() { 
+		return mapboxgl.accessToken; 
+	}
 	
+	// Get the map container
 	get Container() {
 		return this.map._container;
 	}
 	
+	// Get the center of the map
+	// e.g. {lat: 50, lng: -100}
 	get Center() {
 		return this.map.getCenter();
 	}
@@ -20,6 +32,7 @@ export default class Map extends Evented {
 		this.map.setCenter(value)
 	}
 	
+	// Get the current map zoom level (numeric value)
 	get Zoom() {
 		return this.map.getZoom();
 	}
@@ -28,6 +41,7 @@ export default class Map extends Evented {
 		this.map.setZoom(value)
 	}
 	
+	// Get the current map style URL
 	get Style() {
 		return this.style;
 	}
@@ -148,16 +162,21 @@ export default class Map extends Evented {
 			paint: options.label_paint 
 		});
 	}
-	
+
+	/**
+	 * Add a specified map control to the map.
+	 * @param {object} control - map control object
+	 * @param {string} location - location of the object. e.g. 'top-left'
+	 */
 	AddControl(control, location) {
 		this.map.addControl(control, location);
 	}
 	
 	InfoPopup(lngLat, html) {	
 		var popup = new mapboxgl.Popup({ closeOnClick: true })
-								.setLngLat(lngLat)
-								.setHTML(html)
-								.addTo(this.map);
+			.setLngLat(lngLat)
+			.setHTML(html)
+			.addTo(this.map);
 					
 		popup._closeButton.innerHTML = '<i class="fa fa-times" aria-hidden="true"></i>';
 		popup._closeButton.setAttribute('aria-label', Core.Nls('Mapbox_Close_Popup'));
@@ -227,23 +246,22 @@ export default class Map extends Evented {
 	Choropleth(layers, property, legend, opacity) {
 		var classes = ['case'];
 
-		if(Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1){
+		if (Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1) {
 			legend.forEach(function(l, index) {			
-			var color = l.color.length == 3 ? `rgba(${l.color.join(',')},${opacity[index]})` : `rgba(${l.color.join(',')})`;
+				var color = l.color.length == 3 ? `rgba(${l.color.join(',')}, ${opacity[index]})` : `rgba(${l.color.join(',')})`;
 			
-			if (l.value) classes.push(l.value);
+				if (l.value) classes.push(l.value);
 			
-			classes.push(color);
-		});
-		}
-		else if(!Array.isArray(opacity) &&  Array.isArray(legend) && legend.length > 1) {
+				classes.push(color);
+			});
+
+		} else if (!Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1) {
 			legend.forEach(function(l) {			
-			var color = l.color.length == 3 ? `rgba(${l.color.join(',')},${opacity})` : `rgba(${l.color.join(',')})`;
+				var color = l.color.length == 3 ? `rgba(${l.color.join(',')}, ${opacity})` : `rgba(${l.color.join(',')})`;
 			
-			if (l.value) classes.push(l.value);
-			
-			classes.push(color);
-		});
+				if (l.value) classes.push(l.value);
+				classes.push(color);
+			});
 		}
 
 		layers.forEach(l => {
@@ -261,15 +279,14 @@ export default class Map extends Evented {
 
 		var col = [0,0,0];
 
-		if(Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1){
-			legend.forEach(function(l, index) {			
+		if (Array.isArray(opacity) && Array.isArray(legend) && legend.length > 1) {
+			legend.forEach(function(l, index) {		
+				var color = `rgba(${col.join(',')}, ${opacity[index]})`;
 			
-			var color = `rgba(${col.join(',')},${opacity[index]})`;
+				if (l.value) classes.push(l.value);
 			
-			if (l.value) classes.push(l.value);
-			
-			classes.push(color);
-		});
+				classes.push(color);
+			});
 		}
 
 		layers.forEach(l => {
@@ -305,10 +322,20 @@ export default class Map extends Evented {
 		layers.forEach(l => this.ShowLayer(l));
 	}
 	
+	/**
+	 * Set the map bounds for the map.
+	 * @param {array} bounds - An array containing coordinate pairs for the map bounds.
+	 * @param {object} options - object containing options when fitting the map bounds 
+	 */
 	FitBounds(bounds, options) {		
 		this.map.fitBounds(bounds, options);
 	}
 
+	/**
+	 * Set the maximum bounds of the map
+	 * @param {array} bounds - An array containing coordinate pairs for the map bounds.
+	 * e.g. [[x1, y1], [x2, y2]]
+	 */
 	SetMaxBounds(bounds) {
 		this.map.setMaxBounds(bounds);
 	}
@@ -341,6 +368,10 @@ export default class Map extends Evented {
 		this.Emit('StyleChanged', ev);
 	}
 	
+	/**
+	 * Event handler for clicking on the map, and emits a 'Click' event.
+	 * @param {object} ev - click event object
+	 */
 	OnLayerClick_Handler(ev) {
 		this.Emit('Click', ev);
 	}
