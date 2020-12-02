@@ -131,7 +131,9 @@ export default class Map extends Evented {
 				'circle-stroke-color': 'rgba(114,131,153,0.5)'
 			},
 			label_paint: {
-				'text-color': '#fff'
+				'text-color': '#fff',
+				'text-halo-color': '#fff',
+				'text-halo-width': 0.4
 			},
 			label_layout: {
 				'text-allow-overlap': true,
