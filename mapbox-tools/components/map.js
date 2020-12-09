@@ -1,5 +1,6 @@
 import Core from '../../basic-tools/tools/core.js'
 import Evented from '../../basic-tools/components/evented.js'
+import Util from '../../basic-tools/tools/util.js'
 
 export default class Map extends Evented {
 				
@@ -50,16 +51,12 @@ export default class Map extends Evented {
 		
 		this.layers = [];
 		this.original = {};
-		this.maxExtent = [[-162.0, 41.0], [-32.0, 83.5]];
 		this.style = options.style;
 		
-		this.click = this.OnLayerClick_Handler.bind(this);;
+		this.click = this.OnLayerClick_Handler.bind(this);
 		
 		this.map = new mapboxgl.Map(options); 
 		
-		// Set the maximum bounds of the map
-		this.SetMaxBounds(this.maxExtent);
-
 		this.map.once('styledata', this.OnceStyleData_Handler.bind(this));
 		
 		// this.map.on('click', this.click);
@@ -74,8 +71,98 @@ export default class Map extends Evented {
 		})
 	}
 	
+	/**
+	 * Add a data source to the map
+	 * @param {string} name - name of a data source
+	 * @param {object} data - object containing the details of the data source
+	 * - Data Source Example:
+	 * 	{
+	 * 		type: "geojson",
+	 * 		data: "https://example.org/mydata.json",
+	 * 		cluster: true,
+	 * 		clusterMaxZoom: 14,
+	 * 		clusterRadius: 50
+	 * 	}
+	 */
 	AddSource(name, data) {
-		this.map.addSource('odhf', data);
+		this.map.addSource(name, data);
+	}
+
+	/**
+	 * Add layer to the map
+	 * @param {object} layer - object containing the details of the layer
+	 * - Layer Example:
+	 * 	{
+	 * 		id: 'mylayer',
+	 * 		source: 'mydatasource',
+	 *		type: 'circle',
+	 *		paint: {
+	 *			circle-color: "#000000",
+	 *			circle-radius: 8
+	 *		}
+	 * 	}
+	 */
+	AddLayer(layer) {
+		if (layer.id && layer.type) {
+			this.map.addLayer(layer);
+		}
+	}
+	
+	/**
+	 * Add layers for clustering the data.
+	 * @param {object} definedOpts - an object containing all of the cluster options
+	 * {
+	 * 		source: data-source-id, 
+	 * 		id: cluster-layer-id,
+	 * 		filter: mapbox-expression,
+	 * 		circle_paint: object containing the paint properties for the cluster circle,
+	 * 		circle_layout: object containing the layout properties for the cluster circle,
+	 * 		label_paint: object containing the paint properties for the cluster label,
+	 * 		label_layout: object containing the layout properties for the cluster label
+	 * }
+	 */
+	AddClusters(definedOpts) {
+		let defaultOpts = {
+			filter: ['has', 'point_count'],
+			circle_paint: {
+				'circle-color': '#728399',
+				'circle-radius': ['interpolate', ['exponential', 1], ['get', 'point_count'],1, 12, 1000, 32],
+				'circle-stroke-width': 3,
+				'circle-stroke-color': 'rgba(114,131,153,0.5)'
+			},
+			label_paint: {
+				'text-color': '#fff',
+				'text-halo-color': '#fff',
+				'text-halo-width': 0.4
+			},
+			label_layout: {
+				'text-allow-overlap': true,
+				'text-field': '{point_count_abbreviated}',
+				'text-font': ['Open Sans Regular'],
+				'text-size': 12
+			}
+		};
+		
+		let options = Util.Mixin(defaultOpts, definedOpts);
+
+		// Add clusters layer for source
+		this.map.addLayer({
+			id: (options.id || options.source) + '_clusters',
+			type: 'circle',
+			source: options.source,
+			filter: options.filter, 
+			paint: options.circle_paint
+		});
+		 
+		// Add cluster count labels layer
+		this.map.addLayer({
+			id: (options.id || options.source) + '_cluster-count',
+			type: 'symbol',
+			source: options.source,
+			filter: options.filter,
+			layout: options.label_layout,
+			paint: options.label_paint 
+		});
 	}
 
 	/**
@@ -119,6 +206,42 @@ export default class Map extends Evented {
 		}
 
 		return layerType;
+	}
+
+	/**
+	 * Get the layer color paint property name based on layer type
+	 * @param {string} layerType - The layer type 
+	 */
+	GetLayerColorPropertyByType(layerType) {
+		let layerPaintProperty;
+
+		switch (layerType) {
+			case 'circle':
+				layerPaintProperty = 'circle-color';
+				break;
+			case 'line':
+				layerPaintProperty = 'line-color';
+				break;
+			case 'fill':
+				layerPaintProperty = 'fill-color';
+				break;
+			case 'symbol':
+				layerPaintProperty = 'icon-color';
+				break;
+			case 'background':
+				layerPaintProperty = 'background-color';
+				break;
+			case 'heatmap':
+				layerPaintProperty = 'heatmap-color';
+				break;
+			case 'fill-extrusion':
+				layerPaintProperty = 'fill-extrusion-color';
+				break;
+			default:
+				layerPaintProperty = 'circle-color';
+		}		
+
+		return layerPaintProperty;
 	}
 
 	/**
@@ -261,8 +384,10 @@ export default class Map extends Evented {
 	Choropleth(layers, property, legend, opacity) {
 		var classes = this.GenerateColourClasses(legend, opacity);
 		layers.forEach(l => {
-			this.original[l] = this.map.getPaintProperty(l, property);
-			this.SetPaintProperty(l, property, classes);
+			if (property && this.map.getPaintProperty(l, property)) {
+				this.original[l] = this.map.getPaintProperty(l, property);
+				this.SetPaintProperty(l, property, classes);
+			}
 		});
 	}
 
@@ -303,8 +428,10 @@ export default class Map extends Evented {
 		}
 
 		layers.forEach(l => {
-			this.original[l] = this.map.getPaintProperty(l, property);
-			this.SetPaintProperty(l, property, classes);
+			if (property && this.map.getPaintProperty(l, property)) {
+				this.original[l] = this.map.getPaintProperty(l, property);
+				this.SetPaintProperty(l, property, classes);
+			}
 		});
 	}
 
