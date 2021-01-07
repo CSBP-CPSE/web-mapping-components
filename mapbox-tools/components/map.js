@@ -319,14 +319,22 @@ export default class Map extends Evented {
 	 * needed to paint layers with that colour.
 	 */
 	GetListOfStyles(legendItems) {
-		let i, legendItem;
+		let i, j, legendItem, groupItems;
 		let styleCollection = [];
 
 		// Iterate through legendItems and get styling from each
 		if (Array.isArray(legendItems)) {
 			for (i = 0; i < legendItems.length; i += 1) {
 				legendItem = legendItems[i];
-				styleCollection.push(this.GetStylingFromLegendItem(legendItem));
+				if (legendItem.group && legendItem.group.items) {
+					// If item is a group of items, get styling from all items in group
+					groupItems = legendItem.group.items;
+					for (j = 0; j < groupItems.length; j += 1) {
+						styleCollection.push(this.GetStylingFromLegendItem(groupItems[j]));
+					}
+				} else {
+					styleCollection.push(this.GetStylingFromLegendItem(legendItem));
+				}
 			}
 		}
 
@@ -393,7 +401,7 @@ export default class Map extends Evented {
 
 	/*This is used with a single color value and an array of opacity values)*/
 	ChoroplethVarOpac(layers, property, legend, opacity) {
-		let color, i, defaultColour, updatedColor;
+		let color, defaultColour, updatedColor, legendStyles;
 		var classes = this.GenerateColourClasses(legend, opacity);
 
 		// Over-ride classes if the property is 'text-halo-color, text-color,
@@ -407,14 +415,13 @@ export default class Map extends Evented {
 		// If an over-ride colour exists, than regenerate style classes
 		if (color) {
 			classes = ['case'];
-
-			legend.forEach(function(l, index) {			
+			legendStyles = this.GetListOfStyles(legend);
+			legendStyles.forEach(function(l, index) {
 			
 				updatedColor = `rgba(${color.join(',')},${opacity[index]})`;
 			
 				if (l.value) {
 					classes.push(l.value);
-		
 					classes.push(updatedColor);
 				} else {
 					defaultColour = updatedColor;

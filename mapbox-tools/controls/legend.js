@@ -45,31 +45,45 @@ export default class Legend extends Control {
 	}
 
 	AddLegendItem(item) {
-		if (!item.label) return;
+		var chkBox, svg, icn, lbl, i, id, div;
+		if (!item.label && !item.group) return;
 		
-		var id = "legend-check-" + ++n;
-		var div = Dom.Create("div", { className:"legend-item legend-item-1" }, this.Node("legend"));
+		id = "legend-check-" + ++n;
+		div = Dom.Create("div", { className:"legend-item legend-item-1" }, this.Node("legend"));
 
-		if (item.heading) {
-			Dom.Create('div', {className: "legend-heading", innerHTML: item.heading}, div);
+		// Add groups of items if them exist in legend
+		if (item.group && item.group.heading) {
+			Dom.Create('div', {className: "legend-heading", innerHTML: item.group.heading}, div);
+			if (item.group.items) {
+				for (i = 0; i < item.group.items.length; i += 1) {
+					// Copy item title to group item
+					if (!item.group.items[i].title) {
+						item.group.items[i].title = item.title;
+					}
+
+					// Add group item to legend
+					this.AddLegendItem(item.group.items[i]);
+				}
+			}
+
+		} else {
+			chkBox = Dom.Create("input", { id:id, title: item.title, className: "legend-tickbox", type:"checkbox", checked:true }, div);
+			svg = Dom.CreateSVG("svg", { width:15, height:15 }, div);
+			icn = Dom.CreateSVG("rect", { width:15, height:15 }, svg);
+			lbl = Dom.Create("label", { innerHTML:item.label }, div);
+
+			lbl.setAttribute("for", id);
+   
+			this.chkBoxes.push(chkBox)
+		   
+			chkBox.addEventListener("change", this.OnCheckbox_Checked.bind(this));
+		   
+			icn.setAttribute('fill', `rgb(${item.color.join(",")})`);
+				   
+			this.chkBoxesState.push({ item:item, checkbox:chkBox });
+   
+			return div;
 		}
-
-		var chkBox = Dom.Create("input", { id:id, title: item.title, className: "legend-tickbox", type:"checkbox", checked:true }, div);
- 		var svg = Dom.CreateSVG("svg", { width:15, height:15 }, div);
- 		var icn = Dom.CreateSVG("rect", { width:15, height:15 }, svg);
-		var lbl = Dom.Create("label", { innerHTML:item.label }, div);
-
-		lbl.setAttribute("for", id);
-
-		this.chkBoxes.push(chkBox)
-		
-		chkBox.addEventListener("change", this.OnCheckbox_Checked.bind(this));
-		
-		icn.setAttribute('fill', `rgb(${item.color.join(",")})`);
-				
-		this.chkBoxesState.push({ item:item, checkbox:chkBox });
-
-		return div;
 	}
 
 	OnCheckbox_Checked(ev) {
