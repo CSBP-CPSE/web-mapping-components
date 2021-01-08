@@ -153,7 +153,7 @@ export default class Map extends Evented {
 			filter: options.filter, 
 			paint: options.circle_paint
 		});
-		 
+
 		// Add cluster count labels layer
 		this.map.addLayer({
 			id: (options.id || options.source) + '_cluster-count',
@@ -206,42 +206,6 @@ export default class Map extends Evented {
 		}
 
 		return layerType;
-	}
-
-	/**
-	 * Get the layer color paint property name based on layer type
-	 * @param {string} layerType - The layer type 
-	 */
-	GetLayerColorPropertyByType(layerType) {
-		let layerPaintProperty;
-
-		switch (layerType) {
-			case 'circle':
-				layerPaintProperty = 'circle-color';
-				break;
-			case 'line':
-				layerPaintProperty = 'line-color';
-				break;
-			case 'fill':
-				layerPaintProperty = 'fill-color';
-				break;
-			case 'symbol':
-				layerPaintProperty = 'icon-color';
-				break;
-			case 'background':
-				layerPaintProperty = 'background-color';
-				break;
-			case 'heatmap':
-				layerPaintProperty = 'heatmap-color';
-				break;
-			case 'fill-extrusion':
-				layerPaintProperty = 'fill-extrusion-color';
-				break;
-			default:
-				layerPaintProperty = 'circle-color';
-		}		
-
-		return layerPaintProperty;
 	}
 
 	/**

@@ -20,9 +20,9 @@ export default class Evented {
 	
 	removeEventListener(type, callback){
 		if (!(type in this.listeners)) return;
-	  
+
 		var stack = this.listeners[type];
-		  
+
 		for (var i = 0, l = stack.length; i < l; i++){
 			if (stack[i].callback === callback){
 				stack.splice(i, 1);

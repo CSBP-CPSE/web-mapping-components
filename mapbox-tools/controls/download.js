@@ -8,15 +8,15 @@ export default class Download extends Control {
 		super(options);
 		
 		this._container = this.Node('root');
-        		
+
 		if (options.link) this.Node('link').setAttribute('href', options.link); 
 	}
 	
 	Template() {        
 		return "<div handle='root' class='download mapboxgl-ctrl'>" +
-				  "<div class='control-label'>" + 
-					"<a handle='link' target='_blank' class='link'>nls(Download_Title)</a>" + 
-				  "</div>" +
-			   "</div>";
+					"<div class='control-label'>" + 
+						"<a handle='link' target='_blank' class='link'>nls(Download_Title)</a>" + 
+					"</div>" +
+				"</div>";
 	}
 }

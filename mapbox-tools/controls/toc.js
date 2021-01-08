@@ -8,7 +8,7 @@ export default class Toc extends Control {
 		super(options);
 		
 		this._container = this.Node('root');
-        		
+
 		this.Reload(options.toc);
 	}
 	
@@ -57,8 +57,8 @@ export default class Toc extends Control {
 	
 	Template() {        
 		return "<div handle='root' class='toc mapboxgl-ctrl'>" +
-				  "<div class='control-label'>nls(Toc_Instruction)</div>" +
-				  "<div handle='toc' class='legend-container toc-container'></div>" +
-			   "</div>";
+					"<div class='control-label'>nls(Toc_Instruction)</div>" +
+					"<div handle='toc' class='legend-container toc-container'></div>" +
+				"</div>";
 	}
 }

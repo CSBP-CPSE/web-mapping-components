@@ -6,7 +6,7 @@ let n = 0;
 
 export default class Legend extends Control { 
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this._container = this.Node('root');
@@ -17,7 +17,7 @@ export default class Legend extends Control {
 		this.Reload(options.legend, options.title, options.banner, options.subtitle);
 	}
 	
-	Reload(legend, title, banner, subtitle) {		
+	Reload(legend, title, banner, subtitle) {
 		this.LoadLegend(legend);
 						
 		if (banner) this.Node('banner').innerHTML = banner;
@@ -75,11 +75,11 @@ export default class Legend extends Control {
 			lbl.setAttribute("for", id);
    
 			this.chkBoxes.push(chkBox)
-		   
+
 			chkBox.addEventListener("change", this.OnCheckbox_Checked.bind(this));
-		   
+
 			icn.setAttribute('fill', `rgb(${item.color.join(",")})`);
-				   
+	
 			this.chkBoxesState.push({ item:item, checkbox:chkBox });
    
 			return div;
@@ -92,12 +92,12 @@ export default class Legend extends Control {
 
 	Template() {        
 		return "<div handle='root' class='legend mapboxgl-ctrl'>" +
-				  "<div handle='banner' class='control-label legend-banner'></div>" +
-				  "<div>" +
-					  "<div handle='title' class='control-label'></div>" +
-					  "<div handle='subtitle' class='control-label legend-subtitle'></div>" +
-				  "</div>" +
-				  "<div handle='legend' class='legend-container'></div>" +
-			   "</div>";
+					"<div handle='banner' class='control-label legend-banner'></div>" +
+						"<div>" +
+							"<div handle='title' class='control-label'></div>" +
+							"<div handle='subtitle' class='control-label legend-subtitle'></div>" +
+						"</div>" +
+					"<div handle='legend' class='legend-container'></div>" +
+				"</div>";
 	}
 }
