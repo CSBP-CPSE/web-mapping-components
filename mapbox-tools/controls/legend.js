@@ -6,7 +6,7 @@ let n = 0;
 
 export default class Legend extends Control { 
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this._container = this.Node('root');
@@ -17,7 +17,7 @@ export default class Legend extends Control {
 		this.Reload(options.legend, options.title, options.banner, options.subtitle);
 	}
 	
-	Reload(legend, title, banner, subtitle) {		
+	Reload(legend, title, banner, subtitle) {
 		this.LoadLegend(legend);
 						
 		if (banner) this.Node('banner').innerHTML = banner;
@@ -30,37 +30,60 @@ export default class Legend extends Control {
 	}
 	
 	LoadLegend(config) {
-		this.chkBoxes = []
+		let i, legendItem;
+		this.chkBoxes = [];
 		this.chkBoxesState = [];
 
 		Dom.Empty(this.Node("legend"));
 		
-		if (!config) return;
-
-		config.forEach(i => this.AddLegendItem(i));
+		if (Array.isArray(config)) {
+			for (i = 0; i < config.length; i += 1) {
+				legendItem = config[i];
+				this.AddLegendItem(legendItem);
+			}
+		}
 	}
 
 	AddLegendItem(item) {
-		if (!item.label) return;
+		var chkBox, svg, icn, lbl, i, id, div;
+		if (!item.label && !item.group) return;
 		
-		var id = "legend-check-" + ++n;
-		var div = Dom.Create("div", { className:"legend-item legend-item-1" }, this.Node("legend"));
-		var chkBox = Dom.Create("input", { id:id, title: item.title, className: "legend-tickbox", type:"checkbox", checked:true }, div);
- 		var svg = Dom.CreateSVG("svg", { width:15, height:15 }, div);
- 		var icn = Dom.CreateSVG("rect", { width:15, height:15 }, svg);
-		var lbl = Dom.Create("label", { innerHTML:item.label }, div);
+		id = "legend-check-" + ++n;
+		div = Dom.Create("div", { className:"legend-item legend-item-1" }, this.Node("legend"));
 
-		lbl.setAttribute("for", id);
+		// Add groups of items if them exist in legend
+		if (item.group && item.group.heading) {
+			Dom.Create('div', {className: "legend-heading", innerHTML: item.group.heading}, div);
+			if (item.group.items) {
+				for (i = 0; i < item.group.items.length; i += 1) {
+					// Copy item title to group item
+					if (!item.group.items[i].title) {
+						item.group.items[i].title = item.title;
+					}
 
-		this.chkBoxes.push(chkBox)
-		
-		chkBox.addEventListener("change", this.OnCheckbox_Checked.bind(this));
-		
-		icn.setAttribute('fill', `rgb(${item.color.join(",")})`);
-				
-		this.chkBoxesState.push({ item:item, checkbox:chkBox });
+					// Add group item to legend
+					this.AddLegendItem(item.group.items[i]);
+				}
+			}
 
-		return div;
+		} else {
+			chkBox = Dom.Create("input", { id:id, title: item.title, className: "legend-tickbox", type:"checkbox", checked:true }, div);
+			svg = Dom.CreateSVG("svg", { width:15, height:15 }, div);
+			icn = Dom.CreateSVG("rect", { width:15, height:15 }, svg);
+			lbl = Dom.Create("label", { innerHTML:item.label }, div);
+
+			lbl.setAttribute("for", id);
+   
+			this.chkBoxes.push(chkBox)
+
+			chkBox.addEventListener("change", this.OnCheckbox_Checked.bind(this));
+
+			icn.setAttribute('fill', `rgb(${item.color.join(",")})`);
+	
+			this.chkBoxesState.push({ item:item, checkbox:chkBox });
+   
+			return div;
+		}
 	}
 
 	OnCheckbox_Checked(ev) {
@@ -69,12 +92,12 @@ export default class Legend extends Control {
 
 	Template() {        
 		return "<div handle='root' class='legend mapboxgl-ctrl'>" +
-				  "<div handle='banner' class='control-label legend-banner'></div>" +
-				  "<div>" +
-					  "<div handle='title' class='control-label'></div>" +
-					  "<div handle='subtitle' class='control-label legend-subtitle'></div>" +
-				  "</div>" +
-				  "<div handle='legend' class='legend-container'></div>" +
-			   "</div>";
+					"<div handle='banner' class='control-label legend-banner'></div>" +
+						"<div>" +
+							"<div handle='title' class='control-label'></div>" +
+							"<div handle='subtitle' class='control-label legend-subtitle'></div>" +
+						"</div>" +
+					"<div handle='legend' class='legend-container'></div>" +
+				"</div>";
 	}
 }

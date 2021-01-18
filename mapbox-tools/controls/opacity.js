@@ -4,7 +4,13 @@ import Dom from '../../basic-tools/tools/dom.js';
 
 export default class Legend extends Control { 
 		
-	set title(value) { this.Node("slider").title = value; }
+	set label(value) {
+		Dom.Node(this._container, ".control-label").innerHTML = value;
+	}
+
+	set title(value) {
+		this.Node("slider").title = value;
+	}
 	
 	constructor(options) {	
 		super(options);
@@ -25,9 +31,8 @@ export default class Legend extends Control {
 	
 	Template() {        
 		return "<div handle='root' class='opacity mapboxgl-ctrl'>" +
-				  "<label class='control-label'>nls(Toc_Opacity)" +
-					  "<input handle='slider' type='range' min='0' max='100' value='75' class='slider'>" +
-				  "</label>" + 
+				  "<label class='control-label'>nls(Toc_Opacity)</label>" +
+				  "<input handle='slider' type='range' min='0' max='100' value='100' class='slider'>" +
 			   "</div>";
 	}
 }

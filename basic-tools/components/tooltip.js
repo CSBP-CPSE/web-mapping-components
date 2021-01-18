@@ -18,11 +18,12 @@ export default class Tooltip extends Templated  {
 	
 	Template() {
 		return '<div handle="root" class="tooltip">' +
-				  '<div handle="content"></div>' +
-			   '</div>';
+					'<div handle="content"></div>' +
+				'</div>';
 	}
 	
 	PositionTarget(target, offset) {
+		var bbox1, bbox2;
 		offset = offset || [0,0];
 		
 		bbox1 = target.getBoundingClientRect();
