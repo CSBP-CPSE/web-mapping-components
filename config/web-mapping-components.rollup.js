@@ -10,7 +10,7 @@ export default {
     plugins: [
         babel({
             exclude: 'node_modules/**',
-			configFile: './config/babel.config.js'
+			configFile: './config/babel.config.cjs'
         })
     ]
 }
