@@ -2,7 +2,8 @@
 	"name": "web-mapping-components",
 	"version": "1.0.0",
 	"description": "A collection of web mapping components used by various map viewers",
-	"main": "./config/web-mapping-components.rollup.js",
+	"main": "./src/main.js",
+	"type": "module",
 	"dependencies": {
 		"install": "^0.13.0",
 		"npm": "^6.11.1",
@@ -11,11 +12,13 @@
 	"devDependencies": {
 		"@babel/core": "^7.11.6",
 		"@babel/preset-env": "^7.11.5",
+		"mocha": "^8.2.1",
 		"rollup": "^1.32.1",
 		"rollup-plugin-babel": "^4.4.0"
 	},
 	"scripts": {
-		"web-mapping-components": "rollup -c ./config/web-mapping-components.rollup.js"
+		"web-mapping-components": "rollup -c ./config/web-mapping-components.rollup.js",
+		"test": "mocha"
 	},
 	"repository": {
 		"type": "git",
