@@ -1,10 +1,10 @@
 import babel from 'rollup-plugin-babel';
 
 export default {
-    input: '../web-mapping-components/src/mapbox-tools/mapbox-tools.js',
+    input: '../web-mapping-components/src/main.js',
     output: [
 		{
-	        file: '../web-mapping-components/dist/mapbox-tools.min.js',
+	        file: '../web-mapping-components/dist/web-mapping-components.min.js',
 	        format: 'es'
 		}
 	],

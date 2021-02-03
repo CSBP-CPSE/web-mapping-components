@@ -2,6 +2,7 @@
 	"name": "web-mapping-components",
 	"version": "1.0.0",
 	"description": "A collection of web mapping components used by various map viewers",
+	"main": "./src/main.js",
 	"type": "module",
 	"dependencies": {
 		"install": "^0.13.0",
@@ -16,9 +17,7 @@
 		"rollup-plugin-babel": "^4.4.0"
 	},
 	"scripts": {
-		"build": "rollup -c ./config/basic-tools.rollup.js; rollup -c ./config/mapbox-tools.rollup.js",
-		"basic-tools": "rollup -c ./config/basic-tools.rollup.js",
-		"mapbox-tools": "rollup -c ./config/mapbox-tools.rollup.js",
+		"build": "rollup -c ./config/web-mapping-components.rollup.js",
 		"test": "mocha"
 	},
 	"repository": {
