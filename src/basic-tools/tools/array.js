@@ -124,17 +124,36 @@ export default class _Array {
 		
 		return index;
 	}
-	
+
+	/**
+	 * Combines two arrays provided as arguments to the function. The only unique items 
+	 * from the second array "b" are added to the first array. 
+	 * 
+	 * Example: UniqueConcat([1,2,3], [3,4,5]) returns [1,2,3,4,5]
+	 * @param {array} a - First array of items
+	 * @param {array} b - Second array that will be concated to the first array
+	 * @returns {array} - The list of elements which concats the unique items from array b into a
+	 */
 	static UniqueConcat(a, b) {
 		return a.concat(b.filter(function (item) {
 			return a.indexOf(item) < 0;
 		}));
 	}
-	
+
+	/**
+	 * Checks if an object is an array or not.
+	 * @param {array} arr - an array of items
+	 * @returns {boolean} - returns true or false if argument is an array
+	 */
 	static isArray(arr) {
 		return Array.isArray(arr);
 	}
-	
+
+	/**
+	 * Creates a clone of a supplied array argument.
+	 * @param {array} array - an array of items
+	 * @returns {array} - a clone of the provided array
+	 */
 	static Clone(array) {
 		var clone = [];
 		
