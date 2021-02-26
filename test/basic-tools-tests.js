@@ -1,6 +1,20 @@
 import array from '../src/basic-tools/tools/array.js';
 import util from '../src/basic-tools/tools/util.js';
+import dom from '../src/basic-tools/tools/dom.js';
 import assert from 'assert';
+import jsdom from 'jsdom';
+const windowDom = new jsdom.JSDOM(
+	`<!doctype html>
+	<html>
+		<head>
+			<title>Test DOM</title>
+		</head>
+		<body>
+		</body>
+	</html>`
+);
+
+global.document = windowDom.window.document;
 
 describe('Basic-Tools Tests:\n  ------------------------------', function() {
 	describe('Tools Modules:', function() {
@@ -33,6 +47,23 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 					let arrayB = [3,4,5];
 					let concatArray = array.UniqueConcat(arrayA, arrayB);
 					assert.deepStrictEqual(array.UniqueConcat(arrayA, arrayB), [1,2,3,4,5]);
+				});
+			});
+		});
+
+		// Tests for basic-tools/tools/dom.js
+		describe('DOM Module:', function() {
+			let body;
+			describe('Node():', function() {
+				it('Create a Node representing the body element', function() {
+					body = dom.Node(global.document, 'body');
+					assert(body != null);
+				});
+			});
+			describe('Create():', function() {
+				it('Create a button with the id foobar', function() {
+					dom.Create('button',{id:'foobar'},body);
+					assert(global.document.getElementById('foobar') != null);
 				});
 			});
 		});
