@@ -5,10 +5,9 @@ export default class Util {
 	/**
 	* Merges an object into another object. 
 	*
-	* Parameters :
-	*	a : Object, the object that will receive the properties 
-	*	b : Object, the object to merge into object A
-	* Return : the modified Object
+	* @param {object} a - the object that will receive the properties 
+	* @param {object} b - the object to merge into object A
+	* @returns - the modified Object
 	*/
 	static Mixin(a, b) {				
 		for (var key in b) {
@@ -24,10 +23,9 @@ export default class Util {
 	* unless the function is called again in which case, the timeout will
 	* reset
 	*
-	* Parameters :
-	*	delegate : Function, the Function to debounce
-	*	threshold : Integer, the timeout length, in milliseconds
-	* Return : Function, the debounced function
+	* @param {function} delegate - the Function to debounce
+	* @param {integer} threshold - the timeout length, in milliseconds
+	* @returns {function} - the debounced function
 	*/
 	static Debounce(delegate, threshold) {
 		var timeout;
@@ -49,10 +47,9 @@ export default class Util {
 	/**
 	* Formats a String using substitute strings
 	*
-	* Parameters :
-	*	str : String, the String to format
-	*	subs : Array(String), An array of Strings to substitute into the String
-	* Return : String, the formatted String
+	* @param {string} str - String, the String to format
+	* @param {array} subs - Array(String), An array of Strings to substitute into the String
+	* @returns {string} - the formatted String
 	*/
 	static Format(str, subs) {
 		if (!subs || subs.length == 0) return str;
@@ -69,6 +66,7 @@ export default class Util {
 	
 	/**
 	 * Gets the value of the first property of a provided object
+	 * 
 	 * @param {object} obj - object to get first property from
 	 * @returns - the value of the first object
 	 */
