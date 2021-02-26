@@ -73,9 +73,14 @@ export default class Util {
 	 * @returns - the value of the first object
 	 */
 	static FirstProperty(obj) {
+		var firstPropVal;
 		var props = Object.getOwnPropertyNames(obj);
 		
-		return obj[props[0]];
+		if (props.length) {
+			firstPropVal = obj[props[0]];
+		}
+
+		return firstPropVal;
 	}
 
 	static ParseCsv(csv) {		
