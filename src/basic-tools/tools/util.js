@@ -67,6 +67,11 @@ export default class Util {
 		return s;
 	}
 	
+	/**
+	 * Gets the value of the first property of a provided object
+	 * @param {object} obj - object to get first property from
+	 * @returns - the value of the first object
+	 */
 	static FirstProperty(obj) {
 		var props = Object.getOwnPropertyNames(obj);
 		

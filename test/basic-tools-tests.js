@@ -40,11 +40,19 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 		// Tests for basic-tools/tools/util.js
 		describe('Utils Module:', function() {
 			describe('Mixin()', function() {
-				it('Mixin() correctly mixes two objects together into a combined mixin object', function() {
+				it('Mixin() correctly mixes two test objects together into a combined mixin object', function() {
 					let objectA = { foo: 1 };
 					let objectB = { bar: 2 };
 					let mixedObject = util.Mixin(objectA, objectB);
 					assert.deepStrictEqual(mixedObject, { foo: 1, bar: 2 });
+				});
+			});
+
+			describe('FirstProperty()', function() {
+				it('FirstProperty() returns the first property value of a test object', function() {
+					let objectA = { foo: 1, bar: 2 };
+					let firstProp = util.FirstProperty(objectA);
+					assert.strictEqual(firstProp, 1);
 				});
 			});
 		});
