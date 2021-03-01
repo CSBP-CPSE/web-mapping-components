@@ -1,5 +1,9 @@
 'use strict';
-	
+
+/**
+ * Util class, containing various utility methods for processing
+ * data in different formats.
+ */
 export default class Util {
 	
 	/**
@@ -129,6 +133,13 @@ export default class Util {
 		return lines;
 	}
 	
+	/**
+	 * Sets the disabled property to true or false for a provided selection
+	 * of nodes if they are of a focusable type.
+	 * 
+	 * @param {object} nodes - DOM modes selection.
+	 * @param {boolean} disabled - true or false.
+	 */
 	static DisableFocusable(nodes, disabled) {
 		var focusable = ["button", "fieldset", "input", "optgroup", "option", "select", "textarea"];
 		
@@ -139,5 +150,5 @@ export default class Util {
 			
 			for (var i = 0; i < selection.length; i++) selection[i].disabled = disabled;
 		});
-	}	
+	}
 }
