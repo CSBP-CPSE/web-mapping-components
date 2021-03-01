@@ -51,6 +51,10 @@ export default class Util {
 	/**
 	* Formats a String using substitute strings
 	*
+	* Example: 
+	* Input: Format("Hello world! My name is {0} {1}", ["Foo", "Bar"])
+	* Output: "Hello world! My name is Foo Bar"
+	*
 	* @param {string} str - String, the String to format
 	* @param {array} subs - Array(String), An array of Strings to substitute into the String
 	* @returns {string} the formatted String
