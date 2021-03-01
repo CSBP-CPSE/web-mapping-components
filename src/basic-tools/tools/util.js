@@ -7,7 +7,7 @@ export default class Util {
 	*
 	* @param {object} a - the object that will receive the properties 
 	* @param {object} b - the object to merge into object A
-	* @returns - the modified Object
+	* @returns the modified Object
 	*/
 	static Mixin(a, b) {				
 		for (var key in b) {
@@ -25,7 +25,7 @@ export default class Util {
 	*
 	* @param {function} delegate - the Function to debounce
 	* @param {integer} threshold - the timeout length, in milliseconds
-	* @returns {function} - the debounced function
+	* @returns {function} the debounced function
 	*/
 	static Debounce(delegate, threshold) {
 		var timeout;
@@ -49,7 +49,7 @@ export default class Util {
 	*
 	* @param {string} str - String, the String to format
 	* @param {array} subs - Array(String), An array of Strings to substitute into the String
-	* @returns {string} - the formatted String
+	* @returns {string} the formatted String
 	*/
 	static Format(str, subs) {
 		if (!subs || subs.length == 0) return str;
@@ -68,7 +68,7 @@ export default class Util {
 	 * Gets the value of the first property of a provided object
 	 * 
 	 * @param {object} obj - object to get first property from
-	 * @returns - the value of the first object
+	 * @returns the value of the first object
 	 */
 	static FirstProperty(obj) {
 		var firstPropVal;
@@ -81,6 +81,17 @@ export default class Util {
 		return firstPropVal;
 	}
 
+	/**
+	 * ParseCsv takes a string containing csv data, and parses it to generate an array
+	 * containing each row of the csv.
+	 * 
+	 * Example:
+	 * 
+	 * Util.ParseCsv("name,age\nfoo,22\nbar,24") -> [["name","age"],["foo","22"],["bar","24"]]
+	 * 
+	 * @param {string} csv - string containing csv data
+	 * @returns {array} a list containing each row of csv data
+	 */
 	static ParseCsv(csv) {		
 		var s = 0;
 		var i = 0;
@@ -116,10 +127,6 @@ export default class Util {
 		}
 		
 		return lines;
-		
-		//return csv.trim().split(/\r\n|\n/).map(l => {
-		//	return l.split(',');
-		//});
 	}
 	
 	static DisableFocusable(nodes, disabled) {
