@@ -126,9 +126,7 @@ export default class Dom {
 	/**
 	* Remove all children of an Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to empty
-	* Return : none
+	* @param {HTMLCollection Element} elem - The DOM Element being empty
 	*/
 	static Empty(elem) {
 		while (elem.firstChild) {

@@ -66,6 +66,14 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 					assert(global.document.getElementById('foobar') != null);
 				});
 			});
+
+			describe('Empty():', function() {
+				body = global.document.getElementsByTagName('body');
+				it('Empty a DOM element', function() {
+					dom.Empty(body);
+					assert.strictEqual(body.childElementCount, 0);
+				});
+			});
 		});
 
 		// Tests for basic-tools/tools/util.js
