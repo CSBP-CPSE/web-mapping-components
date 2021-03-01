@@ -87,6 +87,13 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 				});
 			});
 
+			describe('Format()', function() {
+				it('Format("{0} + {1} = {2}",["2","3","5"]) should format string to "2 + 3 = 5"', function() {
+					let testString = util.Format("{0} + {1} = {2}",["2", "3", "5"]);
+					assert.strictEqual(testString, "2 + 3 = 5");
+				});
+			});
+
 			describe('ParseCsv()', function() {
 				it('ParseCsv() return an array representing the csv data provided as a string', function() {
 					let testArray = "name,age\nfoo,29\nbar,88\n";
