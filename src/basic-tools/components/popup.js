@@ -1,5 +1,4 @@
 import Dom from '../tools/dom.js';
-import Core from '../tools/core.js';
 import Util from '../tools/util.js';
 import Templated from './templated.js';
 
