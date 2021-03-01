@@ -1,6 +1,5 @@
 'use strict';
 
-import Core from '../tools/core.js';
 import Dom from '../tools/dom.js';
 import Templated from './templated.js';
 
