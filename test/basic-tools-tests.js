@@ -79,6 +79,13 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 				});
 			});
 
+			describe('Format()', function() {
+				it('Format("{0} + {1} = {2}",["2","3","5"]) should format string to "2 + 3 = 5"', function() {
+					let testString = util.Format("{0} + {1} = {2}",["2", "3", "5"]);
+					assert.strictEqual(testString, "2 + 3 = 5");
+				});
+			});
+
 			describe('FirstProperty()', function() {
 				it('FirstProperty() returns the first property value of a test object', function() {
 					let objectA = { foo: 1, bar: 2 };
@@ -87,18 +94,32 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 				});
 			});
 
-			describe('Format()', function() {
-				it('Format("{0} + {1} = {2}",["2","3","5"]) should format string to "2 + 3 = 5"', function() {
-					let testString = util.Format("{0} + {1} = {2}",["2", "3", "5"]);
-					assert.strictEqual(testString, "2 + 3 = 5");
-				});
-			});
-
 			describe('ParseCsv()', function() {
 				it('ParseCsv() return an array representing the csv data provided as a string', function() {
 					let testArray = "name,age\nfoo,29\nbar,88\n";
 					let parsedCsvList = util.ParseCsv(testArray);
 					assert.deepStrictEqual(parsedCsvList,[["name","age"],["foo","29"],["bar","88"],[]]);
+				});
+			});
+
+			describe('DisableFocusable()', function() {
+				it('DisableFocusable([body], true) disables all focusable items in the body of the DOM', function() {
+					let domBody = global.document.querySelector('body');
+
+					// Add button to the DOM with disable set to false.
+					let newBtn = global.document.createElement("button");
+					newBtn.setAttribute('id','new-btn');
+					domBody.appendChild(newBtn);
+
+					if (newBtn.disabled) {
+						newBtn.setAttribute('disabled', false);
+					}
+
+					// Set disable to true for new button in DOM body
+					util.DisableFocusable([domBody], true);
+				
+					// Test that button has an attibute of disable set to true
+					assert.strictEqual(newBtn.disabled, true);
 				});
 			});
 		});
