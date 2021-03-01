@@ -137,7 +137,7 @@ export default class Util {
 	 * Sets the disabled property to true or false for a provided selection
 	 * of nodes if they are of a focusable type.
 	 * 
-	 * @param {object} nodes - DOM modes selection.
+	 * @param {object} nodes - DOM nodes selection.
 	 * @param {boolean} disabled - true or false.
 	 */
 	static DisableFocusable(nodes, disabled) {
