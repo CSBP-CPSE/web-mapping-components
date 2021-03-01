@@ -86,6 +86,14 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 					assert.strictEqual(firstProp, 1);
 				});
 			});
+
+			describe('ParseCsv()', function() {
+				it('ParseCsv() return an array representing the csv data provided as a string', function() {
+					let testArray = "name,age/nfoo,29/nbar,88";
+					let parsedCsvList = Util.ParseCsv(testArray);
+					assert.strictEqual(parsedCsvList,[["name","age"],["foo","29"],["bar","88"]]);
+				});
+			});
 		});
 	});
 });
