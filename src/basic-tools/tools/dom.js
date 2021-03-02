@@ -181,18 +181,18 @@ export default class Dom {
 	}
 
 	/**
-	* Toggle a CSS rule on or or off for an Element
+	* Toggle a class on or off for an Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to modify
-	*	css : String, the CSS rule to toggle on the Element
-	*	enabled : Boolean, true to toggle the CSS rule on, false to toggle it off
-	* Return : none
+	* @param {HTML Element} elem - the Element to modify
+	* @param {string} elemClass - the class to add/remove from the Element
+	* @param {boolean} enabled - true to add the class, or false to remove class
 	*/
-	static ToggleCss(elem, css, enabled) {
-		if (enabled) this.AddCss(elem, css);
-		
-		else this.RemoveCss(elem, css);
+	static ToggleClass(elem, elemClass, enabled) {
+		if (enabled) {
+			this.AddClasses(elem, elemClass);
+		} else {
+			this.RemoveClass(elem, elemClass);
+		}
 	}
 	
 	/**
