@@ -52,7 +52,7 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 
 		// Tests for basic-tools/tools/dom.js
 		describe('DOM Module:', function() {
-			let body;
+			let body, testDiv;
 			describe('Node():', function() {
 				it('Create a Node representing the body element', function() {
 					body = dom.Node(global.document, 'body');
@@ -71,7 +71,7 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 				it('Append a new element to body with Place()', function() {
 					body = global.document.querySelector('body');
 					// Create a test div element
-					let testDiv = global.document.createElement('div');
+					testDiv = global.document.createElement('div');
 					testDiv.setAttribute('id', 'testdiv');
 
 					// Append test div to body
@@ -81,6 +81,12 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 				});
 			});
 
+			describe('GetAttribute():', function() {
+				it('Get id attribute from div with GetAttribute()', function() {
+					// Confirm test div 
+					assert(dom.GetAttribute(testDiv,'id'), 'testdiv');
+				});
+			});
 			describe('Empty():', function() {
 				body = global.document.getElementsByTagName('body');
 				it('Empty a DOM element', function() {
