@@ -171,15 +171,13 @@ export default class Dom {
 	}
 
 	/**
-	* Set the CSS rules on an Element
+	* Set the class of an Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to modify
-	*	css : String, the CSS rule to set on the Element
-	* Return : none
+	* @param {HTML Element} elem - the Element to modify
+	* @param {string} elemClass - set the class of the Element
 	*/
-	static SetCss(elem, css) {
-		elem.className = css; 
+	static SetClass(elem, elemClass) {
+		elem.className = elemClass; 
 	}
 
 	/**
