@@ -229,10 +229,8 @@ export default class Dom {
 	/**
 	* Get the size of an Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to retrieve the size
-	* Return : Object, an object literal containing the size of the Element
-	* 
+	* @param {HTML Element} elem - the Element to retrieve the size
+	* @returns {object} An object literal containing the size of the Element
 	* { 
 	*	w: width of the Element, 
 	*	h: height of the Element 
@@ -260,9 +258,8 @@ export default class Dom {
 	/**
 	* Get the siblings of an Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to retrieve the siblings
-	* Return : Array, An array of elements containing the siblings of the input element
+	* @param {HTML Element} elem - the Element to retrieve the siblings
+	* @returns {array} An array of elements containing the siblings of the input element
 	*/
 	static Siblings(elem) {
 		var elements = [];
