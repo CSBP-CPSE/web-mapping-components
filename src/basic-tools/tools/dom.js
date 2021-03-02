@@ -205,10 +205,9 @@ export default class Dom {
 	/**
 	* Get an attribute value from an Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to retrieve the attribute from
-	*	attr : String, the name of the attribute to retrieve
-	* Return : String, the value of the attribute if found, null otherwise
+	* @param {HTML Element} elem - the Element to retrieve the attribute from
+	* @param {string} attr - the name of the attribute to retrieve
+	* @returns {string} - the value of the attribute if found, null otherwise
 	*/
 	static GetAttribute(elem, attr) {
 		var attr = elem.attributes.getNamedItem(attr);
@@ -219,11 +218,9 @@ export default class Dom {
 	/**
 	* Set an attribute value on an Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to set the attribute on
-	*	attr : String, the name of the attribute to set
-	*	value : String, the value of the attribute to set
-	* Return : none
+	* @param {HTML Element} elem - the Element to set the attribute on
+	* @param {string} attr - the name of the attribute to set
+	* @param {string} value - the value of the attribute to set
 	*/
 	static SetAttribute(elem, attr, value) {
 		elem.setAttribute(attr, value);
