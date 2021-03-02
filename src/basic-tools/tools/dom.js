@@ -134,12 +134,12 @@ export default class Dom {
 	* Add classes to an Element
 	*
 	* @param {HTML Element} elem - the Element to modify
-	* @param {string} class - the class name to add to the Element
+	* @param {string} elemClasses - the class name to add to the Element
 	*/
-	static AddClasses(elem, classes) {
+	static AddClasses(elem, elemClasses) {
 		var c1 = elem.className.split(" ");
 		
-		classes.split(" ").forEach(function(c) {
+		elemClasses.split(" ").forEach(function(c) {
 			if (c1.indexOf(c) == -1) c1.push(c);
 		})
 		
