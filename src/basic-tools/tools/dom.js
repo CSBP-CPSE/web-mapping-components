@@ -131,17 +131,15 @@ export default class Dom {
 	}
 
 	/**
-	* Add a CSS rule on an Element
+	* Add classes to an Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to modify
-	*	css : String, the CSS rule to add on the Element
-	* Return : none
+	* @param {HTML Element} elem - the Element to modify
+	* @param {string} class - the class name to add to the Element
 	*/
-	static AddCss(elem, css) {
+	static AddClasses(elem, classes) {
 		var c1 = elem.className.split(" ");
 		
-		css.split(" ").forEach(function(c) {
+		classes.split(" ").forEach(function(c) {
 			if (c1.indexOf(c) == -1) c1.push(c);
 		})
 		
