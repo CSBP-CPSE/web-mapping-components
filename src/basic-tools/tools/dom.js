@@ -160,15 +160,14 @@ export default class Dom {
 	}
 
 	/**
-	* Verify that an Element contains a CSS rule
+	* Verify that an Element contains a class
 	*
-	* Parameters :
-	*	elem : Element, the Element to verify
-	*	css : String, the CSS rule to find
-	* Return : Boolean, true if the Element contains the CSS rule, false otherwise
+	* @param {HTML Element} elem - the Element to verify
+	* @param {string} elemClass - the class to verify
+	* @returns {boolean} true if the Element contains the class, false otherwise
 	*/
-	static HasCss(elem, css) {
-		return (' ' + elem.className + ' ').indexOf(' ' + css + ' ') > -1;
+	static HasClass(elem, elemClass) {
+		return (' ' + elem.className + ' ').indexOf(' ' + elemClass + ' ') > -1;
 	}
 
 	/**
