@@ -90,36 +90,6 @@ export default class Dom {
 	}
 
 	/**
-	* Replace an Element by another Element
-	*
-	* Parameters :
-	*	elem1 : Element, the Element to be replaced
-	*	elem2 : Element, the Element that will replace elem1
-	* Return : none
-	*/
-	static Replace(elem1, elem2) {
-		var pNode = elem1.parentNode;
-		
-		pNode.insertBefore(elem2, elem1);
-
-		this.Remove(elem1, pNode);
-	}
-
-	/**
-	* Remove an Element from another Element
-	*
-	* Parameters :
-	*	elem : Element, the Element to remove
-	*	pNode : Element, the parent Element containing the Element to remove
-	* Return : none
-	*/
-	static Remove(elem, pNode) {
-		if (!pNode.children.some(function(child) { return (child === elem); })) return;
-		
-		pNode.removeChild(elem);
-	}
-
-	/**
 	* Remove all children of an Element
 	*
 	* @param {HTML Element} elem - The DOM Element being emptied
