@@ -87,6 +87,16 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 					assert(dom.GetAttribute(testDiv,'id'), 'testdiv');
 				});
 			});
+
+			describe('SetAttribute():', function() {
+				it('Set title attribute of div to "test div" with SetAttribute()', function() {
+					// Set the div of the testDiv element
+					dom.SetAttribute(testDiv,'title','test div');
+					// Confirm div has the new set id value
+					assert(dom.GetAttribute(testDiv,'title'), 'test div');
+				});
+			});
+
 			describe('Empty():', function() {
 				body = global.document.getElementsByTagName('body');
 				it('Empty a DOM element', function() {
