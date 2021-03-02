@@ -147,16 +147,14 @@ export default class Dom {
 	}
 
 	/**
-	* Remove a CSS rule on an Element
+	* Remove a class from an Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to modify
-	*	css : String, the CSS rule to remove from the Element
-	* Return : none
+	* @param {HTML Element} elem - the Element to modify
+	* @param {string} elemClass - the class to be removed from the Element
 	*/
-	static RemoveCss(elem, css) {				
+	static RemoveClass(elem, elemClass) {				
 		var c1 = elem.className.split(" ");
-		var c2 = css.split(" ");
+		var c2 = elemClass.split(" ");
 		
 		elem.className = c1.filter(function(c) { return c2.indexOf(c) == -1; }).join(" ");
 	}
