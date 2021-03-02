@@ -45,7 +45,6 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 				it('Correctly concats [1,2,3] with [3,4,5] and returns [1,2,3,4,5]', function() {
 					let arrayA = [1,2,3];
 					let arrayB = [3,4,5];
-					let concatArray = array.UniqueConcat(arrayA, arrayB);
 					assert.deepStrictEqual(array.UniqueConcat(arrayA, arrayB), [1,2,3,4,5]);
 				});
 			});
@@ -60,10 +59,25 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 					assert(body != null);
 				});
 			});
+
 			describe('Create():', function() {
 				it('Create a button with the id foobar', function() {
 					dom.Create('button',{id:'foobar'},body);
 					assert(global.document.getElementById('foobar') != null);
+				});
+			});
+
+			describe('Place():', function() {
+				it('Append a new element to body with Place()', function() {
+					body = global.document.querySelector('body');
+					// Create a test div element
+					let testDiv = global.document.createElement('div');
+					testDiv.setAttribute('id', 'testdiv');
+
+					// Append test div to body
+					dom.Place(testDiv, body);
+					// Confirm test div is appended to document
+					assert(global.document.getElementById('testdiv') != null);
 				});
 			});
 
