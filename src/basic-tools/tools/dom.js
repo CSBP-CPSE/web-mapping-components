@@ -134,7 +134,7 @@ export default class Dom {
 	* Add classes to an Element
 	*
 	* @param {HTML Element} elem - the Element to modify
-	* @param {string} elemClasses - the class name to add to the Element
+	* @param {string} elemClasses - the class names to add to the Element
 	*/
 	static AddClasses(elem, elemClasses) {
 		var c1 = elem.className.split(" ");
