@@ -2,6 +2,9 @@
 
 import Util from './util.js';
 
+/**
+ * A collection of methods for manipulating content in a Document Object Model (DOM).
+ */
 export default class Dom {
 	
 	/**
