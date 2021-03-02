@@ -10,23 +10,21 @@ export default class Dom {
 	/**
 	* Retrieve an Element using a selector
 	*
-	* Parameters :
-	*	pNode : Element, the parent node where to begin the search
-	*	selector : String, a selector statement
-	* Return : Element, the Element found, null otherwise
+	* @param {HTML Element} pNode - the parent node where to begin the search
+	* @param {string} selector - a selector statement
+	* @returns {HTML Element} The Element found, null otherwise
 	*/
 	static Node(pNode, selector) {
 		return pNode.querySelectorAll(selector).item(0) || null;
 	}
 
 	/**
-	* Create an Element
+	* Create an Element appended to specified parent node
 	*
-	* Parameters :
-	*	tagName : String, the type of Element to be created (div, span, label, input, etc.)
-	*	options : Object, a dictionary type object containing the options to assign to the created Element
-	*	pNode : Element, the parent Element where the created Element will be apended
-	* Return : Element, The Element created
+	* @param {string} tagName - the type of Element to be created (div, span, label, input, etc.)
+	* @param {object} options - a dictionary type object containing the options to assign to the created Element
+	* @param {HTML Element} pNode - the parent Element where the created Element will be apended
+	* @returns {HTML Element} the Element created
 	*/
 	static Create(tagName, options, pNode) {
 		var elem = document.createElement(tagName);
@@ -39,13 +37,12 @@ export default class Dom {
 	}
 
 	/**
-	* Create an SVG Element
+	* Create an SVG Element and append it to parent node.
 	*
-	* Parameters :
-	*	tagName : String, the type of SVG Element to be created (rect, path, etc.)
-	*	options : Object, a dictionary type object containing the options to assign to the created SVG Element
-	*	pNode : Element, the parent Element where the created SVG Element will be apended
-	* Return : Element, The SVG Element created
+	* @param {string} tagName - the type of SVG Element to be created (rect, path, etc.)
+	* @param {object} options - a dictionary type object containing the options to assign to the created SVG Element
+	* @param {HTML Element} pNode - the parent Element where the created SVG Element will be apended
+	* @returns {HTML Element} The SVG Element created
 	*/
 	static CreateSVG(tagName, options, pNode) {
 		var elem = document.createElementNS("http://www.w3.org/2000/svg", tagName);
@@ -60,19 +57,17 @@ export default class Dom {
 	/**
 	* Create an Element from a namespace
 	*
-	* Parameters :
-	*	ns : String, the URI namespace containing the Element to create 
-	*	tagName : String, the type of Element to be created (rect, path, etc.)
-	*	options : Object, a dictionary type object containing the options to assign to the created Element
-	*	pNode : Element, the parent Element where the created Element will be apended
-	*
 	* Valid Namespaces are : 
 	*	HTML : http://www.w3.org/1999/xhtml
 	*	SVG  : http://www.w3.org/2000/svg
 	*	XBL  : http://www.mozilla.org/xbl
 	*	XUL  : http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul
 	*
-	* Return : Element, The SVG Element created
+	* @param {string} ns - the URI namespace containing the Element to create 
+	* @param {string} tagName - the type of Element to be created (rect, path, etc.)
+	* @param {object} options - a dictionary type object containing the options to assign to the created Element
+	* @param {HTML Element} pNode - the parent Element where the created Element will be apended
+	* @returns {HTML Element} The SVG Element created
 	*/
 	static CreateNS(ns, tagName, options, pNode) {
 		var elem = document.createElementNS(ns, tagName);
@@ -87,8 +82,8 @@ export default class Dom {
 	/**
 	* Append an Element to another Element
 	*
-	* @param {HTMLCollection Element} elem - the Element to append
-	* @param {HTMLCollection Element} pNode - the parent Element where the Element will be apended
+	* @param {HTML Element} elem - the Element to append
+	* @param {HTML Element} pNode - the parent Element where the Element will be apended
 	*/
 	static Place(elem, pNode) {
 		if (!!pNode) pNode.appendChild(elem);
@@ -127,7 +122,7 @@ export default class Dom {
 	/**
 	* Remove all children of an Element
 	*
-	* @param {HTMLCollection Element} elem - The DOM Element being empty
+	* @param {HTML Element} elem - The DOM Element being emptied
 	*/
 	static Empty(elem) {
 		while (elem.firstChild) {
