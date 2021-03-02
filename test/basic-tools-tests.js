@@ -84,7 +84,7 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 			describe('GetAttribute():', function() {
 				it('Get id attribute from div with GetAttribute()', function() {
 					// Confirm test div 
-					assert(dom.GetAttribute(testDiv,'id'), 'testdiv');
+					assert.strictEqual(dom.GetAttribute(testDiv,'id'), 'testdiv');
 				});
 			});
 
@@ -93,9 +93,22 @@ describe('Basic-Tools Tests:\n  ------------------------------', function() {
 					// Set the div of the testDiv element
 					dom.SetAttribute(testDiv,'title','test div');
 					// Confirm div has the new set id value
-					assert(dom.GetAttribute(testDiv,'title'), 'test div');
+					assert.strictEqual(dom.GetAttribute(testDiv,'title'), 'test div');
 				});
 			});
+
+			describe('Siblings():', function() {
+				it('Get siblings of an element', function() {
+					// Add two buttons to test div
+					dom.Create('button',{id:'abtn'},testDiv);
+					dom.Create('button',{id:'bbtn'},testDiv);
+					let siblings = dom.Siblings(global.document.getElementById('abtn'));
+
+					// Confirm abtn has bbtn as a sibling
+					assert.deepStrictEqual(siblings, [ global.document.getElementById('bbtn') ]);
+				});
+			});
+
 
 			describe('Empty():', function() {
 				body = global.document.getElementsByTagName('body');
