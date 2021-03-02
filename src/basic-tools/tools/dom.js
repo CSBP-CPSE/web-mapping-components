@@ -84,10 +84,8 @@ export default class Dom {
 	/**
 	* Append an Element to another Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to append
-	*	pNode : Element, the parent Element where the Element will be apended
-	* Return : none
+	* @param {HTMLCollection Element} elem - the Element to append
+	* @param {HTMLCollection Element} pNode - the parent Element where the Element will be apended
 	*/
 	static Place(elem, pNode) {
 		if (!!pNode) pNode.appendChild(elem);
