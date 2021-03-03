@@ -79,7 +79,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 	}
 	
 	UpdateCss() {		
-		Dom.ToggleCss(this.Node("root"), "collapsed", this._filt.length == 0);
+		Dom.ToggleClass(this.Node("root"), "collapsed", this._filt.length == 0);
 	}
 	
 	Reset() {
