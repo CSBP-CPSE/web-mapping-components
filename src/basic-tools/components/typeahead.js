@@ -78,7 +78,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		}
 	}
 	
-	UpdateCss() {		
+	UpdateClass() {		
 		Dom.ToggleClass(this.Node("root"), "collapsed", this._filt.length == 0);
 	}
 	
@@ -101,7 +101,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		
 		this.Fill(ev.target.value);
 		
-		this.UpdateCss();
+		this.UpdateClass();
 	}
 	
 	OnInputClick_Handler(ev) {			
@@ -109,7 +109,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		
 		this.Fill(ev.target.value);
 		
-		this.UpdateCss();
+		this.UpdateClass();
 	}
 	
 	OnInputKeyDown_Handler(ev) {		
@@ -155,7 +155,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 	OnInputBlur_Handler(ev) {			
 		this.Reset();
 		
-		this.UpdateCss();
+		this.UpdateClass();
 	}
 	
 	onLiClick_Handler(item, ev) {		
@@ -163,7 +163,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 				
 		this.Reset();
 		
-		this.UpdateCss();
+		this.UpdateClass();
 		
 		this.Emit("Change", { item:item.data });
 	}
