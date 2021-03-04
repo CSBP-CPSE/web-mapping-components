@@ -19,6 +19,7 @@
 	},
 	"scripts": {
 		"build": "rollup -c ./config/web-mapping-components.rollup.js",
+		"dev": "rollup ../web-mapping-components/src/main.js --file ../web-mapping-components/dist/web-mapping-components.dev.js --format es",
 		"test": "mocha"
 	},
 	"repository": {
