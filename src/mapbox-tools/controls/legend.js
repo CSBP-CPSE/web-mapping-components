@@ -23,9 +23,9 @@ export default class Legend extends Control {
 		if (title) this.Node('title').innerHTML = title;
 		if (subtitle) this.Node('subtitle').innerHTML = subtitle;
 		
-		Dom.ToggleCss(this.Node("banner"), "hidden", !banner);
-		Dom.ToggleCss(this.Node("title"), "hidden", !title);
-		Dom.ToggleCss(this.Node("subtitle"), "hidden", !subtitle);
+		Dom.ToggleClass(this.Node("banner"), "hidden", !banner);
+		Dom.ToggleClass(this.Node("title"), "hidden", !title);
+		Dom.ToggleClass(this.Node("subtitle"), "hidden", !subtitle);
 	}
 	
 	LoadLegend(config) {

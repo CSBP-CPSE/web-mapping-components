@@ -78,12 +78,12 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		}
 	}
 	
-	UpdateCss() {		
-		Dom.ToggleCss(this.Node("root"), "collapsed", this._filt.length == 0);
+	UpdateClass() {		
+		Dom.ToggleClass(this.Node("root"), "collapsed", this._filt.length == 0);
 	}
 	
 	Reset() {
-		if (this._temp) Dom.SetCss(this._temp.node, "");
+		if (this._temp) Dom.SetClass(this._temp.node, "");
 			
 		this._temp = null;
 		
@@ -101,7 +101,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		
 		this.Fill(ev.target.value);
 		
-		this.UpdateCss();
+		this.UpdateClass();
 	}
 	
 	OnInputClick_Handler(ev) {			
@@ -109,7 +109,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		
 		this.Fill(ev.target.value);
 		
-		this.UpdateCss();
+		this.UpdateClass();
 	}
 	
 	OnInputKeyDown_Handler(ev) {		
@@ -123,7 +123,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		else if (ev.keyCode == 40 || ev.keyCode == 38 ) {	
 			this._temp = this._temp || this._filt[this._filt.length - 1];
 			
-			Dom.SetCss(this._temp.node, "");
+			Dom.SetClass(this._temp.node, "");
 			
 			this._temp = (ev.keyCode == 40) ? this._temp.next : this._temp.prev;
 			
@@ -131,7 +131,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 			
 			this.ScrollTo(this._temp);
 			
-			Dom.SetCss(this._temp.node, "active");
+			Dom.SetClass(this._temp.node, "active");
 		}
 
 		// enter : select currently focused
@@ -155,7 +155,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 	OnInputBlur_Handler(ev) {			
 		this.Reset();
 		
-		this.UpdateCss();
+		this.UpdateClass();
 	}
 	
 	onLiClick_Handler(item, ev) {		
@@ -163,7 +163,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 				
 		this.Reset();
 		
-		this.UpdateCss();
+		this.UpdateClass();
 		
 		this.Emit("Change", { item:item.data });
 	}

@@ -131,17 +131,15 @@ export default class Dom {
 	}
 
 	/**
-	* Add a CSS rule on an Element
+	* Add classes to an Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to modify
-	*	css : String, the CSS rule to add on the Element
-	* Return : none
+	* @param {HTML Element} elem - the Element to modify
+	* @param {string} elemClasses - the class names to add to the Element
 	*/
-	static AddCss(elem, css) {
+	static AddClasses(elem, elemClasses) {
 		var c1 = elem.className.split(" ");
 		
-		css.split(" ").forEach(function(c) {
+		elemClasses.split(" ").forEach(function(c) {
 			if (c1.indexOf(c) == -1) c1.push(c);
 		})
 		
@@ -149,57 +147,52 @@ export default class Dom {
 	}
 
 	/**
-	* Remove a CSS rule on an Element
+	* Remove a class from an Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to modify
-	*	css : String, the CSS rule to remove from the Element
-	* Return : none
+	* @param {HTML Element} elem - the Element to modify
+	* @param {string} elemClass - the class to be removed from the Element
 	*/
-	static RemoveCss(elem, css) {				
+	static RemoveClass(elem, elemClass) {				
 		var c1 = elem.className.split(" ");
-		var c2 = css.split(" ");
+		var c2 = elemClass.split(" ");
 		
 		elem.className = c1.filter(function(c) { return c2.indexOf(c) == -1; }).join(" ");
 	}
 
 	/**
-	* Verify that an Element contains a CSS rule
+	* Verify that an Element contains a class
 	*
-	* Parameters :
-	*	elem : Element, the Element to verify
-	*	css : String, the CSS rule to find
-	* Return : Boolean, true if the Element contains the CSS rule, false otherwise
+	* @param {HTML Element} elem - the Element to verify
+	* @param {string} elemClass - the class to verify
+	* @returns {boolean} true if the Element contains the class, false otherwise
 	*/
-	static HasCss(elem, css) {
-		return (' ' + elem.className + ' ').indexOf(' ' + css + ' ') > -1;
+	static HasClass(elem, elemClass) {
+		return (' ' + elem.className + ' ').indexOf(' ' + elemClass + ' ') > -1;
 	}
 
 	/**
-	* Set the CSS rules on an Element
+	* Set the class of an Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to modify
-	*	css : String, the CSS rule to set on the Element
-	* Return : none
+	* @param {HTML Element} elem - the Element to modify
+	* @param {string} elemClass - set the class of the Element
 	*/
-	static SetCss(elem, css) {
-		elem.className = css; 
+	static SetClass(elem, elemClass) {
+		elem.className = elemClass; 
 	}
 
 	/**
-	* Toggle a CSS rule on or or off for an Element
+	* Toggle a class on or off for an Element
 	*
-	* Parameters :
-	*	elem : Element, the Element to modify
-	*	css : String, the CSS rule to toggle on the Element
-	*	enabled : Boolean, true to toggle the CSS rule on, false to toggle it off
-	* Return : none
+	* @param {HTML Element} elem - the Element to modify
+	* @param {string} elemClass - the class to add/remove from the Element
+	* @param {boolean} enabled - true to add the class, or false to remove class
 	*/
-	static ToggleCss(elem, css, enabled) {
-		if (enabled) this.AddCss(elem, css);
-		
-		else this.RemoveCss(elem, css);
+	static ToggleClass(elem, elemClass, enabled) {
+		if (enabled) {
+			this.AddClasses(elem, elemClass);
+		} else {
+			this.RemoveClass(elem, elemClass);
+		}
 	}
 	
 	/**

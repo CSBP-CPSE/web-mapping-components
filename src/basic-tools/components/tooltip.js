@@ -9,10 +9,10 @@ export default class Tooltip extends Templated  {
 		return this.Node("root").getBoundingClientRect();
 	}
 	
-	constructor(node, css) {	
+	constructor(node, classes) {	
 		super(node || document.body);		
 
-		if (css) Dom.AddCss(this.Node("root"), css);		
+		if (classes) Dom.AddClasses(this.Node("root"), classes);		
 	}
 	
 	Template() {

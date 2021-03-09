@@ -12,7 +12,7 @@ export default class Popup extends Templated {
 	
 	get Content() { return this.content; }
 	
-	constructor(css, container) {	
+	constructor(classes, container) {	
 		super(container || document.body);
 				
 		this.onBody_KeyUp_Bound = this.onBody_KeyUp.bind(this);
@@ -22,7 +22,7 @@ export default class Popup extends Templated {
 		
 		this.Node("close").addEventListener("click", this.onBtnClose_Click.bind(this));
 		
-		if (css) Dom.AddCss(this.Node("root"), css);
+		if (classes) Dom.AddClasses(this.Node("root"), classes);
 		
 		this.Node("root").addEventListener("click", this.onModal_Click.bind(this));
 		
