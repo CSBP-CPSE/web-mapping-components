@@ -1,6 +1,5 @@
 // Aggregation of basic-tools modules 
 export { default as Util } from './basic-tools/tools/util.js';
-export { default as Array } from './basic-tools/tools/array.js';
 export { default as Core } from './basic-tools/tools/core.js';
 export { default as Dom } from './basic-tools/tools/dom.js';
 export { default as Net } from './basic-tools/tools/net.js';
