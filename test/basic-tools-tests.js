@@ -19,37 +19,6 @@ global.document = windowDom.window.document;
 describe('Basic-Tools Tests:\n  ------------------------------', function() {
 	describe('Tools Modules:', function() {
 
-		// Tests for basic-tools/tools/array.js
-		describe('Array Module:', function() {
-			describe('isArray():', function() {
-				it('isArray() correctly identifies an array', function() {
-					assert.strictEqual(array.isArray([1,2,3,4,5]), true);
-				});
-			});
-
-			describe('Clone():', function() {
-				it('Clone() able to clone a 1D array [1,2,3,4]', function() {
-					let original = [1,2,3,4,5];
-					let clone = array.Clone(original);
-					assert.deepStrictEqual(original, clone);
-				});
-
-				it('Clone() able to clone a nested array [1,2,[3,4,5],6]', function() {
-					let original = [1,2,[3,4,5],6];
-					let clone = array.Clone(original);
-					assert.deepStrictEqual(original, clone);
-				});
-			});
-
-			describe('UniqueConcat():', function() {
-				it('Correctly concats [1,2,3] with [3,4,5] and returns [1,2,3,4,5]', function() {
-					let arrayA = [1,2,3];
-					let arrayB = [3,4,5];
-					assert.deepStrictEqual(array.UniqueConcat(arrayA, arrayB), [1,2,3,4,5]);
-				});
-			});
-		});
-
 		// Tests for basic-tools/tools/dom.js
 		describe('DOM Module:', function() {
 			let body, testDiv;
