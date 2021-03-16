@@ -3,6 +3,7 @@
 /**
  * Util class, containing various utility methods for processing
  * data in different formats.
+ * @class
  */
 export default class Util {
 	

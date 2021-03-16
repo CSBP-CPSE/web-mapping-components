@@ -1,5 +1,9 @@
 import Core from '../../basic-tools/tools/core.js';
 
+/**
+ * Other class
+ * @class
+ */
 export default class Other {
 	
 	static Polish(json, exp, d) {

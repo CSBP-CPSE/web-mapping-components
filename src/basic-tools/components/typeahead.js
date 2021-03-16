@@ -2,8 +2,11 @@ import Templated from './templated.js';
 import Core from '../tools/core.js';
 import Dom from '../tools/dom.js';
 
+/**
+ * Typeahead class
+ * @class
+ */
 export default Core.Templatable("Basic.Components.Typeahead", class Typeahead extends Templated {
-	
 	
     set placeholder(value) { this.Node('input').setAttribute('placeholder', value); }
 	

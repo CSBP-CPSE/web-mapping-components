@@ -11,6 +11,10 @@ import Menu from '../controls/menu.js';
 import Group from '../controls/group.js';
 import Map from '../components/map.js';
 
+/**
+ * Factory class
+ * @class
+ */
 export default class Factory {
 
 	static Map(container, token, style, center, zoom) {

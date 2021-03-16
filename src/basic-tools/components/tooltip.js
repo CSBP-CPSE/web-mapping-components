@@ -3,6 +3,10 @@
 import Dom from '../tools/dom.js';
 import Templated from './templated.js';
 
+/**
+ * Tooltip class
+ * @class
+ */
 export default class Tooltip extends Templated  {
 		
 	get BBox() {

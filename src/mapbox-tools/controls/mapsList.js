@@ -3,6 +3,10 @@ import Core from '../../basic-tools/tools/core.js';
 import Dom from '../../basic-tools/tools/dom.js';
 import Tooltip from '../../basic-tools/components/tooltip.js';
 
+/**
+ * Mapslist class
+ * @class
+ */
 export default class MapsList extends Control { 
 		
 	constructor(options) {	

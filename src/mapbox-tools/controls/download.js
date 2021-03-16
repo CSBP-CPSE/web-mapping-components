@@ -2,6 +2,10 @@ import Control from '../components/control.js';
 import Core from '../../basic-tools/tools/core.js';
 import Dom from '../../basic-tools/tools/dom.js';
 
+/**
+ * Download class
+ * @class
+ */
 export default class Download extends Control { 
 		
 	constructor(options) {	

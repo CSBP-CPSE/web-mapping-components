@@ -2,6 +2,10 @@ import Control from '../components/control.js';
 import Dom from '../../basic-tools/tools/dom.js';
 import Popup from '../../basic-tools/components/popup.js';
 
+/**
+ * Menu class
+ * @class
+ */
 export default class Menu extends Control { 
 		
 	constructor(options) {	

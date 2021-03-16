@@ -2,6 +2,10 @@
 
 import Util from '../tools/util.js';
 
+/**
+ * Evented class
+ * @class
+ */
 export default class Evented { 
 
 	constructor() {

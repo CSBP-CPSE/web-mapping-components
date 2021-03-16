@@ -1,5 +1,9 @@
 import Core from './core.js';
 
+/**
+ * Net class
+ * @class
+ */
 export default class Net {
 	
 	/**

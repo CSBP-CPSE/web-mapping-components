@@ -1,6 +1,10 @@
 import Templated from '../../basic-tools/components/templated.js';
 import Evented from '../../basic-tools/components/evented.js';
 
+/**
+ * Fullscreen class
+ * @class
+ */
 export default class Fullscreen extends Evented { 
 	
 	set title(value) { this._fs._controlContainer.firstChild.title = value; }

@@ -2,6 +2,10 @@ import Dom from '../tools/dom.js';
 import Util from '../tools/util.js';
 import Templated from './templated.js';
 
+/**
+ * Popup class
+ * @class
+ */
 export default class Popup extends Templated { 
 	
 	set Content(content) {

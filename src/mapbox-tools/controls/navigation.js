@@ -1,6 +1,10 @@
 import Templated from '../../basic-tools/components/templated.js';
 import Evented from '../../basic-tools/components/evented.js';
 
+/**
+ * Navigation class
+ * @class
+ */
 export default class Navigation extends Evented { 
 	
 	set titleIn(value) { this._n._zoomInButton.title = value; }

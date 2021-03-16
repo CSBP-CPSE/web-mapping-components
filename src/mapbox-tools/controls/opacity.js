@@ -2,7 +2,11 @@ import Control from '../components/control.js';
 import Core from '../../basic-tools/tools/core.js';
 import Dom from '../../basic-tools/tools/dom.js';
 
-export default class Legend extends Control { 
+/**
+ * Opacity class
+ * @class
+ */
+export default class Opacity extends Control { 
 		
 	set label(value) {
 		Dom.Node(this._container, ".control-label").innerHTML = value;

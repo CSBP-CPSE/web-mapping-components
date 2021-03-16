@@ -4,6 +4,10 @@ import Core from '../tools/core.js';
 import Dom from '../tools/dom.js';
 import Evented from './evented.js';
 
+/**
+ * Templated class
+ * @class
+ */
 export default class Templated extends Evented { 
 
 	constructor(container, options) {

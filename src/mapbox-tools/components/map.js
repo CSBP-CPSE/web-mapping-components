@@ -2,6 +2,10 @@ import Core from '../../basic-tools/tools/core.js'
 import Evented from '../../basic-tools/components/evented.js'
 import Util from '../../basic-tools/tools/util.js'
 
+/**
+ * Map class
+ * @class
+ */
 export default class Map extends Evented {
 				
 	/**

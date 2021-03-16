@@ -7,6 +7,10 @@ let _root = "./";
 let _locale = null;
 let _templatables = {}
 
+/**
+ * Core class
+ * @class
+ */
 export default class Core {
 	
 	static set root(value) { this._root = value; }

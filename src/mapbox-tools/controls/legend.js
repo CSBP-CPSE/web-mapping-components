@@ -3,6 +3,10 @@ import Dom from '../../basic-tools/tools/dom.js';
 
 let n = 0;
 
+/**
+ * Legend class
+ * @class
+ */
 export default class Legend extends Control { 
 		
 	constructor(options) {

@@ -1,5 +1,9 @@
 import Templated from '../../basic-tools/components/templated.js';
 
+/**
+ * Control class
+ * @class
+ */
 export default class Control extends Templated { 
 	
 	constructor(options) {	
