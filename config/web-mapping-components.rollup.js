@@ -1,26 +1,25 @@
-import babel from 'rollup-plugin-babel';
-
 const banner = 
 `/*
  * Web Mapping Components
  * https://github.com/CSBP-CPSE/web-mapping-components/blob/master/LICENCE.md
- * v1.0 - 2021-02-04
+ * v1.0
  */
 `;
 
+/**
+ * web-mapping-components is an aggregation of multiple modules, and is currently 
+ * being used as an imported library into various viewer projects. 
+ * As a result the output format is set to ecmascript (es), and the bundled code
+ * is not being processed by babel plugin since this occurs during the building
+ * of the viewers.'
+ */
 export default {
     input: '../web-mapping-components/src/main.js',
     output: [
 		{
-	        file: '../web-mapping-components/dist/web-mapping-components.min.js',
+	        file: '../web-mapping-components/dist/web-mapping-components.js',
 			format: 'es',
 			banner: banner
 		}
-	],
-    plugins: [
-        babel({
-            exclude: 'node_modules/**',
-			configFile: './config/babel.config.cjs'
-        })
     ]
 }
