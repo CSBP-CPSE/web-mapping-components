@@ -9,9 +9,7 @@ const banner =
 /**
  * web-mapping-components is an aggregation of multiple modules, and is currently 
  * being used as an imported library into various viewer projects. 
- * As a result the output format is set to ecmascript (es), and the bundled code
- * is not being processed by babel plugin since this occurs during the building
- * of the viewers.'
+ * As a result the output format is set to ECMAscript (es).
  */
 export default {
     input: '../web-mapping-components/src/main.js',
