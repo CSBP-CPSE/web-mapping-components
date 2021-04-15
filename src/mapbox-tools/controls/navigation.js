@@ -1,4 +1,3 @@
-import Templated from '../../basic-tools/components/templated.js';
 import Evented from '../../basic-tools/components/evented.js';
 
 /**

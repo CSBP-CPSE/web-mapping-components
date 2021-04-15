@@ -1,7 +1,4 @@
-import Typeahead from '../../basic-tools/components/typeahead.js';
 import Control from '../components/control.js';
-import Core from '../../basic-tools/tools/core.js';
-import Dom from '../../basic-tools/tools/dom.js';
 
 /**
  * Search class
