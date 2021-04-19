@@ -3,7 +3,7 @@
 node_modules/
 dist/
 
-# VIM created files
+# Files to ignore
 #######################
 *.swp
 
