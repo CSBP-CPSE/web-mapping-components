@@ -62,12 +62,4 @@ export default class Layer {
 	static HideLayer(map, layer) {
 		map.setLayoutProperty(layer, 'visibility', 'none');
 	}
-	
-	static HideLayers(map, layers) {
-		layers.forEach(l => this.HideLayer(map, l));
-	}
-	
-	static ShowLayers(map, layers) {
-		layers.forEach(l => this.ShowLayer(map, l));
-	}
 }
