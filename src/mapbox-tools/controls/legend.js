@@ -14,24 +14,42 @@ export default class Legend extends Control {
 		
 		this._container = this.Node('root');
 
+		this.config = options.config;
+		this.title = options.title;
+		this.subtitle = options.subtitle;
+		this.banner = options.banner;
 		this.chkBoxes = null;
 		this.chkBoxesState = null;
 		
 		this.Reload(options.legend, options.title, options.banner, options.subtitle);
 	}
 	
-	Reload(legend, title, banner, subtitle) {
-		this.LoadLegend(legend);
-						
-		if (banner) this.Node('banner').innerHTML = banner;
-		if (title) this.Node('title').innerHTML = title;
-		if (subtitle) this.Node('subtitle').innerHTML = subtitle;
+	Reload(config, title, banner, subtitle) {
 		
-		Dom.ToggleClass(this.Node("banner"), "hidden", !banner);
-		Dom.ToggleClass(this.Node("title"), "hidden", !title);
-		Dom.ToggleClass(this.Node("subtitle"), "hidden", !subtitle);
+		// Update legend properties
+		this.config = config;
+		this.banner = banner || null;
+		this.title = title || null;
+		this.subtitle = subtitle || null;
+
+		/// Load legend items into legend
+		this.LoadLegend(config);
+						
+		// Update legend labels with the current legend properties
+		if (this.banner) this.Node('banner').innerHTML = this.banner;
+		if (this.title) this.Node('title').innerHTML = this.title;
+		if (this.subtitle) this.Node('subtitle').innerHTML = this.subtitle;
+		
+		// Hide portions on legend which aren't defined.
+		Dom.ToggleClass(this.Node("banner"), "hidden", !this.banner);
+		Dom.ToggleClass(this.Node("title"), "hidden", !this.title);
+		Dom.ToggleClass(this.Node("subtitle"), "hidden", !this.subtitle);
 	}
 	
+	/**
+	 * Load legend as defined in map config file
+	 * @param {object} config - legend object in map config file
+	 */
 	LoadLegend(config) {
 		let i, legendItem;
 		this.chkBoxes = [];
@@ -39,6 +57,7 @@ export default class Legend extends Control {
 
 		Dom.Empty(this.Node("legend"));
 		
+		// Add each legend item
 		if (Array.isArray(config)) {
 			for (i = 0; i < config.length; i += 1) {
 				legendItem = config[i];
@@ -89,10 +108,60 @@ export default class Legend extends Control {
 		}
 	}
 
+	/**
+	 * Gets the style data from provided legend item
+	 * @param {object} legendItem - Object containing the style information 
+	 * @retruns - An object containing the legendItem color and value if available
+	 */
+	GetStylingFromLegendItem(legendItem) {
+		let style = {};
+
+		if (legendItem.color) {
+			style.color = legendItem.color;
+
+			if (legendItem.value) {
+				style.value = legendItem.value;
+			}
+		}
+
+		return style;
+	}
+
+	/**
+	 * Get list of legend style rules (colours and expression values) defined
+	 * in the legend config.
+	 * @param {array} legendConfig A list of config items defining the legend
+	 * @returns A list of style objects containing colours and conditions
+	 * needed to paint layers with that colour.
+	 */
+	GetListOfStyles(legendConfig) {
+		let i, j, legendItem, groupItems;
+		let styleCollection = [];
+
+		// Iterate through legendConfig and get styling from each
+		if (Array.isArray(legendConfig)) {
+			for (i = 0; i < legendConfig.length; i += 1) {
+				legendItem = legendConfig[i];
+				if (legendItem.group && legendItem.group.items) {
+					// If item is a group of items, get styling from all items in group
+					groupItems = legendItem.group.items;
+					for (j = 0; j < groupItems.length; j += 1) {
+						styleCollection.push(this.GetStylingFromLegendItem(groupItems[j]));
+					}
+				} else {
+					styleCollection.push(this.GetStylingFromLegendItem(legendItem));
+				}
+			}
+		}
+
+		return styleCollection;
+	}	
+
 	OnCheckbox_Checked(ev) {
 		this.Emit("LegendChange", { state:this.chkBoxesState });
 	}
 
+	// Template for legend widget
 	Template() {        
 		return "<div handle='root' class='legend mapboxgl-ctrl'>" +
 					"<div handle='banner' class='control-label legend-banner'></div>" +
