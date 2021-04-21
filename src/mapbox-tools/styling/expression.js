@@ -3,7 +3,7 @@
  * 
  * A collection of functions for generating mapbox expressions used for styling.
  */
-
+import Legend from '../controls/legend.js';
 
 /**
  * Generate mapbox expression for fill colours defined in the map config file.
@@ -25,7 +25,7 @@ export function generateColourExpression(legend) {
 
 	// Get styling from legend config
 	if (legend && legend.config) {
-		legendStyles = legend.GetListOfStyles(legend.config);
+		legendStyles = Legend.GetListOfStyles(legend.config);
 	}
 	
 	// Check that legend items length equals opacity length
@@ -88,7 +88,7 @@ export function generateOpacityExpression(legend, opacity) {
 
 	// Get styling from legend config
 	if (legend && legend.config) {
-		legendStyles = legend.GetListOfStyles(legend.config);
+		legendStyles = Legend.GetListOfStyles(legend.config);
 	}
 
 	// Generate a list of opacity values for each legend item based on;
