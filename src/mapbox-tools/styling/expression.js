@@ -20,8 +20,7 @@ import Legend from '../controls/legend.js';
  * "rgba(255,214,10,1)"] 
  */
 export function generateColourExpression(legend) {
-	var styleColor, i, styleItem, defaultColour, legendStyles;
-	var expression = ['case'];
+	var styleColor, i, styleItem, defaultColour, legendStyles, expression;
 
 	// Get styling from legend config
 	if (legend && legend.config) {
@@ -30,28 +29,31 @@ export function generateColourExpression(legend) {
 	
 	// Check that legend items length equals opacity length
 	if (Array.isArray(legendStyles) && legendStyles.length > 0) {
+		expression = ['case'];
 		for (i = 0; i < legendStyles.length; i += 1) {
 			styleItem = legendStyles[i];
 
-			// Define style color
-			if (styleItem && styleItem.color) {
-				if (styleItem.color.length === 3) {
-					styleColor = 'rgb(' + styleItem.color.join(',') + ')';
+			if (styleItem) {
+				// Define style color
+				if (styleItem.color) {
+					if (styleItem.color.length === 3) {
+						styleColor = 'rgb(' + styleItem.color.join(',') + ')';
 
-				} else if (styleItem.color.length === 4) {
-					styleColor = 'rgba(' + styleItem.color.join(',') + ')';
+					} else if (styleItem.color.length === 4) {
+						styleColor = 'rgba(' + styleItem.color.join(',') + ')';
+					}
 				}
-			}
 
-			// Add style case and color
-			if (styleItem.value && styleColor) {
-				// Add mapbox expression value is defined, add it to cases list
-				expression.push(styleItem.value);						
+				// Add style case and color
+				if (styleItem.value && styleColor) {
+					// Add mapbox expression value is defined, add it to cases list
+					expression.push(styleItem.value);						
 
-				// Add colour to cases list
-				expression.push(styleColor);
-			} else {
-				defaultColour = styleColor;
+					// Add colour to cases list
+					expression.push(styleColor);
+				} else {
+					defaultColour = styleColor;
+				}
 			}
 		}
 
@@ -82,9 +84,8 @@ export function generateColourExpression(legend) {
  * 1] 
  */
 export function generateOpacityExpression(legend, opacity) {
-	var styleOpacity, i, styleItem, defaultOpacity, legendStyles, chkBox;
+	var styleOpacity, i, styleItem, defaultOpacity, legendStyles, chkBox, expression;
 	var legendOpacities = [];
-	var expression = ['case'];
 
 	// Get styling from legend config
 	if (legend && legend.config) {
@@ -108,7 +109,8 @@ export function generateOpacityExpression(legend, opacity) {
 		}
 	}
 	
-	if (Array.isArray(legendStyles) && legendStyles.length > 0 && legendStyles.length === legendOpacities.length) {
+	if (Array.isArray(legendStyles) && legendStyles.length > 0 && legendOpacities.length > 0) {
+		expression = ['case'];
 		for (i = 0; i < legendStyles.length; i += 1) {
 			styleItem = legendStyles[i];
 			styleOpacity = legendOpacities[i];
@@ -121,7 +123,7 @@ export function generateOpacityExpression(legend, opacity) {
 				// Add opacity to cases list
 				expression.push(styleOpacity);
 			} else {
-				defaultOpacity = styleOpacity;
+				defaultOpacity = styleOpacity || opacity;
 			}
 		}
 
@@ -140,17 +142,20 @@ export function generateOpacityExpression(legend, opacity) {
  * @param {array} opacityExpression expression containing cases for styling opacities.
  */
 export function generateSymbolOpacityExpression(opacityExpression) {
-	let expression = [];
+	let expression;
 
-	for (var i = 0; i < opacityExpression.length; i += 1) {
-		if (typeof opacityExpression[i] === 'number') {
-			if (opacityExpression[i] > 0) {
-				expression.push(1);
+	if (opacityExpression) {
+		expression = [];
+		for (var i = 0; i < opacityExpression.length; i += 1) {
+			if (typeof opacityExpression[i] === 'number') {
+				if (opacityExpression[i] > 0) {
+					expression.push(1);
+				} else {
+					expression.push(0);
+				}
 			} else {
-				expression.push(0);
+				expression.push(opacityExpression[i]);
 			}
-		} else {
-			expression.push(opacityExpression[i]);
 		}
 	}
 
