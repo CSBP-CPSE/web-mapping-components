@@ -231,17 +231,19 @@ export default class Map extends Evented {
 		let colourExpression = generateColourExpression(legend);
 
 		// Loop through layers and update colour classes
-		for (let i = 0; i < layerIDs.length; i += 1) {
-			// Get Layer Colour Property
-			let currentLayerID = layerIDs[i];
-			let layerType = Layer.GetLayerType(this.map, currentLayerID);
-			if (layerType !== 'symbol') {
-				let layerProperty = layerType + '-color';
+		if (colourExpression) {
+			for (let i = 0; i < layerIDs.length; i += 1) {
+				// Get Layer Colour Property
+				let currentLayerID = layerIDs[i];
+				let layerType = Layer.GetLayerType(this.map, currentLayerID);
+				if (layerType !== 'symbol') {
+					let layerProperty = layerType + '-color';
 
-				// Update layer colour properties
-				if (layerProperty && this.map.getPaintProperty(currentLayerID, layerProperty)) {
-					this.original[currentLayerID] = this.map.getPaintProperty(currentLayerID, layerProperty);
-					Layer.SetPaintProperty(this.map, currentLayerID, layerProperty, colourExpression);
+					// Update layer colour properties
+					if (layerProperty && this.map.getPaintProperty(currentLayerID, layerProperty)) {
+						this.original[currentLayerID] = this.map.getPaintProperty(currentLayerID, layerProperty);
+						Layer.SetPaintProperty(this.map, currentLayerID, layerProperty, colourExpression);
+					}
 				}
 			}
 		}
@@ -253,30 +255,32 @@ export default class Map extends Evented {
 		var opacityExpression = generateOpacityExpression(legend, opacity);
 		var symbolOpacityExpression = generateSymbolOpacityExpression(opacityExpression);
 
-		for (var i = 0; i < layerIDs.length; i += 1) {
-			// Get Layer Colour Property
-			let currentLayerID = layerIDs[i];
-			let layerType = Layer.GetLayerType(this.map, currentLayerID);
-			let layerFillProperty = layerType + '-opacity';
+		if (opacityExpression && symbolOpacityExpression) {
+			for (var i = 0; i < layerIDs.length; i += 1) {
+				// Get Layer Colour Property
+				let currentLayerID = layerIDs[i];
+				let layerType = Layer.GetLayerType(this.map, currentLayerID);
+				let layerFillProperty = layerType + '-opacity';
 
-			if (layerType !== 'symbol') {
-				// Update layer opacity properties
-				if (layerFillProperty) {
-					// TODO: original styling should be stored as an object containing layer objects, which 
-					// contain original style properties. 
-					// this.original[currentLayerID] = this.map.getPaintProperty(currentLayerID, layerProperty);
-					Layer.SetPaintProperty(this.map, currentLayerID, layerFillProperty, opacityExpression);
+				if (layerType !== 'symbol') {
+					// Update layer opacity properties
+					if (layerFillProperty) {
+						// TODO: original styling should be stored as an object containing layer objects, which 
+						// contain original style properties. 
+						// this.original[currentLayerID] = this.map.getPaintProperty(currentLayerID, layerProperty);
+						Layer.SetPaintProperty(this.map, currentLayerID, layerFillProperty, opacityExpression);
 
-					// If layer type is a circle, update circle stroke opacity to match circle-opacity
-					if (layerType === 'circle') {
-						Layer.SetPaintProperty(this.map, currentLayerID, 'circle-stroke-opacity', opacityExpression);
+						// If layer type is a circle, update circle stroke opacity to match circle-opacity
+						if (layerType === 'circle') {
+							Layer.SetPaintProperty(this.map, currentLayerID, 'circle-stroke-opacity', opacityExpression);
+						}
 					}
-				}
 
-			} else {
-				// Set opacity of feature labels based on opacity values. 
-				// if opacity = 0 for a layer, then the labels are also set to 0.
-				Layer.SetPaintProperty(this.map, currentLayerID, 'text-opacity', symbolOpacityExpression);
+				} else {
+					// Set opacity of feature labels based on opacity values. 
+					// if opacity = 0 for a layer, then the labels are also set to 0.
+					Layer.SetPaintProperty(this.map, currentLayerID, 'text-opacity', symbolOpacityExpression);
+				}
 			}
 		}
 	}
