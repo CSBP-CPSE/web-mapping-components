@@ -113,7 +113,7 @@ export default class Legend extends Control {
 	 * @param {object} legendItem - Object containing the style information 
 	 * @retruns - An object containing the legendItem color and value if available
 	 */
-	GetStylingFromLegendItem(legendItem) {
+	static GetStylingFromLegendItem(legendItem) {
 		let style = {};
 
 		if (legendItem.color) {
@@ -134,7 +134,7 @@ export default class Legend extends Control {
 	 * @returns A list of style objects containing colours and conditions
 	 * needed to paint layers with that colour.
 	 */
-	GetListOfStyles(legendConfig) {
+	static GetListOfStyles(legendConfig) {
 		let i, j, legendItem, groupItems;
 		let styleCollection = [];
 
