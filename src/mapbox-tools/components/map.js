@@ -200,6 +200,18 @@ export default class Map extends Evented {
 	}
 
 	/**
+	 * Toggle the visibility of a map layer
+	 * @param {string} layerID map layer to be hidden/shown
+	 */
+	ToggleMapLayerVisibility(layerID) {
+		if (this.map.getLayoutProperty(layerID, 'visibility') === 'visible'){
+			Layer.HideLayer(this.map, layerID);
+		} else {
+			Layer.ShowLayer(this.map, layerID);
+		}
+	}
+
+	/**
 	 * Update Map Layers based on current status of legend
 	 * @param {array} layerIDs - a list of layer id
 	 * @param {object} legend - reference to the current legend object
