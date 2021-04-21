@@ -40,10 +40,10 @@ export default class Layer {
 	 * @param {string} layoutProperty - Paint Property of the map layer
 	 * @param {array || string} styleRules - Mapbox expression of style rules or a rgba string value.
 	 */
-	static SetLayoutProperty(map, layerId, paintProperty, styleRules) {
-		// Check that layer exists in map
+	static SetLayoutProperty(map, layerId, layoutProperty, styleRules) {
+		// Check that layer exists in map and update it
 		if (map.getLayer(layerId)) {
-			map.setLayoutProperty(layerId, paintProperty, styleRules);
+			map.setLayoutProperty(layerId, layoutProperty, styleRules);
 		}
 	}
 
