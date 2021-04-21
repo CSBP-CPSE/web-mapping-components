@@ -123,7 +123,11 @@ export function generateOpacityExpression(legend, opacity) {
 				// Add opacity to cases list
 				expression.push(styleOpacity);
 			} else {
-				defaultOpacity = styleOpacity || opacity;
+				if (styleOpacity >= 0 && styleOpacity <= 1) {
+					defaultOpacity = styleOpacity;
+				} else {
+					defaultOpacity = opacity;
+				}
 			}
 		}
 
