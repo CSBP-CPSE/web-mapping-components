@@ -37,14 +37,24 @@ export default class Layer {
 	 * Method to update a layout property for a layer
 	 * @param {object} map - Reference to map
 	 * @param {string} layerId - Name of the map layer
-	 * @param {string} layoutProperty - Paint Property of the map layer
-	 * @param {array || string} styleRules - Mapbox expression of style rules or a rgba string value.
+	 * @param {string} layoutProperty - Layout Property of the map layer
+	 * @param {array || string} styleRules - Mapbox expression of layout rules and values.
 	 */
 	static SetLayoutProperty(map, layerId, layoutProperty, styleRules) {
 		// Check that layer exists in map and update it
 		if (map.getLayer(layerId)) {
 			map.setLayoutProperty(layerId, layoutProperty, styleRules);
 		}
+	}
+
+	/**
+	 * Set the filter on a map layer
+	 * @param {object} map 
+	 * @param {string} layerId 
+	 * @param {array || string} expression - Mapbox expression o
+	 */
+	static SetFilter(map, layerId, expression) {
+		map.setFilter(layerId, expression);
 	}
 
 	ReorderLayers(map, layers) {
