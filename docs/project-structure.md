@@ -16,6 +16,7 @@ src/
 │       ├── core.js
 │       ├── dom.js
 │       ├── net.js
+│       ├── store.js # Provides methods for storing/retrieving data from local storage
 │       └── util.js
 ├── main.js
 └── mapbox-tools
