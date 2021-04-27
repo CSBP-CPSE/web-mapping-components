@@ -13,7 +13,7 @@ export default class Navigation extends Evented {
 	constructor(options) {	
 		super();
 		
-		this._n = new mapboxgl.NavigationControl({ showCompass:options.showCompass, showZoom:options.showZoom });
+		this._n = new maplibregl.NavigationControl({ showCompass:options.showCompass, showZoom:options.showZoom });
 		
 		this.options = options;
 	}

@@ -24,7 +24,7 @@ export default class Factory {
 	}
 	/*
 	static NavigationControl(showCompass, showZoom) {
-		return new mapboxgl.NavigationControl({ showCompass:showCompass, showZoom:showZoom });
+		return new maplibregl.NavigationControl({ showCompass:showCompass, showZoom:showZoom });
 	}
 	*/
 	static NavigationControl(showCompass, showZoom, titleIn, titleOut) {
@@ -36,21 +36,21 @@ export default class Factory {
 	}
 	
 	static GeolocateControl() {
-		return new mapboxgl.GeolocateControl({
+		return new maplibregl.GeolocateControl({
 			positionOptions: { enableHighAccuracy: true },
 			trackUserLocation: true
 		});
 	} 
 	
 	static ScaleControl(units) {
-		return new mapboxgl.ScaleControl({
+		return new maplibregl.ScaleControl({
 			maxWidth: 80,
 			unit: units
 		});
 	}
 	
 	static AttributionControl() {
-		return new mapboxgl.AttributionControl({ compact: true });
+		return new maplibregl.AttributionControl({ compact: true });
 	}
 	
 	// TODO : LegendControl requires too many parameters

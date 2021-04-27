@@ -15,12 +15,12 @@ export default class Map extends Evented {
 	 * @param {string} value - map box access token
 	 */
 	static set Token(value) { 
-		mapboxgl.accessToken = value; 
+		maplibregl.accessToken = value; 
 	}
 	
 	// Get the access token
 	static get Token() { 
-		return mapboxgl.accessToken; 
+		return maplibregl.accessToken; 
 	}
 	
 	// Get the map container
@@ -61,7 +61,7 @@ export default class Map extends Evented {
 		
 		this.click = this.OnLayerClick_Handler.bind(this);
 		
-		this.map = new mapboxgl.Map(options); 
+		this.map = new maplibregl.Map(options); 
 		
 		this.map.once('styledata', this.OnceStyleData_Handler.bind(this));
 		
@@ -181,7 +181,7 @@ export default class Map extends Evented {
 	}
 	
 	InfoPopup(lngLat, html) {	
-		var popup = new mapboxgl.Popup({ closeOnClick: true })
+		var popup = new maplibregl.Popup({ closeOnClick: true })
 			.setLngLat(lngLat)
 			.setHTML(html)
 			.addTo(this.map);
