@@ -1,4 +1,3 @@
-import array from '../src/basic-tools/tools/array.js';
 import util from '../src/basic-tools/tools/util.js';
 import dom from '../src/basic-tools/tools/dom.js';
 import assert from 'assert';

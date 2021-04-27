@@ -3,6 +3,7 @@ export { default as Util } from './basic-tools/tools/util.js';
 export { default as Core } from './basic-tools/tools/core.js';
 export { default as Dom } from './basic-tools/tools/dom.js';
 export { default as Net } from './basic-tools/tools/net.js';
+export { default as Store } from './basic-tools/tools/store.js';
 
 export { default as Evented } from './basic-tools/components/evented.js'
 export { default as Templated } from './basic-tools/components/templated.js'
