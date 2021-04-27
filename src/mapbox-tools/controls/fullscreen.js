@@ -13,7 +13,7 @@ export default class Fullscreen extends Evented {
 	constructor(options) {	
 		super();
 		
-		this._fs = new mapboxgl.FullscreenControl();
+		this._fs = new maplibregl.FullscreenControl();
 		
 		this.options = options;
 	}
