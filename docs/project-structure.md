@@ -1,22 +1,10 @@
 # Web-Mapping-Components Structure Notes:
 
 ## Dependencies:
-The web-mapping-components library uses maplibre-gl for creating map viewer applications. As a result you 
-will need to include a script tag referencing that resource in order to use this library.
+The web-mapping-components library has the following dependencies;
 
-Examples of how to add maplibre-gl to your viewer project using a script tag:
-
-*mapLibre-gl library stored locally in your project:*
-```html
-<script src='./localdir/maplibre-gl.js'></script>
-```
-
-or 
-
-*maplibre-gl provided remotely (e.g. by a CDN):*
-```html
-<script src='https://unpkg.com/maplibre-gl@1.14.0/dist/maplibre-gl.js'></script>
-```
+* [maplibre-gl](https://www.npmjs.com/package/maplibre-gl)
+* [promise-polyfill](https://www.npmjs.com/package/promise-polyfill)
 
 ## Source Tree:
 ```

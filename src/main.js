@@ -11,8 +11,6 @@ export { default as Popup } from './basic-tools/components/popup.js'
 export { default as Tooltip } from './basic-tools/components/tooltip.js'
 export { default as Typeahead } from './basic-tools/components/typeahead.js'
 
-export * as Promise from './basic-tools/polyfill/promise.min.js'
-
 // Aggregation of mapbox-tools modules 
 export { default as Bookmarks } from './mapbox-tools/controls/bookmarks.js'
 export { default as Download } from './mapbox-tools/controls/download.js'
