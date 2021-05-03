@@ -1,5 +1,3 @@
-'use strict';
-
 import Dom from '../tools/dom.js';
 import Templated from './templated.js';
 

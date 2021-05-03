@@ -1,5 +1,3 @@
-'use strict';
-
 import Core from '../tools/core.js';
 import Dom from '../tools/dom.js';
 import Evented from './evented.js';

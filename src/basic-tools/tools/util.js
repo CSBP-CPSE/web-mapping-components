@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Util class, containing various utility methods for processing
  * data in different formats.

@@ -1,5 +1,3 @@
-'use strict';
-
 import Util from './util.js';
 
 /**
