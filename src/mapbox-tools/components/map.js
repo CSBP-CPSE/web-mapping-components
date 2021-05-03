@@ -11,43 +11,67 @@ import {generateColourExpression, generateOpacityExpression, generateSymbolOpaci
 export default class Map extends Evented {
 				
 	/**
-	 * Set the map box access token
-	 * @param {string} value - map box access token
+	 * Set the mapbox access token
+	 * @param {string} value map box access token
 	 */
 	static set Token(value) { 
 		maplibregl.accessToken = value; 
 	}
 	
-	// Get the access token
+	/**
+	 * Get the access token
+	 * @returns {string} mapbox access token
+	 */
 	static get Token() { 
 		return maplibregl.accessToken; 
 	}
 	
-	// Get the map container
+	/**
+	 * Get the Dom element that is the map container
+	 * @return {object} the html element used to contain the map
+	 */
 	get Container() {
 		return this.map._container;
 	}
 	
-	// Get the center of the map
-	// e.g. {lat: 50, lng: -100}
+	/**
+	 * Get the center of the map
+	 * @returns {object} the center coordinates of the map
+	 * e.g. {lat: 50, lng: -100}
+	 */
 	get Center() {
 		return this.map.getCenter();
 	}
 	
-	set Center(value) {
-		this.map.setCenter(value)
+	/**
+	 * Set the center of the map
+	 * @param {object} coords The coordinates for the center of the map
+	 * E.g. {lat: 50, lng: -100}
+	 */
+	set Center(coords) {
+		this.map.setCenter(coords)
 	}
 	
-	// Get the current map zoom level (numeric value)
+	/**
+	 * Get the current map zoom level
+	 * @returns {number} map zoom level (between 0-22)
+	 */ 
 	get Zoom() {
 		return this.map.getZoom();
 	}
 	
+	/**
+	 * Set the map zoom level
+	 * @param {number} value map zoom value
+	 */
 	set Zoom(value) {
 		this.map.setZoom(value)
 	}
 	
-	// Get the current map style URL
+	/**
+	 * Get the current map style URL
+	 * @returns {string} URL to the map style document
+	 */
 	get Style() {
 		return this.style;
 	}
@@ -74,7 +98,7 @@ export default class Map extends Evented {
 		this.map.once('load', ev => {
 			// Fix for improve this map in french
 			this.map.getContainer().querySelector('.mapbox-improve-map').innerHTML = Core.Nls("Mapbox_Improve");
-		})
+		});
 	}
 	
 	/**
