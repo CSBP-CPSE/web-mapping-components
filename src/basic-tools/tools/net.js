@@ -40,6 +40,11 @@ export default class Net {
 		return d.promise;
 	}
 	
+	/**
+	 * Request a JSON file 
+	 * @param {string} url reference to a json file
+	 * @returns a promise to the json file being requested
+	 */
 	static JSON(url) {
 		var d = Core.Defer();
 		
