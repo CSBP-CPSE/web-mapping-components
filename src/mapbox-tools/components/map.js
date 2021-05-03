@@ -80,7 +80,6 @@ export default class Map extends Evented {
 		super();
 		
 		this.layers = [];
-		this.original = {};
 		this.style = options.style;
 		
 		this.click = this.OnLayerClick_Handler.bind(this);
@@ -215,14 +214,6 @@ export default class Map extends Evented {
 		popup._closeButton.title = Core.Nls('Mapbox_Close_Popup');
 	}
 	
-	Reset(layers) {
-		layers.forEach(l => {
-			this.map.setPaintProperty(l, 'fill-color', this.original[l])
-		});
-		
-		this.original = {};
-	}
-
 	/**
 	 * Toggle the visibility of a map layer
 	 * @param {string} layerID map layer to be hidden/shown
@@ -265,7 +256,6 @@ export default class Map extends Evented {
 
 					// Update layer colour properties
 					if (layerProperty && this.map.getPaintProperty(currentLayerID, layerProperty)) {
-						this.original[currentLayerID] = this.map.getPaintProperty(currentLayerID, layerProperty);
 						Layer.SetPaintProperty(this.map, currentLayerID, layerProperty, colourExpression);
 					}
 				}
@@ -289,9 +279,6 @@ export default class Map extends Evented {
 				if (layerType !== 'symbol') {
 					// Update layer opacity properties
 					if (layerFillProperty) {
-						// TODO: original styling should be stored as an object containing layer objects, which 
-						// contain original style properties. 
-						// this.original[currentLayerID] = this.map.getPaintProperty(currentLayerID, layerProperty);
 						Layer.SetPaintProperty(this.map, currentLayerID, layerFillProperty, opacityExpression);
 
 						// If layer type is a circle, update circle stroke opacity to match circle-opacity
