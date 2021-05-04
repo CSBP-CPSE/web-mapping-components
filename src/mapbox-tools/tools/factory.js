@@ -41,6 +41,11 @@ export default class Factory {
 		return new Navigation({ showCompass:showCompass, showZoom:showZoom, titleIn:titleIn, titleOut:titleOut });
 	}
 	
+	/**
+	 * Add a full screen control button which makes the map take up the full screen resolution
+	 * @param {string} title tooltip text which appears when hovering over the button
+	 * @returns {object} maplibre fullscreencontrol object
+	 */
 	static FullscreenControl(title) {
 		return new Fullscreen({ title:title });
 	}
