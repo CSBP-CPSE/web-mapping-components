@@ -32,19 +32,23 @@ export default class Factory {
 		return new Map({ container: container, style: style, center: center, zoom: zoom });
 	}
 
-	/*
-	static NavigationControl(showCompass, showZoom) {
-		return new maplibregl.NavigationControl({ showCompass:showCompass, showZoom:showZoom });
-	}
-	*/
+	/**
+	 * Add map navigation control buttons for zooming in and out of the map, and for
+	 * resetting the bearing North
+	 * @param {boolean} showCompass indicate if the compass button should be shown (true) or not (false)
+	 * @param {boolean} showZoom indicate if zoom buttons should be shown (true) or not (false)
+	 * @param {string} titleIn tooltip text that appears when hovering over the zoom in button
+	 * @param {string} titleOut tooltip text that appears when hovering over the zoom out button
+	 * @returns {object} Navigation control object
+	 */
 	static NavigationControl(showCompass, showZoom, titleIn, titleOut) {
 		return new Navigation({ showCompass:showCompass, showZoom:showZoom, titleIn:titleIn, titleOut:titleOut });
 	}
 	
 	/**
-	 * Add a full screen control button which makes the map take up the full screen resolution
-	 * @param {string} title tooltip text which appears when hovering over the button
-	 * @returns {object} maplibre fullscreencontrol object
+	 * Add a full screen control button that makes the map take up the full screen resolution
+	 * @param {string} title tooltip text that appears when hovering over the button
+	 * @returns {object} Fullscreen control object
 	 */
 	static FullscreenControl(title) {
 		return new Fullscreen({ title:title });
