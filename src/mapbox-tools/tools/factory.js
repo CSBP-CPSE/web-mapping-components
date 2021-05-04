@@ -52,6 +52,11 @@ export default class Factory {
 		});
 	} 
 	
+	/**
+	 * Create a new scale control that's added to the map component
+	 * @param {string} units the unit of measurement used by the scale bar; 'imperial', 'metric', or 'nautical'.
+	 * @returns {object} mablibre scalecontrol object
+	 */
 	static ScaleControl(units) {
 		return new maplibregl.ScaleControl({
 			maxWidth: 80,
