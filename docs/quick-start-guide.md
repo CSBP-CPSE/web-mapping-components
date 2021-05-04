@@ -25,7 +25,8 @@ The web-mapping-components library currently has two dependencies which are **no
 * [maplibre-gl](https://www.npmjs.com/package/maplibre-gl)
 * [promise-polyfill](https://www.npmjs.com/package/promise-polyfill))
 
-## How To Add A Map:
+## Map Component:
+### How To Add A Map:
 The heart of the web-mapping-components library is the map being created using the maplibre-gl library. A new map can be created using the Factory class Map method. 
 
 **Factory.Map parameters**:
@@ -48,4 +49,30 @@ let options = {
 };
 
 let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle, options.mapCenter, options.mapZoom);
+```
+
+### Map Controls:
+Built into the web-mapping-components library are numerous map controls, which can be added to enhance the functionality of the Map Component.
+
+To add a map control, simple create it, and then add it with the <map-object>.AddControl method.
+
+Example:
+```javascript
+...
+let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle, options.mapCenter, options.mapZoom);
+myMap.AddControl(<control-object>);
+```
+
+#### Scale Bar:
+A scare bar can be added using the Factory.ScaleControl method.
+
+**Factory.ScaleControl parameters**:
+* units: The name of the unit of measurement used by the scale bar, which can be; 'imperial', 'metric', or 'nautical'.
+
+Example: 
+```javascript
+import { Factory } from './web-mapping-components.js';
+
+let myScale = Factory.ScaleControl('metric');
+<map-object>.AddControl(myScale);
 ```
