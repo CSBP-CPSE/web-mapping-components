@@ -51,9 +51,10 @@ let options = {
 let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle, options.mapCenter, options.mapZoom);
 ```
 
-### Map Controls:
+## Map Controls:
 Built into the web-mapping-components library are numerous map controls, which can be added to enhance the functionality of the Map Component.
 
+### How To Add Controls To A Map:
 To add a map control, simple create it, and then add it with the <map-object>.AddControl method.
 
 Example:
@@ -63,7 +64,7 @@ let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle
 myMap.AddControl(<control-object>);
 ```
 
-#### Map Navigation Buttons:
+### Map Navigation Control:
 Map Navigation Buttons to zoom in and out of the map and reset bearing to North, can be added using the Factory.NavigationControl method.
 
 Factory.NavigationControl Parameters:
@@ -83,7 +84,7 @@ let myMapNavBtns = Factory.NavigationControl(true, true, 'Click to zoom-in', 'Cl
 <map-object>.AddControl(myMapNavBtns);
 ```
 
-#### Scale Bar:
+### Scale Bar Control:
 A scale bar can be added using the Factory.ScaleControl method.
 
 Factory.ScaleControl Parameter:
@@ -97,7 +98,7 @@ let myScale = Factory.ScaleControl('metric');
 <map-object>.AddControl(myScale);
 ```
 
-#### Full Screen Button:
+### Full-Screen Control:
 A button to make the map full screen, can be added using the Factory.FullscreenControl method.
 
 Factory.FullscreenControl Parameter:
