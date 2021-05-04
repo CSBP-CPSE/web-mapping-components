@@ -17,11 +17,21 @@ import Map from '../components/map.js';
  */
 export default class Factory {
 
+	/**
+	 * A factory method used to create new Map components
+	 * @param {object} container DOM reference to the HTML containing the map
+	 * @param {string} token mapbox access token (provided by Mapbox)
+	 * @param {string} style url to the mapbox map style document
+	 * @param {object} center object containing the lat/long coordinates for the center of the map.
+	 * @param {number} zoom the map zoom level (between 0-22).
+	 * @returns {object} A Map object
+	 */
 	static Map(container, token, style, center, zoom) {
 		Map.Token = token;
 		
 		return new Map({ container: container, style: style, center: center, zoom: zoom });
 	}
+
 	/*
 	static NavigationControl(showCompass, showZoom) {
 		return new maplibregl.NavigationControl({ showCompass:showCompass, showZoom:showZoom });
