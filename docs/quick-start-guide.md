@@ -63,6 +63,26 @@ let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle
 myMap.AddControl(<control-object>);
 ```
 
+#### Map Navigation Buttons:
+Map Navigation Buttons to zoom in and out of the map and reset bearing to North, can be added using the Factory.NavigationControl method.
+
+**Factory.NavigationControl Parameters**:
+* showCompass: Indicate (true or false) if the compass button should be shown, which
+allows user to reset the map bearing to North).
+* showZoom: Indicate (true or false) if the map zoom in/out buttons should be shown.
+* titleIn: The title text (i.e. the tooltip text that appears when hovering the
+cursor over it) for the map zoom-in button.
+* titleOut: The title text (i.e. the tooltip text that appears when hovering the
+cursor over it) for the map zoom-out button.
+
+Example: 
+```javascript
+import { Factory } from './web-mapping-components.js';
+
+let myMapNavBtns = Factory.NavigationControl(true, true, 'Click to zoom-in', 'Click to zoom-out');
+<map-object>.AddControl(myMapNavBtns);
+```
+
 #### Scale Bar:
 A scale bar can be added using the Factory.ScaleControl method.
 
