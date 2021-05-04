@@ -16,7 +16,7 @@ For example if you wanted to use the Factory module to create a Map from the web
 ```javascript
 import { Factory } from './<library-location>/web-mapping-components.js';
 
-let myMap = new Factory.Map(<passed-arguments>);
+let myMap = Factory.Map(<passed-arguments>);
 ```
 
 ## External Dependencies:
@@ -24,3 +24,28 @@ The web-mapping-components library currently has two dependencies which are **no
 
 * [maplibre-gl](https://www.npmjs.com/package/maplibre-gl)
 * [promise-polyfill](https://www.npmjs.com/package/promise-polyfill))
+
+## How To Add A Map:
+The heart of the web-mapping-components library is the map being created using the maplibre-gl library. A new map can be created using the Factory class Map method. 
+
+**Factory.Map parameters**:
+* container: DOM reference to the HTML containing the map
+* token: mapbox access token (provided by Mapbox)
+* style: url to the mapbox map style document
+* center: object containing the lat/long coordinates for the center of the map.
+* zoom: the map zoom level (between 0-22).
+
+Example:
+```javascript
+import { Factory } from './web-mapping-components.js';
+
+let options = {
+	container: document.getElementById('my-map-container-id'),
+	accessToken: '<your-mapbox-access-token>',
+	mapStyle: 'mapbox://styles/<your-user-name>/<your-map-style-id>',
+	mapCenter: {lng: -75, lat: 46},
+	mapZoom: 12
+};
+
+let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle, options.mapCenter, options.mapZoom);
+```
