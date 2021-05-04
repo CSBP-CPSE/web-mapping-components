@@ -29,7 +29,7 @@ The web-mapping-components library currently has two dependencies which are **no
 ### How To Add A Map:
 The heart of the web-mapping-components library is the map being created using the maplibre-gl library. A new map can be created using the Factory class Map method. 
 
-**Factory.Map parameters**:
+**Factory.Map Parameters**:
 * container: DOM reference to the HTML containing the map
 * token: mapbox access token (provided by Mapbox)
 * style: url to the mapbox map style document
@@ -64,9 +64,9 @@ myMap.AddControl(<control-object>);
 ```
 
 #### Scale Bar:
-A scare bar can be added using the Factory.ScaleControl method.
+A scale bar can be added using the Factory.ScaleControl method.
 
-**Factory.ScaleControl parameters**:
+**Factory.ScaleControl Parameter**:
 * units: The name of the unit of measurement used by the scale bar, which can be; 'imperial', 'metric', or 'nautical'.
 
 Example: 
@@ -75,4 +75,18 @@ import { Factory } from './web-mapping-components.js';
 
 let myScale = Factory.ScaleControl('metric');
 <map-object>.AddControl(myScale);
+```
+
+#### Full Screen Button:
+A button to make the map full screen, can be added using the Factory.FullscreenControl method.
+
+**Factory.FullscreenControl Parameter**:
+* title: The title text (i.e. the tooltip text that appears when hovering the cursor over it) for the button.
+
+Example:
+```javascript
+import { Factory } from './web-mapping-components.js';
+
+let myFullScreenBtn = Factory.FullscreenControl('Click to make the map full screen');
+<map-object>.AddControl(myFullScreenBtn);
 ```
