@@ -18,3 +18,9 @@ import { Factory } from './<library-location>/web-mapping-components.js';
 
 let myMap = new Factory.Map(<passed-arguments>);
 ```
+
+## External Dependencies:
+The web-mapping-components library currently has two dependencies which are **not** currently bundled with the library, and will need to be included with your project in some manner.
+
+* [maplibre-gl](https://www.npmjs.com/package/maplibre-gl)
+* [promise-polyfill](https://www.npmjs.com/package/promise-polyfill))
