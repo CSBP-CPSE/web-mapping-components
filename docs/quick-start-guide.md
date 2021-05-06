@@ -29,7 +29,7 @@ The web-mapping-components library currently has two dependencies which are **no
 ### How To Add A Map:
 The heart of the web-mapping-components library is the map being created using the maplibre-gl library. A new map can be created using the Factory class Map method. 
 
-Factory.Map Parameters:
+**Factory.Map Parameters**:
 * container: DOM reference to the HTML containing the map
 * token: mapbox access token (provided by Mapbox)
 * style: url to the mapbox map style document
@@ -55,19 +55,24 @@ let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle
 Built into the web-mapping-components library are numerous map controls, which can be added to enhance the functionality of the Map Component.
 
 ### How To Add Controls To A Map:
-To add a map control, simple create it, and then add it with the <map-object>.AddControl method.
+To add a map control, first create the control object, and then add it with the map object's AddControl method.
 
-Example:
+**Map.AddControl Parameters**:
+* control: The control object you want added to the map.
+* location: the control's location on the map. e.g. 'top-left', 'top-right', 'bottom-left', and 'bottom-right'.
+
+**Example**:
 ```javascript
 ...
 let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle, options.mapCenter, options.mapZoom);
-myMap.AddControl(<control-object>);
+let scaleBar = Factory.ScaleControl('metric');
+myMap.AddControl(scaleBar, 'top-left');
 ```
 
 ### Map Navigation Control:
 Map Navigation Buttons to zoom in and out of the map and reset bearing to North, can be added using the Factory.NavigationControl method.
 
-Factory.NavigationControl Parameters:
+**Factory.NavigationControl Parameters**:
 * showCompass: Indicate (true or false) if the compass button should be shown, which
 allows user to reset the map bearing to North).
 * showZoom: Indicate (true or false) if the map zoom in/out buttons should be shown.
@@ -76,38 +81,50 @@ cursor over it) for the map zoom-in button.
 * titleOut: The title text (i.e. the tooltip text that appears when hovering the
 cursor over it) for the map zoom-out button.
 
-Example: 
+**Example**: 
 ```javascript
 import { Factory } from './web-mapping-components.js';
 
-let myMapNavBtns = Factory.NavigationControl(true, true, 'Click to zoom-in', 'Click to zoom-out');
-<map-object>.AddControl(myMapNavBtns);
+let mapNavBtns = Factory.NavigationControl(true, true, 'Click to zoom-in', 'Click to zoom-out');
+<map-object>.AddControl(mapNavBtns, 'top-left');
 ```
 
 ### Scale Bar Control:
 A scale bar can be added using the Factory.ScaleControl method.
 
-Factory.ScaleControl Parameter:
+**Factory.ScaleControl Parameter**:
 * units: The name of the unit of measurement used by the scale bar, which can be; 'imperial', 'metric', or 'nautical'.
 
-Example: 
+**Example**: 
 ```javascript
 import { Factory } from './web-mapping-components.js';
 
-let myScale = Factory.ScaleControl('metric');
-<map-object>.AddControl(myScale);
+let scaleBar = Factory.ScaleControl('metric');
+<map-object>.AddControl(scaleBar, 'bottom-left');
 ```
 
 ### Full-Screen Control:
 A button to make the map full screen, can be added using the Factory.FullscreenControl method.
 
-Factory.FullscreenControl Parameter:
+**Factory.FullscreenControl Parameter**:
 * title: The title text (i.e. the tooltip text that appears when hovering the cursor over it) for the button.
 
-Example:
+**Example**:
 ```javascript
 import { Factory } from './web-mapping-components.js';
 
-let myFullScreenBtn = Factory.FullscreenControl('Click to make the map full screen');
-<map-object>.AddControl(myFullScreenBtn);
+let fullScreenBtn = Factory.FullscreenControl('Click to make the map full screen');
+<map-object>.AddControl(fullScreenBtn, 'top-left');
 ```
+
+### Geo-Locate Control:
+A button which will geo-locate your position when clicked. This control can be added using the Factory.GeolocateControl method.
+
+**Example**:
+```javascript
+import { Factory } from './web-mapping-components.js';
+
+let geolocate = Factory.GeolocateControl();
+<map-object>.AddControl(geolocate, 'top-left');
+```
+
