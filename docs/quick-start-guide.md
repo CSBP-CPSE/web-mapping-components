@@ -140,6 +140,8 @@ In general there are two main ways add data to a map;
 1. The easiest is to add it directly as a layer to your map style document via mapbox studio, which will be automatically loaded when you load the map style document.
 2. Alternatively if your data is available as an external source, you can also reference that data, and then add it directlt to the map.
 
+Note: When adding data sources and layers to mapbox map, it's important to know that in some cases you may need to listen to events, to ensure that the map is ready to have a data source added or a layer added.
+
 ### Adding A Data Source:
 An external geojson data source can be added using the Map.AddSource method. Note: Mapbox supports multiple data source types; tile sets, vector, raster, raster-dem, geojson, images and video. See [mapbox-gl documentation](https://docs.mapbox.com/mapbox-gl-js/style-spec/sources/) for further details.
 
@@ -193,7 +195,7 @@ let citiesSource = {
 ```
 
 ### Add a Map Layer:
-After adding a new data source, the data can be added to a map as a layer. This can be performed using the Map.AddLayer method.
+After adding a new data source, the data can be added to a map as a layer. This can be performed using the Map.AddLayer method. Note: Mapbox provides a variety of layer types, which can be added, including; background, fill, line, symbol, raster, circle, fill-extrusion, heatmap, hillshade, and sky. See [mapbox-gl documentation](https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/) for further details.
 
 **Map.AddLayer Parameter**:
 layer: The object containing the details about the layer.
@@ -212,4 +214,3 @@ layer: The object containing the details about the layer.
 
 	this.map.AddLayer(citiesLayer);
 ```
-
