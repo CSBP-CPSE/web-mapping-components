@@ -33,7 +33,7 @@ export default class Factory {
 	}
 
 	/**
-	 * Add map navigation control buttons for zooming in and out of the map, and for
+	 * Create map navigation control buttons for zooming in and out of the map, and for
 	 * resetting the bearing North
 	 * @param {boolean} showCompass indicate if the compass button should be shown (true) or not (false)
 	 * @param {boolean} showZoom indicate if zoom buttons should be shown (true) or not (false)
@@ -46,7 +46,7 @@ export default class Factory {
 	}
 	
 	/**
-	 * Add a full screen control button that makes the map take up the full screen resolution
+	 * Create a full screen control button that makes the map take up the full screen resolution
 	 * @param {string} title tooltip text that appears when hovering over the button
 	 * @returns {object} Fullscreen control object
 	 */
@@ -54,6 +54,11 @@ export default class Factory {
 		return new Fullscreen({ title:title });
 	}
 	
+	/**
+	 * Creates a geolocate control that when clicked attempts to geo-locate your real world position
+	 * and update the map extent to your current location.
+	 * @returns {object} a maplibre GeolocateControl object
+	 */
 	static GeolocateControl() {
 		return new maplibregl.GeolocateControl({
 			positionOptions: { enableHighAccuracy: true },
