@@ -192,3 +192,24 @@ let citiesSource = {
 <map-object>.AddSource('cities', citiesSource);
 ```
 
+### Add a Map Layer:
+After adding a new data source, the data can be added to a map as a layer. This can be performed using the Map.AddLayer method.
+
+**Map.AddLayer Parameter**:
+layer: The object containing the details about the layer.
+
+**Example**:
+```javascript
+	let citiesLayer = {
+		id: 'worldcities',
+		source: 'cities',
+		type: 'circle',
+		paint: {
+			'circle-color': "#000000",
+			'circle-radius': 8
+		}
+	};
+
+	this.map.AddLayer(citiesLayer);
+```
+
