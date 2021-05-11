@@ -95,8 +95,11 @@ export default class Map extends Evented {
 		this.WrapEvent('load', 'Load');
 		
 		this.map.once('load', ev => {
+			let mapContainer = this.map.getContainer();
 			// Fix for improve this map in french
-			this.map.getContainer().querySelector('.mapbox-improve-map').innerHTML = Core.Nls("Mapbox_Improve");
+			if (mapContainer && mapContainer.querySelector('.mapbox-improve-map')) {
+				mapContainer.querySelector('.mapbox-improve-map').innerHTML = Core.Nls("Mapbox_Improve");
+			}
 		});
 	}
 	
