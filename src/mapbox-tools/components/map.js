@@ -317,6 +317,10 @@ export default class Map extends Evented {
 		this.map.setMaxBounds(bounds);
 	}
 
+	/**
+	 * Set the map style of the map.
+	 * @param {string} style URL of the mapbox map style document
+	 */
 	SetStyle(style) {
 		this.style = style;
 		
@@ -353,6 +357,11 @@ export default class Map extends Evented {
 		this.Emit('Click', ev);
 	}
 	
+	/**
+	 * Wraps original mapbox event with a new event
+	 * @param {string} oEv original mapbox event
+	 * @param {string} nEv new event
+	 */
 	WrapEvent(oEv, nEv) {
 		var f = (ev) => this.Emit(nEv, ev);
 		
