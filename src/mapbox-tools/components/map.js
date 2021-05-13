@@ -254,7 +254,7 @@ export default class Map extends Evented {
 				// Get Layer Colour Property
 				let currentLayerID = layerIDs[i];
 				let layerType = Layer.GetLayerType(this.map, currentLayerID);
-				if (layerType !== 'symbol') {
+				if (layerType && layerType !== 'symbol') {
 					let layerProperty = layerType + '-color';
 
 					// Update layer colour properties
@@ -279,21 +279,23 @@ export default class Map extends Evented {
 				let layerType = Layer.GetLayerType(this.map, currentLayerID);
 				let layerFillProperty = layerType + '-opacity';
 
-				if (layerType !== 'symbol') {
-					// Update layer opacity properties
-					if (layerFillProperty) {
-						Layer.SetPaintProperty(this.map, currentLayerID, layerFillProperty, opacityExpression);
+				if (layerType) {
+					if (layerType !== 'symbol') {
+						// Update layer opacity properties
+						if (layerFillProperty) {
+							Layer.SetPaintProperty(this.map, currentLayerID, layerFillProperty, opacityExpression);
 
-						// If layer type is a circle, update circle stroke opacity to match circle-opacity
-						if (layerType === 'circle') {
-							Layer.SetPaintProperty(this.map, currentLayerID, 'circle-stroke-opacity', opacityExpression);
+							// If layer type is a circle, update circle stroke opacity to match circle-opacity
+							if (layerType === 'circle') {
+								Layer.SetPaintProperty(this.map, currentLayerID, 'circle-stroke-opacity', opacityExpression);
+							}
 						}
-					}
 
-				} else {
-					// Set opacity of feature labels based on opacity values. 
-					// if opacity = 0 for a layer, then the labels are also set to 0.
-					Layer.SetPaintProperty(this.map, currentLayerID, 'text-opacity', symbolOpacityExpression);
+					} else {
+						// Set opacity of feature labels based on opacity values. 
+						// if opacity = 0 for a layer, then the labels are also set to 0.
+						Layer.SetPaintProperty(this.map, currentLayerID, 'text-opacity', symbolOpacityExpression);
+					}
 				}
 			}
 		}
