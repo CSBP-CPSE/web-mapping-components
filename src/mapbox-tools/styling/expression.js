@@ -6,6 +6,58 @@
 import Legend from '../controls/legend.js';
 
 /**
+ * Converts a list of rgb numbers into an rgb or rgba string
+ * @param {array} colourList 
+ * @returns {string} rgb or rgba string
+ * Examples:
+ *   [50,150,250] -> "rgb(50,150,250)"
+ *   [50,150,250,0.5] -> "rgba(50,150,250,0.5)"
+ */
+function colourListToRGBString(colourList) {
+	let rgbString;
+
+	if (Array.isArray(colourList) && colourList.length >= 3) {
+		if (colourList.length === 3) {
+			rgbString = 'rgb(' + colourList.join(',') + ')';
+
+		} else if (styleItem.color.length === 4) {
+			rgbString = 'rgba(' + colourList.join(',') + ')';
+		}
+	}
+
+	return rgbString;
+}
+
+/**
+ * 
+ * Generate a list of opacity values for each legend item based on;
+ * the checkbox state, and if the legend item has the property binary_opacity
+ * set in the map config file.
+ * @param {object} legend current legend object
+ * @param {number} storedOpacity the stored opacity value
+ */
+function generateLegendOpacityValues(legend, storedOpacity) {
+	let legendOpacities = [];
+	let i, chkBox;
+
+	if (legend && legend.chkBoxesState) {
+		for (i = 0; i < legend.chkBoxesState.length; i += 1) {
+			chkBox = legend.chkBoxesState[i];
+
+			if (chkBox && chkBox.checkbox && !chkBox.checkbox.checked) {
+				legendOpacities.push(0);
+			} else if (chkBox && chkBox.item && chkBox.item.binary_opacity) {
+				legendOpacities.push(1);
+			} else {
+				legendOpacities.push(storedOpacity);
+			}
+		}
+	}
+
+	return legendOpacities;
+}
+
+/**
  * Generate mapbox expression for fill colours defined in the map config file.
  * @param {object} legend - object containing the legend details stored in
  * the map config file.
