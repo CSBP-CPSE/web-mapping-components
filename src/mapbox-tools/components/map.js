@@ -272,7 +272,7 @@ export default class Map extends Evented {
 		var opacityExpression = generateOpacityExpression(legend, opacity);
 		var symbolOpacityExpression = generateSymbolOpacityExpression(opacityExpression);
 
-		if (opacityExpression && symbolOpacityExpression) {
+		if ((opacityExpression || opacityExpression === 0) && (symbolOpacityExpression || symbolOpacityExpression === 0)) {
 			for (var i = 0; i < layerIDs.length; i += 1) {
 				// Get Layer Colour Property
 				let currentLayerID = layerIDs[i];
