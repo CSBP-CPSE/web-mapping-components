@@ -80,7 +80,7 @@ export function generateColourExpression(legend) {
 	}
 	
 	// Check that legend items length equals opacity length
-	if (Array.isArray(legendStyles) && legendStyles.length > 0) {
+	if (Array.isArray(legendStyles) && legendStyles.length > 1) {
 		expression = ['case'];
 		for (i = 0; i < legendStyles.length; i += 1) {
 			styleItem = legendStyles[i];
@@ -88,12 +88,7 @@ export function generateColourExpression(legend) {
 			if (styleItem) {
 				// Define style color
 				if (styleItem.color) {
-					if (styleItem.color.length === 3) {
-						styleColor = 'rgb(' + styleItem.color.join(',') + ')';
-
-					} else if (styleItem.color.length === 4) {
-						styleColor = 'rgba(' + styleItem.color.join(',') + ')';
-					}
+					styleColor = colourListToRGBString(styleItem.color);
 				}
 
 				// Add style case and color
@@ -115,6 +110,13 @@ export function generateColourExpression(legend) {
 		// is not the default colour (i.e. the one without a 
 		// a defined mapbox expression value)
 		expression.push(defaultColour);
+
+	} else if (Array.isArray(legendStyles) && legendStyles.length == 1) {
+		// If legend only includes 1 item, set style expression to the value of
+		// a rgb/rgba color string
+		if (legendStyles[0].color) {
+			expression = colourListToRGBString(legendStyles[0].color);
+		}
 	}
 
 	return expression;
@@ -136,32 +138,18 @@ export function generateColourExpression(legend) {
  * 1] 
  */
 export function generateOpacityExpression(legend, opacity) {
-	var styleOpacity, i, styleItem, defaultOpacity, legendStyles, chkBox, expression;
-	var legendOpacities = [];
+	var styleOpacity, i, styleItem, defaultOpacity, legendStyles, expression, legendOpacities ;
 
 	// Get styling from legend config
 	if (legend && legend.config) {
 		legendStyles = Legend.GetListOfStyles(legend.config);
 	}
 
-	// Generate a list of opacity values for each legend item based on;
-	// the checkbox state, and if the legend item has the property binary_opacity
-	// set in the map config file.
-	if (legend && legend.chkBoxesState) {
-		for (i = 0; i < legend.chkBoxesState.length; i += 1) {
-			chkBox = legend.chkBoxesState[i];
-
-			if (chkBox && chkBox.checkbox && !chkBox.checkbox.checked) {
-				legendOpacities.push(0);
-			} else if (chkBox && chkBox.item && chkBox.item.binary_opacity) {
-				legendOpacities.push(1);
-			} else {
-				legendOpacities.push(opacity);
-			}
-		}
-	}
+	// Generate legend opacity values based on legend checkbox state
+	legendOpacities = generateLegendOpacityValues(legend, opacity);
 	
-	if (Array.isArray(legendStyles) && legendStyles.length > 0 && legendOpacities.length > 0) {
+	// Create style expression for opacity values
+	if (Array.isArray(legendStyles) && legendStyles.length > 1 && legendOpacities.length > 1) {
 		expression = ['case'];
 		for (i = 0; i < legendStyles.length; i += 1) {
 			styleItem = legendStyles[i];
@@ -189,7 +177,12 @@ export function generateOpacityExpression(legend, opacity) {
 		// is not the default colour (i.e. the one without a 
 		// a defined mapbox expression value)
 		expression.push(defaultOpacity);
+
+	} else if (Array.isArray(legendStyles) && legendStyles.length == 1 && legendOpacities.length == 1) {
+		// If legend only includes 1 item, set style expression to the only legend opacity value 
+		expression = legendOpacities[0];
 	}
+	
 	return expression;
 }
 
@@ -200,7 +193,7 @@ export function generateOpacityExpression(legend, opacity) {
 export function generateSymbolOpacityExpression(opacityExpression) {
 	let expression;
 
-	if (opacityExpression) {
+	if (opacityExpression && opacityExpression.length > 1) {
 		expression = [];
 		for (var i = 0; i < opacityExpression.length; i += 1) {
 			if (typeof opacityExpression[i] === 'number') {
@@ -212,6 +205,16 @@ export function generateSymbolOpacityExpression(opacityExpression) {
 			} else {
 				expression.push(opacityExpression[i]);
 			}
+		}
+
+	} else if (typeof opacityExpression === 'number') {
+
+		// When a single opacity value represents the expression, the symbol opacity
+		// can either be 0 or 1
+		if (opacityExpression > 0) {
+			expression = 1;
+		} else {
+			expression = 0;
 		}
 	}
 
