@@ -2,6 +2,8 @@
  * expression.js
  * 
  * A collection of functions for generating mapbox expressions used for styling.
+ * For additional information on mapbox expressions, see the mapbox documentation 
+ * at, https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/
  */
 import Legend from '../controls/legend.js';
 
