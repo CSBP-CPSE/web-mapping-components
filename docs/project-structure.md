@@ -16,8 +16,6 @@ src/
 │   │   ├── templated.js
 │   │   ├── tooltip.js
 │   │   └── typeahead.js
-│   ├── polyfill
-│   │   └── promise.min.js
 │   ├── README.md
 │   └── tools
 │       ├── core.js
@@ -43,7 +41,10 @@ src/
     │   ├── search.js
     │   └── toc.js
     ├── README.md
+    ├── styling
+    │   ├── expression.js # Contains functions for generating mapbox data expressions for styling data
+    │   └── layer.js # Provides methods for manipulating mapbox layers
     └── tools
-        ├── factory.js
+        ├── factory.js # Factory for creating new components and control objects
         └── other.js
 ```
