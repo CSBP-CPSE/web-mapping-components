@@ -8,6 +8,7 @@ export { default as Store } from './basic-tools/tools/store.js';
 export { default as Evented } from './basic-tools/components/evented.js'
 export { default as Templated } from './basic-tools/components/templated.js'
 export { default as Popup } from './basic-tools/components/popup.js'
+export { default as Splash } from './basic-tools/components/splash.js'
 export { default as Tooltip } from './basic-tools/components/tooltip.js'
 export { default as Typeahead } from './basic-tools/components/typeahead.js'
 
