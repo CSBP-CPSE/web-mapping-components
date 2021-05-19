@@ -214,3 +214,29 @@ layer: The object containing the details about the layer.
 
 	this.map.AddLayer(citiesLayer);
 ```
+
+## Splash Component:
+A splash window can be added to your application using a splash component. 
+
+### How to Create a splash component:
+To create and show a splash component you need to perform the following three steps; 
+
+1. Instantiate a new Splash object:
+```javascript
+import { Splash } from './web-mapping-components/web-mapping-components.js';
+
+let splashWindow = new Splash();
+```
+2. Instruct that splash component to be shown to the user:
+```javascript
+splashWindow.Show();
+```
+3. Update splash window content through a nls config file using the following keys: 
+  * `Splash_LODE_Title`: title of splash window
+  * `Splash_Warning`: warning text of splash window
+  * `Splash_LODE_1`: first paragraph
+  * `Splash_LODE_2`: second paragraph
+  * `Splash_LODE_3`: third paragraph
+  * `Splash_WIP`: work in progress text
+  * `Splash_CloseContinue`: close and continue text
+  * `Splash_Continue`: continue button text
