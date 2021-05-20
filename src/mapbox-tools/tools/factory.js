@@ -1,3 +1,4 @@
+import Theme from '../controls/theme.js';
 import Legend from '../controls/legend.js';
 import Toc from '../controls/toc.js';
 import Opacity from '../controls/opacity.js';
@@ -89,6 +90,10 @@ export default class Factory {
 	
 	static TocControl(toc) {
 		return new Toc({ toc:toc });
+	}
+	
+	static ThemeControl(themes) {
+		return new Theme({ themes:themes});
 	}
 	
 	static OpacityControl(opacity) {
