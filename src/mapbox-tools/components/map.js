@@ -93,6 +93,7 @@ export default class Map extends Evented {
 		this.WrapEvent('moveend', 'MoveEnd');
 		this.WrapEvent('zoomend', 'ZoomEnd');
 		this.WrapEvent('load', 'Load');
+		this.WrapEvent('sourcedata', 'SourceData');
 		
 		this.map.once('load', ev => {
 			let mapContainer = this.map.getContainer();
