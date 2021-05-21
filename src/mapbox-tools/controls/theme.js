@@ -15,7 +15,7 @@ export default class Theme extends Control {
 		this._container = this.Node('root');
 		this.themes = options.themes;
 
-		this.UpdateSelectionMenu(options.themes);
+		this.UpdateSelectionMenu(this.themes);
 
 		this.Node('themes').addEventListener("change", this.onThemeSelectorChange_Handler.bind(this));
 	}
@@ -27,11 +27,13 @@ export default class Theme extends Control {
 	UpdateSelectionMenu(themes) {
 		let i, theme;
 
+		// Update themes
+		this.themes = themes; 
+
 		// Empty theme selection menu before adding items
 		Dom.Empty(this.Node("themes"));
 
-
-		// Add themes to selection menu
+		// Add updated themes to selection menu
 		if (Array.isArray(themes)) {
 			for (i = 0; i < themes.length; i += 1) {
 				theme = themes[i];
@@ -41,6 +43,9 @@ export default class Theme extends Control {
 					this.AddMenuItem(theme);
 				}
 			}
+
+			// Dispatch a change event to trigger a theme selection change
+			this.Node('themes').dispatchEvent(new Event('change', { 'bubbles': true }));
 		}
 
 		// Hide select menu if no options exists
