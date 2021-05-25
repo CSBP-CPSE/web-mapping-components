@@ -136,7 +136,7 @@ export default class Map extends Evented {
 	 * 	}
 	 */
 	AddLayer(layer) {
-		if (layer.id && layer.type) {
+		if (layer.id && layer.type && !Layer.GetLayer(this.map, layer.id)) {
 			this.map.addLayer(layer);
 		}
 	}
@@ -177,25 +177,31 @@ export default class Map extends Evented {
 		};
 		
 		let options = Util.Mixin(defaultOpts, definedOpts);
+		let clusterLayerId = (options.id || options.source) + '_clusters';
+		let clusterCountLayerId = (options.id || options.source) + '_clusters-count';
+		
+		if (!Layer.GetLayer(this.map, clusterLayerId)) {
+			// Add clusters layer for source
+			this.map.addLayer({
+				id: clusterLayerId,
+				type: 'circle',
+				source: options.source,
+				filter: options.filter, 
+				paint: options.circle_paint
+			});
+		}
 
-		// Add clusters layer for source
-		this.map.addLayer({
-			id: (options.id || options.source) + '_clusters',
-			type: 'circle',
-			source: options.source,
-			filter: options.filter, 
-			paint: options.circle_paint
-		});
-
-		// Add cluster count labels layer
-		this.map.addLayer({
-			id: (options.id || options.source) + '_cluster-count',
-			type: 'symbol',
-			source: options.source,
-			filter: options.filter,
-			layout: options.label_layout,
-			paint: options.label_paint 
-		});
+		if (!Layer.GetLayer(this.map, clusterCountLayerId)) {
+			// Add cluster count labels layer
+			this.map.addLayer({
+				id: clusterCountLayerId,
+				type: 'symbol',
+				source: options.source,
+				filter: options.filter,
+				layout: options.label_layout,
+				paint: options.label_paint 
+			});
+		}
 	}
 
 	/**
