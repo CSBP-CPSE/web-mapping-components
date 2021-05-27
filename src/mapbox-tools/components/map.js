@@ -1,7 +1,7 @@
 import Core from '../../basic-tools/tools/core.js'
 import Evented from '../../basic-tools/components/evented.js'
 import Util from '../../basic-tools/tools/util.js'
-import Layer from '../styling/layer.js'
+import { OSM } from '../styling/osm.js'
 import {generateColourExpression, generateOpacityExpression, generateSymbolOpacityExpression} from '../styling/expression.js'
 
 /**
@@ -80,8 +80,13 @@ export default class Map extends Evented {
 		super();
 		
 		this.layers = [];
-		this.style = options.style;
 		
+		if (options.style === "osm") {
+			options.style = OSM;
+		}
+
+		this.style = options.style
+
 		this.click = this.OnLayerClick_Handler.bind(this);
 		
 		this.map = new maplibregl.Map(options); 
@@ -104,6 +109,85 @@ export default class Map extends Evented {
 		});
 	}
 	
+	// ------------------------------------------------------------------------
+	// Map Properties Methods
+	// ------------------------------------------------------------------------
+	/**
+	 * Set the map bounds for the map.
+	 * @param {array} bounds - An array containing coordinate pairs for the map bounds.
+	 * @param {object} options - object containing options when fitting the map bounds 
+	 */
+	FitBounds(bounds, options) {		
+		this.map.fitBounds(bounds, options);
+	}
+
+	/**
+	 * Set the maximum bounds of the map
+	 * @param {array} bounds - An array containing coordinate pairs for the map bounds.
+	 * e.g. [[x1, y1], [x2, y2]]
+	 */
+	SetMaxBounds(bounds) {
+		this.map.setMaxBounds(bounds);
+	}
+
+	/**
+	 * Set the map style of the map.
+	 * @param {string} style URL of the mapbox map style document
+	 */
+	SetStyle(style) {
+		if (style === "osm") {
+			this.style = OSM;
+		} else {
+			this.style = style;
+		}
+		
+		this.map.once('styledata', this.OnceStyleData_Handler.bind(this))
+		
+		this.map.setStyle(style);
+	}
+	
+	SetClickableMap(layers) {				
+		this.map.on('click', this.click);
+	}
+
+	// ------------------------------------------------------------------------
+	// Map Control & UI Methods
+	// ------------------------------------------------------------------------
+	/**
+	 * Add a specified map control to the map.
+	 * @param {object} control - map control object
+	 * @param {string} location - location of the object. e.g. 'top-left'
+	 */
+	AddControl(control, location) {
+		this.map.addControl(control, location);
+	}
+	
+	InfoPopup(lngLat, html) {	
+		var popup = new maplibregl.Popup({ closeOnClick: true })
+			.setLngLat(lngLat)
+			.setHTML(html)
+			.addTo(this.map);
+					
+		popup._closeButton.innerHTML = '<i class="fa fa-times" aria-hidden="true"></i>';
+		popup._closeButton.setAttribute('aria-label', Core.Nls('Mapbox_Close_Popup'));
+		popup._closeButton.title = Core.Nls('Mapbox_Close_Popup');
+	}
+	
+	SetClickableLayers(layers) {
+		layers.forEach(l => this.map.off('click', l, this.click)); 
+		
+		this.layers = layers;
+		
+		this.layers.forEach(l => this.map.on('click', l, this.click));
+	}
+	
+	QueryRenderedFeatures(point, layers) {
+		return this.map.queryRenderedFeatures(point, { layers: layers });
+	}
+	
+	// ------------------------------------------------------------------------
+	// Map Data Source Methods
+	// ------------------------------------------------------------------------
 	/**
 	 * Add a data source to the map
 	 * @param {string} name - name of a data source
@@ -121,6 +205,9 @@ export default class Map extends Evented {
 		this.map.addSource(name, data);
 	}
 
+	// ------------------------------------------------------------------------
+	// Map Layer Methods - Collection of methods for working with map layers
+	// ------------------------------------------------------------------------
 	/**
 	 * Add layer to the map
 	 * @param {object} layer - object containing the details of the layer
@@ -136,11 +223,169 @@ export default class Map extends Evented {
 	 * 	}
 	 */
 	AddLayer(layer) {
-		if (layer.id && layer.type && !Layer.GetLayer(this.map, layer.id)) {
+		if (layer.id && layer.type && !this.GetLayer(layer.id)) {
 			this.map.addLayer(layer);
 		}
 	}
+
+	/**
+	 * Retrieves the layer type 
+	 * @param {string} layerId - id of the map layer
+	 */
+	GetLayerType(layerId) {
+		const layer = this.GetLayer(layerId);
+		let layerType;
+
+		if (layer && layer.type) {
+			layerType = layer.type;
+		}
+
+		return layerType;
+	}
+
+	/**
+	 * Method to update a paint property for a layer
+	 * @param {string} layerId - Name of the map layer
+	 * @param {string} paintProperty - Paint Property of the map layer
+	 * @param {array || string} styleRules - Mapbox expression of style rules or a rgba string value.
+	 */
+	SetPaintProperty(layerId, paintProperty, styleRules) {
+		// Check that layer exists in map
+		if (this.GetLayer(layerId)) {
+			this.map.setPaintProperty(layerId, paintProperty, styleRules);
+		}
+	}
+
+	/**
+	 * Method to update a layout property for a layer
+	 * @param {string} layerId - Name of the map layer
+	 * @param {string} layoutProperty - Paint Property of the map layer
+	 * @param {array || string} styleRules - Mapbox expression of style rules or a rgba string value.
+	 */
+	SetLayoutProperty(layerId, layoutProperty, styleRules) {
+		// Check that layer exists in map and update it
+		if (this.GetLayer(layerId)) {
+			this.map.setLayoutProperty(layerId, layoutProperty, styleRules);
+		}
+	}
+
+	ReorderLayers(layers) {
+		layers.forEach(l => this.map.moveLayer(l));
+	}
 	
+	/**
+	 * Get a specified layer
+	 * @param {string} layerId map layer id. 
+	 */
+	GetLayer(layerId) {
+		return this.map.getLayer(layerId) || null;
+	}
+	
+	/**
+	 * Show a specified layer
+	 * @param {string} layerId map layer id. 
+	 */
+	ShowLayer(layerId) {
+		this.SetLayoutProperty(layerId, 'visibility', 'visible');
+	}
+	
+	/**
+	 * Hides a specified layer
+	 * @param {string} layerId map layer id. 
+	 */
+	HideLayer(layerId) {
+		this.SetLayoutProperty(layerId, 'visibility', 'none');
+	}
+
+	/**
+	 * Toggle the visibility of a map layer
+	 * @param {string} layerID map layer to be hidden/shown
+	 */
+	ToggleMapLayerVisibility(layerID) {
+		if (this.map.getLayoutProperty(layerID, 'visibility') === 'visible'){
+			this.HideLayer(layerID);
+		} else {
+			this.ShowLayer(layerID);
+		}
+	}
+
+	/**
+	 * Update Map Layers based on current legend state. Layer styling is
+	 * updated by the current state of the legend which updates layer
+	 * paint properties for colour and opacity.
+	 * @param {array} layerIDs - a list of layer id
+	 * @param {object} legend - reference to the current legend object
+	 * @param {number} storedOpacity - Locally stored opacity value between 0 - 1.
+	 */
+	UpdateMapLayersWithLegendState(layerIDs, legend, storedOpacity) {
+		let opacity;
+
+		// Define opacity based on provided storedOpacity value; 
+		if (storedOpacity >= 0 && storedOpacity <= 1) {
+			opacity = storedOpacity;
+		} else {
+			opacity = 1;
+		}
+
+		// Generate colour mapbox expression
+		let colourExpression = generateColourExpression(legend);
+
+		// Loop through layers and update colour classes
+		if (colourExpression) {
+			for (let i = 0; i < layerIDs.length; i += 1) {
+				// Get Layer Colour Property
+				let currentLayerID = layerIDs[i];
+				let layerType = this.GetLayerType(currentLayerID);
+				if (layerType && layerType !== 'symbol') {
+					let layerProperty = layerType + '-color';
+
+					// Update layer colour properties
+					if (layerProperty) {
+						this.SetPaintProperty(currentLayerID, layerProperty, colourExpression);
+					}
+				}
+			}
+		}
+
+		// Generate opacity expressions
+		// All legend layers based on legend input checkbox state
+		// if the items has the property binary_opacity it can be either 1 or 0. When unchecked it's 0, 
+		// otherwise it's 1. When it doesn't have a binary_opacity, it's based on opacity controls and checkbox state.
+		var opacityExpression = generateOpacityExpression(legend, opacity);
+		var symbolOpacityExpression = generateSymbolOpacityExpression(opacityExpression);
+
+		if ((opacityExpression || opacityExpression === 0) && (symbolOpacityExpression || symbolOpacityExpression === 0)) {
+			for (var i = 0; i < layerIDs.length; i += 1) {
+				// Get Layer Colour Property
+				let currentLayerID = layerIDs[i];
+				let layerType = this.GetLayerType(currentLayerID);
+				let layerFillProperty = layerType + '-opacity';
+
+				if (layerType) {
+					if (layerType !== 'symbol') {
+						// Update layer opacity properties
+						if (layerFillProperty) {
+							this.SetPaintProperty(currentLayerID, layerFillProperty, opacityExpression);
+
+							// If layer type is a circle, update circle stroke opacity to match circle-opacity
+							if (layerType === 'circle') {
+								this.SetPaintProperty(currentLayerID, 'circle-stroke-opacity', opacityExpression);
+							}
+						}
+
+					} else {
+						// Set opacity of feature labels based on opacity values. 
+						// if opacity = 0 for a layer, then the labels are also set to 0.
+						this.SetPaintProperty(currentLayerID, 'text-opacity', symbolOpacityExpression);
+					}
+				}
+			}
+		}
+	}
+
+	// ------------------------------------------------------------------------
+	// Map Cluster Methods
+	// ------------------------------------------------------------------------
 	/**
 	 * Add layers for clustering the data.
 	 * @param {object} definedOpts - an object containing all of the cluster options
@@ -179,181 +424,30 @@ export default class Map extends Evented {
 		let options = Util.Mixin(defaultOpts, definedOpts);
 		let clusterLayerId = (options.id || options.source) + '_clusters';
 		let clusterCountLayerId = (options.id || options.source) + '_clusters-count';
-		
-		if (!Layer.GetLayer(this.map, clusterLayerId)) {
-			// Add clusters layer for source
-			this.map.addLayer({
-				id: clusterLayerId,
-				type: 'circle',
-				source: options.source,
-				filter: options.filter, 
-				paint: options.circle_paint
-			});
-		}
 
-		if (!Layer.GetLayer(this.map, clusterCountLayerId)) {
-			// Add cluster count labels layer
-			this.map.addLayer({
-				id: clusterCountLayerId,
-				type: 'symbol',
-				source: options.source,
-				filter: options.filter,
-				layout: options.label_layout,
-				paint: options.label_paint 
-			});
-		}
+		// Add clusters layer for source
+		this.AddLayer({
+			id: clusterLayerId,
+			type: 'circle',
+			source: options.source,
+			filter: options.filter, 
+			paint: options.circle_paint
+		});
+
+		// Add cluster count labels layer
+		this.AddLayer({
+			id: clusterCountLayerId,
+			type: 'symbol',
+			source: options.source,
+			filter: options.filter,
+			layout: options.label_layout,
+			paint: options.label_paint 
+		});
 	}
 
-	/**
-	 * Add a specified map control to the map.
-	 * @param {object} control - map control object
-	 * @param {string} location - location of the object. e.g. 'top-left'
-	 */
-	AddControl(control, location) {
-		this.map.addControl(control, location);
-	}
-	
-	InfoPopup(lngLat, html) {	
-		var popup = new maplibregl.Popup({ closeOnClick: true })
-			.setLngLat(lngLat)
-			.setHTML(html)
-			.addTo(this.map);
-					
-		popup._closeButton.innerHTML = '<i class="fa fa-times" aria-hidden="true"></i>';
-		popup._closeButton.setAttribute('aria-label', Core.Nls('Mapbox_Close_Popup'));
-		popup._closeButton.title = Core.Nls('Mapbox_Close_Popup');
-	}
-	
-	/**
-	 * Toggle the visibility of a map layer
-	 * @param {string} layerID map layer to be hidden/shown
-	 */
-	ToggleMapLayerVisibility(layerID) {
-		if (this.map.getLayoutProperty(layerID, 'visibility') === 'visible'){
-			Layer.HideLayer(this.map, layerID);
-		} else {
-			Layer.ShowLayer(this.map, layerID);
-		}
-	}
-
-	/**
-	 * Update Map Layers based on current status of legend
-	 * @param {array} layerIDs - a list of layer id
-	 * @param {object} legend - reference to the current legend object
-	 * @param {number} storedOpacity - Locally stored opacity value between 0 - 1.
-	 */
-	UpdateMapLayers(layerIDs, legend, storedOpacity) {
-		let opacity;
-
-		// Define opacity based on provided storedOpacity value; 
-		if (storedOpacity >= 0 && storedOpacity <= 1) {
-			opacity = storedOpacity;
-		} else {
-			opacity = 1;
-		}
-
-		// Generate colour mapbox expression
-		let colourExpression = generateColourExpression(legend);
-
-		// Loop through layers and update colour classes
-		if (colourExpression) {
-			for (let i = 0; i < layerIDs.length; i += 1) {
-				// Get Layer Colour Property
-				let currentLayerID = layerIDs[i];
-				let layerType = Layer.GetLayerType(this.map, currentLayerID);
-				if (layerType && layerType !== 'symbol') {
-					let layerProperty = layerType + '-color';
-
-					// Update layer colour properties
-					if (layerProperty && this.map.getPaintProperty(currentLayerID, layerProperty)) {
-						Layer.SetPaintProperty(this.map, currentLayerID, layerProperty, colourExpression);
-					}
-				}
-			}
-		}
-
-		// Generate opacity expressions
-		// All legend layers based on legend input checkbox state
-		// if the items has the property binary_opacity it can be either 1 or 0. When unchecked it's 0, 
-		// otherwise it's 1. When it doesn't have a binary_opacity, it's based on opacity controls and checkbox state.
-		var opacityExpression = generateOpacityExpression(legend, opacity);
-		var symbolOpacityExpression = generateSymbolOpacityExpression(opacityExpression);
-
-		if ((opacityExpression || opacityExpression === 0) && (symbolOpacityExpression || symbolOpacityExpression === 0)) {
-			for (var i = 0; i < layerIDs.length; i += 1) {
-				// Get Layer Colour Property
-				let currentLayerID = layerIDs[i];
-				let layerType = Layer.GetLayerType(this.map, currentLayerID);
-				let layerFillProperty = layerType + '-opacity';
-
-				if (layerType) {
-					if (layerType !== 'symbol') {
-						// Update layer opacity properties
-						if (layerFillProperty) {
-							Layer.SetPaintProperty(this.map, currentLayerID, layerFillProperty, opacityExpression);
-
-							// If layer type is a circle, update circle stroke opacity to match circle-opacity
-							if (layerType === 'circle') {
-								Layer.SetPaintProperty(this.map, currentLayerID, 'circle-stroke-opacity', opacityExpression);
-							}
-						}
-
-					} else {
-						// Set opacity of feature labels based on opacity values. 
-						// if opacity = 0 for a layer, then the labels are also set to 0.
-						Layer.SetPaintProperty(this.map, currentLayerID, 'text-opacity', symbolOpacityExpression);
-					}
-				}
-			}
-		}
-	}
-	
-	/**
-	 * Set the map bounds for the map.
-	 * @param {array} bounds - An array containing coordinate pairs for the map bounds.
-	 * @param {object} options - object containing options when fitting the map bounds 
-	 */
-	FitBounds(bounds, options) {		
-		this.map.fitBounds(bounds, options);
-	}
-
-	/**
-	 * Set the maximum bounds of the map
-	 * @param {array} bounds - An array containing coordinate pairs for the map bounds.
-	 * e.g. [[x1, y1], [x2, y2]]
-	 */
-	SetMaxBounds(bounds) {
-		this.map.setMaxBounds(bounds);
-	}
-
-	/**
-	 * Set the map style of the map.
-	 * @param {string} style URL of the mapbox map style document
-	 */
-	SetStyle(style) {
-		this.style = style;
-		
-		this.map.once('styledata', this.OnceStyleData_Handler.bind(this))
-		
-		this.map.setStyle(style);
-	}
-	
-	SetClickableMap(layers) {				
-		this.map.on('click', this.click);
-	}
-	
-	SetClickableLayers(layers) {
-		layers.forEach(l => this.map.off('click', l, this.click)); 
-		
-		this.layers = layers;
-		
-		this.layers.forEach(l => this.map.on('click', l, this.click));
-	}
-	
-	QueryRenderedFeatures(point, layers) {
-		return this.map.queryRenderedFeatures(point, { layers: layers });
-	}
-	
+	// ------------------------------------------------------------------------
+	// Map Event Methods
+	// ------------------------------------------------------------------------
 	OnceStyleData_Handler(ev) {
 		this.Emit('StyleChanged', ev);
 	}
@@ -365,7 +459,6 @@ export default class Map extends Evented {
 	OnLayerClick_Handler(ev) {
 		this.Emit('Click', ev);
 	}
-	
 	/**
 	 * Wraps original mapbox event with a new event
 	 * @param {string} oEv original mapbox event
