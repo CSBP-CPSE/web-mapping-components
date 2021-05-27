@@ -1,6 +1,7 @@
 import Core from '../../basic-tools/tools/core.js'
 import Evented from '../../basic-tools/components/evented.js'
 import Util from '../../basic-tools/tools/util.js'
+import { OSM } from '../styling/osm.js'
 import {generateColourExpression, generateOpacityExpression, generateSymbolOpacityExpression} from '../styling/expression.js'
 
 /**
@@ -79,8 +80,13 @@ export default class Map extends Evented {
 		super();
 		
 		this.layers = [];
-		this.style = options.style;
 		
+		if (options.style === "osm") {
+			options.style = OSM;
+		}
+
+		this.style = options.style
+
 		this.click = this.OnLayerClick_Handler.bind(this);
 		
 		this.map = new maplibregl.Map(options); 
@@ -129,7 +135,11 @@ export default class Map extends Evented {
 	 * @param {string} style URL of the mapbox map style document
 	 */
 	SetStyle(style) {
-		this.style = style;
+		if (style === "osm") {
+			this.style = OSM;
+		} else {
+			this.style = style;
+		}
 		
 		this.map.once('styledata', this.OnceStyleData_Handler.bind(this))
 		
