@@ -310,12 +310,14 @@ export default class Map extends Evented {
 	}
 
 	/**
-	 * Update Map Layers based on current status of legend
+	 * Update Map Layers based on current legend state. Layer styling is
+	 * updated by the current state of the legend which updates layer
+	 * paint properties for colour and opacity.
 	 * @param {array} layerIDs - a list of layer id
 	 * @param {object} legend - reference to the current legend object
 	 * @param {number} storedOpacity - Locally stored opacity value between 0 - 1.
 	 */
-	UpdateMapLayers(layerIDs, legend, storedOpacity) {
+	UpdateMapLayersWithLegendState(layerIDs, legend, storedOpacity) {
 		let opacity;
 
 		// Define opacity based on provided storedOpacity value; 
