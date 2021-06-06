@@ -64,7 +64,7 @@ export default class Factory {
 			positionOptions: { enableHighAccuracy: true },
 			trackUserLocation: true
 		});
-	} 
+	}
 	
 	/**
 	 * Create a new scale control that's added to the map component
@@ -73,7 +73,7 @@ export default class Factory {
 	 */
 	static ScaleControl(units) {
 		return new maplibregl.ScaleControl({
-			maxWidth: 80,
+			maxWidth: 100,
 			unit: units
 		});
 	}

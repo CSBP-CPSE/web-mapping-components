@@ -54,6 +54,24 @@ let options = {
 let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle, options.mapCenter, options.mapZoom);
 ```
 
+#### Add a Map with OSM Background:
+To use OpenStreetMap as the background, set the map style as `osm`. Note: Since OpenStreetMap is being used as the map style document, a Mapbox access token is not required.
+
+**Example**:
+```javascript
+import { Factory } from './web-mapping-components.js';
+
+let options = {
+	container: document.getElementById('my-map-container-id'),
+	accessToken: '',
+	mapStyle: 'osm',
+	mapCenter: {lng: -75, lat: 46},
+	mapZoom: 12
+};
+
+let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle, options.mapCenter, options.mapZoom);
+```
+
 ## Map Controls:
 Built into the web-mapping-components library are numerous map controls, which can be added to enhance the functionality of the Map Component.
 
