@@ -40,13 +40,13 @@ export default class Splash extends Popup {
 						  "<hr>" + 
 						  "<p>nls(Splash_LODE_1)</p>" + 
 						  "<div class='logo-container'>" + 
-						    "<img class='logo' src='assets/lode-logo.png' />" +
+						    `<img class='logo' src='${Core.root}assets/lode-logo.png' />` +
 						  "</div>" +
 						  "<p>nls(Splash_LODE_2)</p>" + 
 						  "<p>nls(Splash_LODE_3)</p>" + 
 						"<hr>" + 
 						"<div class='wip-container'>" +
-							"<div><img src='assets/warning.png' /></div>" +
+							`<div><img src='${Core.root}assets/warning.png' /></div>` +
 							"<div>nls(Splash_WIP)</div>" + 
 						"</div>" +
 						"<div class='continue-container'>" + 
