@@ -22,7 +22,7 @@ function colourListToRGBString(colourList) {
 		if (colourList.length === 3) {
 			rgbString = 'rgb(' + colourList.join(',') + ')';
 
-		} else if (styleItem.color.length === 4) {
+		} else if (colourList.length === 4) {
 			rgbString = 'rgba(' + colourList.join(',') + ')';
 		}
 	}
