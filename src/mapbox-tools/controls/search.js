@@ -49,7 +49,7 @@ export default class Search extends Control {
 	 * 			'id':'1001'
 	 * 			'name':'Foo Bar'
 	 * 			'label':'Foo Bar (1001)'
-	 * 			'extent':[[54, 45], [55, 44]]
+	 * 			'extent':[[54, 45], [55, 46]]
 	 * 		},
 	 * 		...
 	 * ]
