@@ -43,6 +43,16 @@ export default class Search extends Control {
 	/**
 	 * Set the search items associated with the current search control
 	 * @param {array} items List of search items
+	 * Example of required format for search items:
+	 * [
+	 * 		{
+	 * 			'id':'1001'
+	 * 			'name':'Foo Bar'
+	 * 			'label':'Foo Bar (1001)'
+	 * 			'extent':[[54, 45], [55, 44]]
+	 * 		},
+	 * 		...
+	 * ]
 	 */
 	set searchItems(items) {
 		this.items = items;
