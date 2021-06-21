@@ -25,22 +25,6 @@ export default class Search extends Control {
 	}
 
 	/**
-	 * Set the search layer for the search control
-	 * @param {string} layer Id of the search layer
-	 */
-	set searchLayer(layer) {
-		this.layer = layer
-	}
-
-	/**
-	 * Get the search layer used by the search control
-	 * @returns {string} Id of the current search layer
-	 */
-	get searchLayer() {
-		return this.layer;
-	}
-
-	/**
 	 * Set the search items associated with the current search control
 	 * @param {array} items List of search items
 	 * Example of required format for search items:
