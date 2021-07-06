@@ -244,6 +244,23 @@ export default class Map extends Evented {
 	}
 
 	/**
+	 * Filter layer content by filter expression
+	 * @param {string} layerId - Name of the map layer
+	 * @param {array | null | undefined} filter - Expression containing rules to
+	 * include/exclude filter. If null/undefined, existing filters is removed.
+	 * @param {object} options - Object containing filter options
+	 */
+	SetFilter(layerId, filter, options) {
+		if (!options) {
+			options = {};
+		}
+
+		if (this.GetLayer(layerId)) {
+			this.map.setFilter(layerId, filter, options);
+		}
+	}
+
+	/**
 	 * Method to update a paint property for a layer
 	 * @param {string} layerId - Name of the map layer
 	 * @param {string} paintProperty - Paint Property of the map layer
