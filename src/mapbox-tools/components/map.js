@@ -131,6 +131,15 @@ export default class Map extends Evented {
 	}
 
 	/**
+	 * Set the maximum zoom level for the map. If the value is null/undefined,
+	 * the max zoom level is reset to 22. 
+	 * @param {number} zoomLevel A numeric value between 0 and 22. 
+	 */
+	SetMaxZoom(zoomLevel) {
+		this.map.setMaxZoom(zoomLevel);
+	}
+
+	/**
 	 * Set the map style of the map.
 	 * @param {string} style URL of the mapbox map style document
 	 */
