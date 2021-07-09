@@ -33,8 +33,8 @@ function colourListToRGBString(colourList) {
 /**
  * 
  * Generate a list of opacity values for each legend item based on;
- * the checkbox state, and if the legend item has the property binary_opacity
- * set in the map config file.
+ * the checkbox state, and if the legend item has the property opacity
+ * set to a predefined opacity value in the map config file.
  * @param {object} legend current legend object
  * @param {number} storedOpacity the stored opacity value
  */
@@ -48,8 +48,15 @@ function generateLegendOpacityValues(legend, storedOpacity) {
 
 			if (chkBox && chkBox.checkbox && !chkBox.checkbox.checked) {
 				legendOpacities.push(0);
-			} else if (chkBox && chkBox.item && chkBox.item.binary_opacity) {
-				legendOpacities.push(1);
+			} else if (chkBox && chkBox.item && chkBox.item.opacity && typeof(chkBox.item.opacity) === 'number') {
+				// Ensure that opacity value is between 1 and 0. 
+				if (chkBox.item.opacity > 1) {
+					chkBox.item.opacity = 1;
+				} else if (chkBox.item.opacity < 0) {
+					chkBox.item.opacity = 0;
+				}
+
+				legendOpacities.push(chkBox.item.opacity);
 			} else {
 				legendOpacities.push(storedOpacity);
 			}

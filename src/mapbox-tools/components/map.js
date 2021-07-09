@@ -365,9 +365,10 @@ export default class Map extends Evented {
 		}
 
 		// Generate opacity expressions
-		// All legend layers based on legend input checkbox state
-		// if the items has the property binary_opacity it can be either 1 or 0. When unchecked it's 0, 
-		// otherwise it's 1. When it doesn't have a binary_opacity, it's based on opacity controls and checkbox state.
+		// All legend layers are based on the legend input checkbox state. If the
+		// item has a pre-defined opacity value defined with the opacity property,
+		// the opacity is set to that value. Otherwise the opacity is based on the
+		// locally stored opacity value. When the legend item is unchecked it's 0,
 		var opacityExpression = generateOpacityExpression(legend, opacity);
 		var symbolOpacityExpression = generateSymbolOpacityExpression(opacityExpression);
 
