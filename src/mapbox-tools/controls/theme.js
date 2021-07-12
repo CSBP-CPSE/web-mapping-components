@@ -220,11 +220,11 @@ export default class Theme extends Control {
 		return "<div handle='root' class='theme-selector mapboxgl-ctrl'>" +
 					"<div class='groups-menu-container' handle='groups-menu-container'>"+
 						"<label class='control-label'>Theme Groups</label>" +
-						"<select handle='theme-groups' name='theme-groups' class='theme-groups'></select>" +
+						"<select aria-label='Theme groups' handle='theme-groups' name='theme-groups' class='theme-groups'></select>" +
 					"</div>"+
 					"<div class='themes-menu-container' handle='themes-menu-container'>"+
 						"<label class='control-label'>Map Theme</label>" +
-						"<select handle='themes' name='themes' class='themes'></select>" +
+						"<select aria-label='Themes' handle='themes' name='themes' class='themes'></select>" +
 					"</div>"+
 			   "</div>";
 	}
