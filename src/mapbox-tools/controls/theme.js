@@ -42,11 +42,15 @@ export default class Theme extends Control {
 	updateThemeControl(themes) {
 		let themeGroups;
 
+		// Reset theme control input values before updating
+		this.Node('theme-groups').value = "";
+		this.Node('themes').value = "";
+
 		// Update themes
 		this.themes = themes; 
 
 		// Get theme groups defined in config
-		themeGroups = this.GetThemeGroups(this.themes);
+		themeGroups = this.getThemeGroups(this.themes);
 
 		if (themeGroups.length) {
 			// Add group items if they're defined
@@ -84,6 +88,12 @@ export default class Theme extends Control {
 				this.addGroupItem(group, group_menu_node)
 			}
 
+			// Set initial value to first group datalist option
+			if (this.type === 'datalist') {
+				let firstGroupItem = groups[0];
+				this.Node('theme-groups').value = firstGroupItem[Core.locale];
+			}
+
 			// Dispatch a change event to trigger a group selection change
 			this.Node("theme-groups").dispatchEvent(new Event('change', { 'bubbles': true }));
 		}
@@ -98,7 +108,7 @@ export default class Theme extends Control {
 		let themes_menu_node = 'themes';
 
 		if (this.type === 'datalist'){
-			themes_menu_node = "themes-list"
+			themes_menu_node = "themes-list";
 		}
 
 		// Empty theme selection menu before adding items
@@ -111,6 +121,10 @@ export default class Theme extends Control {
 				this.addThemeItem(theme, themes_menu_node);
 			}
 
+			if (this.Node('themes').value === "") {
+				this.Node('themes').value = themes[0].label[Core.locale];
+			}
+
 			// Dispatch a change event to trigger a theme selection change
 			this.Node('themes').dispatchEvent(new Event('change', { 'bubbles': true }));
 		}
@@ -120,7 +134,7 @@ export default class Theme extends Control {
 	 * Gets a list of theme groups defined in the theme config object
 	 * @param {object} themesConfig copy of the theme object
 	 */
-	GetThemeGroups(themesConfig) {
+	getThemeGroups(themesConfig) {
 		let groups = [];
 
 		if (Array.isArray(themesConfig) && themesConfig.length) {
@@ -128,7 +142,7 @@ export default class Theme extends Control {
 				let configItem = themesConfig[i];
 
 				if (configItem.group) {
-					groups.push(String(configItem.group[Core.locale]));		
+					groups.push(configItem.group);
 				}
 			}
 		}
@@ -143,8 +157,13 @@ export default class Theme extends Control {
 	 * @returns Dom element representing select menu option.
 	 */
 	addGroupItem(item, node) {
-		let opt = Dom.Create("option", {value: item, innerHTML: item}, this.Node(node));
-		opt.setAttribute('handle', 'theme-option');
+		if (item) {
+			let opt = Dom.Create("option", {
+				value: item[Core.locale], 
+				innerHTML: item[Core.locale]
+			}, this.Node(node));
+			opt.setAttribute('handle', 'theme-option');
+		}
 	}
 
 	/**
@@ -158,10 +177,16 @@ export default class Theme extends Control {
 			let opt;
 
 			if (this.type === 'datalist') {
-				opt = Dom.Create("option", {value: item.label[Core.locale], innerHTML: item.label[Core.locale]}, this.Node(node));
+				opt = Dom.Create("option", {
+					value: item.label[Core.locale], 
+					innerHTML: item.label[Core.locale]
+				}, this.Node(node));
 				opt.dataset.themeid = item.id;
 			} else {
-				opt = Dom.Create("option", {value: item.id, innerHTML: item.label[Core.locale]}, this.Node(node));
+				opt = Dom.Create("option", {
+					value: item.id, 
+					innerHTML: item.label[Core.locale]
+				}, this.Node(node));
 			}
 
 			opt.setAttribute('handle', 'theme-option');
@@ -239,8 +264,12 @@ export default class Theme extends Control {
 				}
 			};
 
-			// Clear previous themes value when switching theme group
-			this.Node("themes").value = "";
+			// When switching the theme group update the themes selection
+			// to the first available option.
+			this.Node("themes").value = themes[0].label[Core.locale];
+
+			// Dispatch a change event to trigger a theme selection change
+			this.Node('themes').dispatchEvent(new Event('change', { 'bubbles': true }));
 		}
 	}
 	
