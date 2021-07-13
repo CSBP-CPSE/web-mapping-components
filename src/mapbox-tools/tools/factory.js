@@ -91,9 +91,15 @@ export default class Factory {
 	static TocControl(toc) {
 		return new Toc({ toc:toc });
 	}
-	
-	static ThemeControl(themes) {
-		return new Theme({ themes:themes});
+
+	/**
+	 * Theme map control 
+	 * @param {array} themes a list of themes
+	 * @param {string} type the type of control input, either; 'select' or 'datalist'
+	 * @returns an instantiated Theme object
+	 */
+	static ThemeControl(themes, type) {
+		return new Theme({ themes:themes, type:type});
 	}
 	
 	static OpacityControl(opacity) {
