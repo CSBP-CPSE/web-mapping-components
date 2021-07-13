@@ -21,11 +21,18 @@ export default class Theme extends Control {
 		this._container = this.Node('root');
 		this.themes = options.themes;
 
+		this.currentTheme = "";
+		this.currentThemeGroup = "";
+
 		this.updateThemeControl(this.themes);
 
 		// Add event listeners for change events on both select menus
-		this.Node('theme-groups').addEventListener("change", this.onThemeGroupsSelectorChange_Handler.bind(this));
+		this.Node('theme-groups').addEventListener("change", this.onThemeGroupSelectorChange_Handler.bind(this));
+		this.Node('theme-groups').addEventListener("focus", this.onThemeGroupSelectorFocused_Handler.bind(this));
+		this.Node('theme-groups').addEventListener("blur", this.onThemeGroupSelectorBlured_Handler.bind(this));
 		this.Node('themes').addEventListener("change", this.onThemeSelectorChange_Handler.bind(this));
+		this.Node('themes').addEventListener("focus", this.onThemeSelectorFocused_Handler.bind(this));
+		this.Node('themes').addEventListener("blur", this.onThemeSelectorBlured_Handler.bind(this));
 	}
 	
 	/**
@@ -214,7 +221,7 @@ export default class Theme extends Control {
 	 * Handler for theme-groups selector change event
 	 * @param {object} ev menu selection change event
 	 */
-	onThemeGroupsSelectorChange_Handler(ev) {
+	onThemeGroupSelectorChange_Handler(ev) {
 		let themes;
 		let selectionId = this.Node("theme-groups").value;
 
@@ -223,9 +230,39 @@ export default class Theme extends Control {
 
 		this.updateThemesMenu(themes);
 
-		// Clear previous themes value when switching theme group
 		if (this.type === 'datalist') {
-			this.Node("themes").value = "";			
+			// Blur theme group input if input string matches one of the dataset options
+			let themeGroupList = this.Node('theme-groups-list').options;
+			for (let i = 0; i < themeGroupList.length; i += 1) {
+				if (themeGroupList[i].value === selectionId) {
+					this.Node('theme-groups').blur();
+				}
+			};
+
+			// Clear previous themes value when switching theme group
+			this.Node("themes").value = "";
+		}
+	}
+	
+	/**
+	 * Handler for theme group selector select event when type is datalist
+	 * @param {object} ev menu selection change event
+	 */
+	onThemeGroupSelectorFocused_Handler(ev) {
+		if (this.type === 'datalist') {
+			this.currentTheme = this.Node('theme-groups').value;
+
+			this.Node('theme-groups').value = "";
+		}
+	}
+	
+	/**
+	 * Handler for theme group selector blur event when type is datalist
+	 * @param {object} ev menu selection change event
+	 */
+	onThemeGroupSelectorBlured_Handler(ev) {
+		if (this.type === 'datalist' && this.Node('theme-groups').value === "") {
+			this.Node('theme-groups').value = this.currentTheme;
 		}
 	}
 
@@ -253,6 +290,14 @@ export default class Theme extends Control {
 					}
 				}
 			}
+
+			// Blur theme input if input string matches one of the dataset options
+			let themeList = this.Node('themes-list').options;
+			for (let i = 0; i < themeList.length; i += 1) {
+				if (themeList[i].value === inputValue) {
+					this.Node('themes').blur();
+				}
+			};
 		} else {
 			selectionId = this.Node("themes").value;
 		}
@@ -263,6 +308,28 @@ export default class Theme extends Control {
 		this.Emit("ThemeSelectorChange", { theme: selection });
 	}
 	
+	/**
+	 * Handler for theme selector select event when type is datalist
+	 * @param {object} ev menu selection change event
+	 */
+	onThemeSelectorFocused_Handler(ev) {
+		if (this.type === 'datalist') {
+			this.currentTheme = this.Node('themes').value;
+
+			this.Node('themes').value = "";
+		}
+	}
+	
+	/**
+	 * Handler for theme selector blur event when type is datalist
+	 * @param {object} ev menu selection change event
+	 */
+	onThemeSelectorBlured_Handler(ev) {
+		if (this.type === 'datalist' && this.Node('themes').value === "") {
+			this.Node('themes').value = this.currentTheme;
+		}
+	}
+
 	/**
 	 * Provides the HTML template for a theme selector control
 	 * @returns {string} controller template
