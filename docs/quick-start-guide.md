@@ -22,6 +22,9 @@ import { Factory } from './<library-location>/web-mapping-components.js';
 let myMap = Factory.Map(<passed-arguments>);
 ```
 
+## Library Assets:
+Various controls in the Web-Mapping-Components library were built with images (e.g. a `globe.png` image for the home button). Although developers aren't limited to using these image files, the original assets can be found in the [/assets](https://github.com/CSBP-CPSE/web-mapping-components/tree/master/assets) directory.
+
 ## External Dependencies:
 The web-mapping-components library currently has two dependencies which are **not** currently bundled with the library, and will need to be included with your project in some manner.
 
