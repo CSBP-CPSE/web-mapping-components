@@ -72,6 +72,15 @@ let options = {
 let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle, options.mapCenter, options.mapZoom);
 ```
 
+#### Set Max Bounds of Map:
+The maximum extent for a map can be set on a map object using the `SetMaxBounds([[x1,y1],[x2,y2]])` method. Note: x1 and y1 represents the lower left bounds, and x2 and y2 represents the upper right bounds.
+
+**Example**:
+```javascript
+let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle, options.mapCenter, options.mapZoom);
+myMap.SetMaxBounds([[-50, -50], [10, 10]]);
+```
+
 ## Map Controls:
 Built into the web-mapping-components library are numerous map controls, which can be added to enhance the functionality of the Map Component.
 
