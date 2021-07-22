@@ -81,6 +81,15 @@ let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle
 myMap.SetMaxBounds([[-50, -50], [10, 10]]);
 ```
 
+#### Set Max Zoom of Map:
+The default map zoom range for a map is between 0 and 22. To set a maximum zoom level can be done with the `SetMaxZoom(max-zoom-level)` method.
+
+**Example**:
+```javascript
+let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle, options.mapCenter, options.mapZoom);
+myMap.SetMaxZoom(12);
+```
+
 ## Map Controls:
 Built into the web-mapping-components library are numerous map controls, which can be added to enhance the functionality of the Map Component.
 
