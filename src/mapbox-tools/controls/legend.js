@@ -21,7 +21,7 @@ export default class Legend extends Control {
 		this.chkBoxes = null;
 		this.chkBoxesState = null;
 		
-		this.Reload(options.legend, options.title, options.banner, options.subtitle);
+		this.Reload(options.config, options.title, options.banner, options.subtitle);
 	}
 	
 	Reload(config, title, banner, subtitle) {

@@ -82,9 +82,8 @@ export default class Factory {
 		return new maplibregl.AttributionControl({ compact: true });
 	}
 	
-	// TODO : LegendControl requires too many parameters
-	static LegendControl(legend, title, banner, subtitle, hasCheckbox) {
-		return new Legend({ legend:legend, title:title, banner:banner, subtitle:subtitle, hasCheckbox:hasCheckbox});
+	static LegendControl(config, title, banner, subtitle) {
+		return new Legend({ config:config, title:title, banner:banner, subtitle:subtitle});
 	}	
 	
 	static TocControl(toc) {
