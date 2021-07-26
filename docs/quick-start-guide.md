@@ -171,7 +171,7 @@ let geolocate = Factory.GeolocateControl();
 ```
 
 ### Legend
-The legend is arguably the most useful control provided by the Web-Mapping-Components Library, but requires multiple steps to properly configure, including;
+The legend is arguably the most useful control provided by the Web-Mapping-Components Library, but requires multiple steps to be properly configured, including;
 
 1. Defining the legend items
 2. Creating a legend control object
@@ -202,6 +202,8 @@ let legendItems = [
 	}
 ];
 ```
+
+Note: When creating a list of multiple legend items, make sure to include a default/catch-all item (see example above with the "Other" legend item). This will insure that cases not defined by the above legend items are handled by the map. 
 
 #### Creating A Legend Control Object:
 A new legend control object can be instantiated using the `Factory.LegendControl` method, which has four parameters including; `legend`, `title`, `banner`, and `subtitle`.
