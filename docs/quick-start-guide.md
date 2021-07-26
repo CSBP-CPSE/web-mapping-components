@@ -167,6 +167,117 @@ let geolocate = Factory.GeolocateControl();
 <map-object>.AddControl(geolocate, 'top-left');
 ```
 
+### Legend
+The legend is arguably the most useful control provided by the Web-Mapping-Components Library, but requires multiple steps to properly configure, including;
+
+1. Defining the legend items
+2. Creating a legend control object
+3. Adding the control object to the map
+4. Handle changes when the legend's state updates
+
+#### Defining the Legend Items:
+The legend items are represented by a list of objects which contain various properties about each legend item, including; the item `label`, item `color`, item `opacity`, and a `value` often represented by a [Mapbox expression](https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/), which defines the conditions representing the legend item. 
+
+**Legend Item Properties**:
+* label: A string representing the label of the item.
+* color: An array containing either the RGB or RGBA color value of the item.
+* opacity: A number representing the default opacity value, ranging between 0 and 1.
+* value: A Mapbox expression representing the legend item.
+
+Example: 
+```javascript
+let legendItems = [
+	{
+		"color": [255,25,167],
+		"label": "Legend Item 1",
+		"value": [<mapbox expression>]
+	},
+	{
+		"color": [150,150,150],
+		"opacity": 0.8,
+		"label": "Other"
+	}
+];
+```
+
+#### Creating A Legend Control Object:
+A new legend control object can be instantiated using the `Factory.LegendControl` method, which has four parameters including; `legend`, `title`, `banner`, and `subtitle`.
+
+**LegendControl Parameters**:
+* config: An array of legend items defining the legend's configurations (see example above). 
+* title: A string representing the legend's title.
+* banner: A string representing the banner text for the legend (placed at the top of legend).
+* subtitle: A string representing the legend's sub-title (placed below the title text).
+
+Syntax:
+```javascript
+let YourLegendControl = Factory.LegendControl(LegendItemsArray, "Legend Title", "Legend Banner", "Legend Sub-Title");
+```
+
+#### Adding Legend Control To The Map:
+Once the legend control object is created, it can then be added to the map application using the map `AddControl` method.
+
+Syntax:
+```javascript
+YourMap.AddControl(YourLegendControl);
+```
+
+#### Handling Legend State Changes:
+The final step is to handle `LegendChange` events and in the context of the legend, update the map layers with the updated legend state. 
+
+To make updating map layers based on changes to a legend's state, a function was added to the Map object which handles updating a provided list of map layer ids based on the current legend's state called `UpdateMapLayersWithLegendState`. This methods requires only three values passed to it to update the map layers; 1) a list of the layers you want updated, 2) the current legend's state, and 3) an opacity value for the legend items. 
+
+Syntax:
+```javascript
+YourLegendControl.On("LegendChange", this.OnLegend_Changed.bind(this));
+
+OnLegend_Changed(ev) {
+	YourMap.UpdateMapLayersWithLegendState(LayerIdsList, YourLegendControl, OpacityValue);
+}
+```
+
+#### Example:
+```javascript
+import { Factory } from './web-mapping-components.js';
+
+let options = {
+	container: document.getElementById('my-map-container-id'),
+	accessToken: '',
+	mapStyle: 'osm',
+	mapCenter: {lng: -75, lat: 46},
+	mapZoom: 12
+};
+
+// Create Map
+let myMap = Factory.Map(options.container, options.accessToken, options.mapStyle, options.mapCenter, options.mapZoom);
+
+let legendItems = [
+	{
+		"color": [255,25,167],
+		"label": "Ottawa, ON",
+		"value": ["==",["get","city_name"],"Ottawa"]
+	},
+	{
+		"color": [150,150,150],
+		"opacity": 0.8,
+		"label": "Other"
+	}
+];
+
+// Create Legend Control
+let legendControl = Factory.LegendControl(legendItems, "Legend Title", null, "Legend Sub-Title");
+
+// Add Legend Control To Map
+myMap.AddControl(legendControl);
+
+// Handle changes to legend state
+legendControl.On("LegendChange", this.OnLegend_Changed.bind(this));
+
+OnLegend_Changed(ev) {
+	myMap.UpdateMapLayersWithLegendState(['layer1','layer2','layer3'], legendControl, 1);
+}
+```
+
 ## Map Data:
 Mapbox provides various types of layers which can be added to your map, including; background, fill, line, symbol, raster, circle, fill-extrusion, heatmap, hillshade, and sky.
 
