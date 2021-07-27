@@ -366,3 +366,8 @@ layer: The object containing the details about the layer.
 
 	this.map.AddLayer(citiesLayer);
 ```
+
+## Events:
+The Web-Mapping-Components library has a selection of custom events, which are listed below; 
+
+* **LegendChange** - When the Legend Control's state has changed (e.g. a legend item's checkbox is changed), it emits a "LegendChange" event.
