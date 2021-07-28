@@ -21,21 +21,24 @@ export default class MapsMenu extends Control {
 	}
 
 	updateMapsMenu(maps) {
-		for (let i = 0; i < maps.length; i += 1) {
-			let map = maps[i];
+		let mapKeys = Object.keys(maps);
+
+		for (let i = 0; i < mapKeys.length; i += 1) {
+			let mapKey = mapKeys[i];
+			let map = maps[mapKey];
 
 			let opt = Dom.Create('option', {
-				value: item[Core.locale],
-				innerHTML: item[Core.locale]
+				value: map.id,
+				innerHTML: map.title
 			}, this.Node('maps-menu'));
-			this.options.setAttribute('handle', 'maps-menu-option');
+			opt.setAttribute('handle', 'maps-menu-option');
 		}
 	}
 
 	onMapsMenuSelectorChange_Handler(ev) {
-		let mapsSelectMenu = this.Node('maps-menu').value;
+		let mapsMenuSelection = this.Node('maps-menu').value;
 
-		this.Emit('MapsMenuSelectorChange', {map: mapsSelectMenu});
+		this.Emit('MapsMenuSelectorChange', {id: mapsMenuSelection, map: this.maps[mapsMenuSelection]});
 	}
 	
 	Template() {
