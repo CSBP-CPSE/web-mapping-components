@@ -22,6 +22,23 @@ export default class MapsMenu extends Control {
 	}
 
 	/**
+	 * Select maps menu value getter
+	 * @returns {string} The value of the maps-menu select element
+	 */
+	get value() {
+		return this.Node('maps-menu').value;
+	}
+
+	/**
+	 * Select maps menu value setter
+	 * @param {string} val The value the maps-menu select element should be set to
+	 */
+	set value(val) {
+		let menu = this.Node('maps-menu');
+		menu.value = val;
+	}
+
+	/**
 	 * Update the maps menu with a collection of maps as select menu options.
 	 * @param {object} maps a collection of maps
 	 * Example of basic maps object structure:
@@ -79,7 +96,7 @@ export default class MapsMenu extends Control {
 	Template() {
 		return "<div handle='root' class='maps-menu-selector'>" + 
 					"<div class='maps-menu-container'>" + 
-						"<label class='control-label'>Maps</label><br/>" +
+						"<label class='control-label'>Maps</label>" +
 						"<select aria-label='Maps' handle='maps-menu' name='maps-menu' class='maps-menu'></select>" +
 					"</div>" +
 			   "</div>"
