@@ -3,6 +3,7 @@ import Toc from '../controls/toc.js';
 import Opacity from '../controls/opacity.js';
 import Download from '../controls/download.js';
 import MapsList from '../controls/mapsList.js';
+import MapsMenu from '../controls/mapsMenu.js';
 import Bookmarks from '../controls/bookmarks.js';
 import Search from '../controls/search.js';
 import Fullscreen from '../controls/fullscreen.js';
@@ -100,6 +101,10 @@ export default class Factory {
 	
 	static MapsListControl(maps) {
 		return new MapsList({ maps:maps });
+	}
+	
+	static MapsMenuControl(maps) {
+		return new MapsMenu({ maps:maps });
 	}
 	
 	static BookmarksControl(items) {
