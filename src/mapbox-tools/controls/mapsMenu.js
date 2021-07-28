@@ -3,7 +3,7 @@ import Core from '../../basic-tools/tools/core.js';
 import Dom from '../../basic-tools/tools/dom.js';
 
 /**
- * MapsMenu class
+ * MapsMenu Control class
  * @class
  */
 export default class MapsMenu extends Control { 
@@ -13,13 +13,36 @@ export default class MapsMenu extends Control {
 		
 		this._container = this.Node('root');
 		this.maps = options.maps;
-		
+
+		// Update the Maps Select Menu
 		this.updateMapsMenu(this.maps);
 
 		// Add event listeners for change events on maps menu
 		this.Node('maps-menu').addEventListener('change', this.onMapsMenuSelectorChange_Handler.bind(this));
 	}
 
+	/**
+	 * Update the maps menu with a collection of maps as select menu options.
+	 * @param {object} maps a collection of maps
+	 * Example of basic maps object structure:
+	 * {
+	 * 		"mapa": {
+	 * 			id: "mapa",
+	 * 			title: "Map A",
+	 * 			...	
+	 * 		},
+	 * 		"mapb": {
+	 * 			id: "mapb",
+	 * 			title: "Map B",
+	 * 			...
+	 * 		},
+	 * 		"mapc": {
+	 * 			id: "mapc",
+	 * 			title: "Map C",
+	 * 			...
+	 * 		}
+	 * }
+	 */
 	updateMapsMenu(maps) {
 		let mapKeys = Object.keys(maps);
 
@@ -35,16 +58,28 @@ export default class MapsMenu extends Control {
 		}
 	}
 
+	/**
+	 * Handle maps menu selection changes and emit required map selection details 
+	 * @param {object} ev Change event
+	 */
 	onMapsMenuSelectorChange_Handler(ev) {
 		let mapsMenuSelection = this.Node('maps-menu').value;
 
-		this.Emit('MapsMenuSelectorChange', {id: mapsMenuSelection, map: this.maps[mapsMenuSelection]});
+		// Emit change event for maps menu
+		this.Emit('MapsMenuSelectorChange', {
+			id: mapsMenuSelection, 
+			map: this.maps[mapsMenuSelection]
+		});
 	}
-	
+
+	/**
+	 * HTML Template for Maps Menu Control
+	 * @returns {string} Template representing a maps menu control
+	 */
 	Template() {
 		return "<div handle='root' class='maps-menu-selector'>" + 
 					"<div class='maps-menu-container'>" + 
-						"<label class='control-label'>Maps</label>" +
+						"<label class='control-label'>Maps</label><br/>" +
 						"<select aria-label='Maps' handle='maps-menu' name='maps-menu' class='maps-menu'></select>" +
 					"</div>" +
 			   "</div>"
