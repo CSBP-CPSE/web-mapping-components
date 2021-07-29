@@ -24,6 +24,12 @@ export default class LabelsToggle extends Control {
 		this.Node('labels-toggle-checkbox').addEventListener('change', this.onLabelsToggleCheckboxChange_Handler.bind(this));
 	}
 
+	getMapStyleLayers() {
+		if (this.map && this.map.map && this.map.map.style && this.map.map.style.styleSheet) {
+			return this.map.map.style.styleSheet;
+		}
+	}
+
 	getLabelLayers() {
 		let layerIds = [];
 
@@ -35,7 +41,6 @@ export default class LabelsToggle extends Control {
 	 * @param {object} ev Change event
 	 */
 	onLabelsToggleCheckboxChange_Handler(ev) {
-		console.log(ev);
 		let layerIds = this.getLabelLayers();
 
 		if (ev) {
