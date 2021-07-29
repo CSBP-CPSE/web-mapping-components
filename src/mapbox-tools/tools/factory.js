@@ -103,8 +103,14 @@ export default class Factory {
 		return new MapsList({ maps:maps });
 	}
 	
-	static MapsMenuControl(maps) {
-		return new MapsMenu({ maps:maps });
+	/**
+	 * Builds a Maps Menu Control
+	 * @param {object} maps A collection of keys containing the details on each map 
+	 * @param {string} label The label to be shown next to the maps select menu
+	 * @returns MapsMenu object
+	 */
+	static MapsMenuControl(maps, label) {
+		return new MapsMenu({ maps:maps, label:label });
 	}
 	
 	static BookmarksControl(items) {
