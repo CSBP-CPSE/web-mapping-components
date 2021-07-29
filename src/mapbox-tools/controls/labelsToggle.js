@@ -43,15 +43,15 @@ export default class LabelsToggle extends Control {
 	onLabelsToggleCheckboxChange_Handler(ev) {
 		let layerIds = this.getLabelLayers();
 
-		if (ev) {
+		if (ev && ev.currentTarget && ev.currentTarget.checked) {
 			for (let i = 0; i < layerIds.length; i += 1) {
 				let layerId = layerIds[i];
-				this.map.HideLayer(layerId);
+				this.map.ShowLayer(layerId);
 			}
 		} else {
 			for (let i = 0; i < layerIds.length; i += 1) {
 				let layerId = layerIds[i];
-				this.map.ShowLayer(layerId);
+				this.map.HideLayer(layerId);
 			}
 		}
 	}
