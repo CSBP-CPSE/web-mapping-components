@@ -283,6 +283,69 @@ OnLegend_Changed(ev) {
 }
 ```
 
+### Maps Menu Control:
+The maps menu control provides a drop down list of maps, to allow a user to switch between map files. The process to add a Maps Menu control requires a couple steps; 1) Create and add the control to the map application, 2) Listen for events from the control which to trigger the map to be updated with the selected map.
+
+#### Create And Add A Maps Menu Control:
+The Maps Menu control is a very simple control that only requires you to pass a collection of maps to the control, which will result in a drop down list of 
+
+**Maps Menu Parameters**:
+* maps: A collection of map configuration details, including an id, title, and the address to the map style document. 
+* label (optional): A string representing the Maps Menu label (default is "Maps")
+
+Syntax:
+```javascript
+...
+let myMapsMenuControl = Factory.MapsMenuControl(<map-collection>,<control-label>);
+myMap.AddControl(myMapsMenuControl);
+```
+
+#### Handle Change Events From Maps Menu Control:
+To handle change events from the Maps Menu Control, you will need to listen for `MapsMenuControlChanged` events, and bind it to a function to handle the change.
+
+```javascript
+myMapsMenuControl.On("MapsMenuControlChanged", OnMapSelected_Handler.bind(this));
+
+OnMapSelected_Handler(ev) {
+	if (ev && ev.map && ev.map.style) {
+		MyMap.SetStyle(ev.map.style);
+	}
+}
+```
+
+#### Example: 
+```javascript
+...
+let mapCollection = {
+	mapa: {
+		id: 'mapa',
+		title: 'Map A',
+		style: 'mapbox://styles/<my-user-name>/<map-a-style-id>'
+	},
+	mapb: {
+		id: 'mapb',
+		title: 'Map B',
+		style: 'mapbox://styles/<my-user-name>/<map-b-style-id>'
+	}
+};
+
+// Create Maps Menu Control
+let myMapsMenuControl = Factory.MapsMenuControl(mapCollection, 'Maps');
+
+// Add Maps Menu Control to Map
+myMap.AddControl(myMapsMenuControl);
+
+// Handle MapsMenuControlChange Events
+myMapsMenuControl.On("MapsMenuControlChanged", OnMapSelected_Handler.bind(this));
+
+// Update Map Style based on Map Menu Seleciton
+OnMapSelected_Handler(ev) {
+	if (ev && ev.map && ev.map.style) {
+		myMap.SetStyle(ev.map.style);
+	}
+}
+```
+
 ## Map Data:
 Mapbox provides various types of layers which can be added to your map, including; background, fill, line, symbol, raster, circle, fill-extrusion, heatmap, hillshade, and sky.
 
@@ -370,4 +433,5 @@ layer: The object containing the details about the layer.
 ## Events:
 The Web-Mapping-Components library has a selection of custom events, which are listed below; 
 
-* **LegendChange** - When the Legend Control's state has changed (e.g. a legend item's checkbox is changed), it emits a "LegendChange" event.
+* **LegendChange** - When the Legend Control's state has changed (e.g. a legend item's checkbox is changed), it emits a `LegendChange` event.
+* **MapsMenuControlChanged** - When the Maps Menu Control has changed (i.e. a user selects an option in the drop down menu), it emits a `MapsMenuControlChanged` event.
