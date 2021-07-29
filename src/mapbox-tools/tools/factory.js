@@ -1,5 +1,6 @@
 import Legend from '../controls/legend.js';
 import Toc from '../controls/toc.js';
+import LabelsToggle from '../controls/labelsToggle.js';
 import Opacity from '../controls/opacity.js';
 import Download from '../controls/download.js';
 import MapsList from '../controls/mapsList.js';
@@ -116,5 +117,14 @@ export default class Factory {
 	
 	static Group(controls) {
 		return new Group({ controls:controls });
+	}
+	
+	/**
+	 * Create a Labels Toggle Control
+	 * @param {object} map Web-Mapping-Components Map Object
+	 * @returns A new Labels Toggle control
+	 */
+	static LabelsToggleControl(map) {
+		return new LabelsToggle({ map: map });
 	}
 }
