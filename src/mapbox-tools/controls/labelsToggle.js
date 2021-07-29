@@ -25,8 +25,12 @@ export default class LabelsToggle extends Control {
 	}
 
 	getMapStyleLayers() {
-		if (this.map && this.map.map && this.map.map.style && this.map.map.style.styleSheet) {
-			return this.map.map.style.styleSheet;
+		if (this.map && this.map.map && this.map.map.getStyle()) {
+			let mapStyle = this.map.map.getStyle();
+			
+			if (mapStyle && mapStyle.layers) {
+				return mapStyle.layers;
+			}
 		}
 	}
 
