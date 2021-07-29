@@ -13,6 +13,11 @@ export default class MapsMenu extends Control {
 		this._container = this.Node('root');
 		this.maps = options.maps;
 
+		// If a custom label is provided, update menu label
+		if (options.label && typeof(options.label) === 'string') {
+			this.Node('maps-menu-label').innerHTML = options.label;			
+		}
+
 		// Update the Maps Select Menu
 		this.updateMapsMenu(this.maps);
 
@@ -45,16 +50,19 @@ export default class MapsMenu extends Control {
 	 * 		"mapa": {
 	 * 			id: "mapa",
 	 * 			title: "Map A",
+	 * 			style: "mapbox://styles/<user-name>/<map-style-id>",
 	 * 			...	
 	 * 		},
 	 * 		"mapb": {
 	 * 			id: "mapb",
 	 * 			title: "Map B",
+	 * 			style: "mapbox://styles/<user-name>/<map-style-id>",
 	 * 			...
 	 * 		},
 	 * 		"mapc": {
 	 * 			id: "mapc",
 	 * 			title: "Map C",
+	 * 			style: "mapbox://styles/<user-name>/<map-style-id>",
 	 * 			...
 	 * 		}
 	 * }
@@ -82,7 +90,7 @@ export default class MapsMenu extends Control {
 		let mapsMenuSelection = this.Node('maps-menu').value;
 
 		// Emit change event for maps menu
-		this.Emit('MapsMenuSelectorChange', {
+		this.Emit('MapsMenuControlChanged', {
 			id: mapsMenuSelection, 
 			map: this.maps[mapsMenuSelection]
 		});
@@ -95,7 +103,7 @@ export default class MapsMenu extends Control {
 	Template() {
 		return "<div handle='root' class='maps-menu-selector'>" + 
 					"<div class='maps-menu-container'>" + 
-						"<label class='control-label'>Maps</label>" +
+						"<label handle='maps-menu-label' class='maps-menu-label'>Maps</label>" +
 						"<select aria-label='Maps' handle='maps-menu' name='maps-menu' class='maps-menu'></select>" +
 					"</div>" +
 			   "</div>"
