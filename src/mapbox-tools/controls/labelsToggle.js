@@ -36,6 +36,14 @@ export default class LabelsToggle extends Control {
 
 	getLabelLayers() {
 		let layerIds = [];
+		let styleLayers = this.getMapStyleLayers();
+
+		for (let i = 0; i < styleLayers.length; i += 1) {
+			let layer = styleLayers[i];
+			if (layer.type && layer.type === 'symbol') {
+				layerIds.push(layer.id);
+			}
+		}
 
 		return layerIds;
 	}
