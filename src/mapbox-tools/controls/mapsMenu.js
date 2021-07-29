@@ -101,7 +101,7 @@ export default class MapsMenu extends Control {
 	 * @returns {string} Template representing a maps menu control
 	 */
 	Template() {
-		return "<div handle='root' class='maps-menu-selector'>" + 
+		return "<div handle='root' class='maps-menu mapboxgl-ctrl'>" + 
 					"<div class='maps-menu-container'>" + 
 						"<label handle='maps-menu-label' class='maps-menu-label'>Maps</label>" +
 						"<select aria-label='Maps' handle='maps-menu' name='maps-menu' class='maps-menu'></select>" +
