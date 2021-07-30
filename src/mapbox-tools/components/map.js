@@ -244,6 +244,14 @@ export default class Map extends Evented {
 			this.map.addLayer(layer);
 		}
 	}
+	
+	/**
+	 * Get a specified layer
+	 * @param {string} layerId map layer id. 
+	 */
+	GetLayer(layerId) {
+		return this.map.getLayer(layerId) || null;
+	}
 
 	/**
 	 * Retrieves the layer type 
@@ -291,9 +299,21 @@ export default class Map extends Evented {
 	}
 
 	/**
-	 * Method to update a layout property for a layer
+	 * Get layout property for a layer
 	 * @param {string} layerId - Name of the map layer
-	 * @param {string} layoutProperty - Paint Property of the map layer
+	 * @param {string} layoutProperty - Layout property name
+	 */
+	GetLayoutProperty(layerId, layoutProperty) {
+		// Check that layer exists in map and update it
+		if (this.GetLayer(layerId)) {
+			this.map.getLayoutProperty(layerId, layoutProperty);
+		}
+	}
+
+	/**
+	 * Set a layout property for a layer
+	 * @param {string} layerId - Name of the map layer
+	 * @param {string} layoutProperty - Layout property name
 	 * @param {array || string} styleRules - Mapbox expression of style rules or a rgba string value.
 	 */
 	SetLayoutProperty(layerId, layoutProperty, styleRules) {
@@ -305,14 +325,6 @@ export default class Map extends Evented {
 
 	ReorderLayers(layers) {
 		layers.forEach(l => this.map.moveLayer(l));
-	}
-	
-	/**
-	 * Get a specified layer
-	 * @param {string} layerId map layer id. 
-	 */
-	GetLayer(layerId) {
-		return this.map.getLayer(layerId) || null;
 	}
 	
 	/**
