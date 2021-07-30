@@ -140,6 +140,14 @@ export default class Map extends Evented {
 	}
 
 	/**
+	 * Get the map style specification
+	 * @returns {object} Style JSON representing the map's style specification
+	 */
+	GetStyle() {
+		return this.map.getStyle();
+	}
+
+	/**
 	 * Set the map style of the map.
 	 * @param {string} style URL of the mapbox map style document
 	 */
