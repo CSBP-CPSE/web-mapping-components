@@ -122,9 +122,10 @@ export default class Factory {
 	/**
 	 * Create a Labels Toggle Control
 	 * @param {object} map Web-Mapping-Components Map Object
+	 * @param {string} label Control label
 	 * @returns A new Labels Toggle control
 	 */
-	static LabelsToggleControl(map) {
-		return new LabelsToggle({ map: map });
+	static LabelsToggleControl(map, label) {
+		return new LabelsToggle({ map: map, label : label });
 	}
 }
