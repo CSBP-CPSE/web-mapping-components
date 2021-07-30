@@ -33,6 +33,7 @@ src/
     │   ├── download.js
     │   ├── fullscreen.js
     │   ├── group.js
+    │   ├── labelsToggle.js # Contains logic for the Labels Toggle control
     │   ├── legend.js
     │   ├── mapsList.js
     │   ├── menu.js

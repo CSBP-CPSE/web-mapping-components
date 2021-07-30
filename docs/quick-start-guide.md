@@ -283,6 +283,28 @@ OnLegend_Changed(ev) {
 }
 ```
 
+### Labels Toggle Control:
+The labels toggle control provides a simple interface control for toggling on/off all map layers which show labels. 
+
+#### Creating And Adding A Labels Toggle Control:
+A new Labels Toggle control object can be created using the `Factory.LabelsToggleControl` method, which has two parameters; `map`, and `label`.
+
+**Labels Toggle Control Parameters**:
+* map: A Web-Mapping-Component Map object. 
+* label: A string representing the label for the Labels Toggle control. Default value is 'Labels' if no string is provided.
+
+Syntax:
+```javascript
+let MyLabelsToggleControl = Factory.LabelsToggleControl(<map-object>, <label-string>);
+<map-object>.AddControl(MyLabelsToggleControl);
+```
+
+#### Example:
+```javascript
+let MyLabelsToggleControl = Factory.LabelsToggleControl(MyMap, "Labels");
+MyMap.AddControl(MyLabelsToggleControl);
+```
+
 ## Map Data:
 Mapbox provides various types of layers which can be added to your map, including; background, fill, line, symbol, raster, circle, fill-extrusion, heatmap, hillshade, and sky.
 
