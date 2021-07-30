@@ -95,10 +95,19 @@ export default class Factory {
 	 * Theme map control 
 	 * @param {array} themes a list of themes
 	 * @param {string} type the type of control input, either; 'select' or 'datalist'
-	 * @returns an instantiated Theme object
+	 * @param {string} groups_label the groups label
+	 * @param {string} themes_label the themes label
+	 * @returns an instantiated Theme control object
 	 */
-	static ThemeControl(themes, type) {
-		return new Theme({ themes:themes, type:type});
+	static ThemeControl(themes, type, groups_label, themes_label) {
+		return new Theme(
+			{ 
+				themes:themes,
+				type:type,
+				groups_label:groups_label, 
+				themes_label:themes_label
+			}
+		);
 	}
 	
 	static OpacityControl(opacity) {

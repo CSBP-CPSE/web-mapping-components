@@ -17,6 +17,16 @@ export default class Theme extends Control {
 		} else {
 			this.type = 'select';
 		}
+
+		// If a custom label is provided, update groups label
+		if (options.groups_label && typeof(options.groups_label) === 'string') {
+			this.Node('theme-groups-label').innerHTML = options.groups_label;			
+		}
+
+		// If a custom label is provided, update themes label
+		if (options.themes_label && typeof(options.themes_label) === 'string') {
+			this.Node('themes-label').innerHTML = options.themes_label;			
+		}
 		
 		this._container = this.Node('root');
 		this.themes = options.themes;
@@ -369,12 +379,12 @@ export default class Theme extends Control {
 		if (this.type = 'datalist') {
 			template = "<div handle='root' class='theme-selector mapboxgl-ctrl'>" +
 					"<div class='groups-menu-container' handle='groups-menu-container'>" +
-						"<label class='control-label' for='groups'>Theme Groups</label>" +
+						"<label handle='theme-groups-label' class='control-label' for='groups'>Theme Groups</label>" +
 						"<input aria-label='Theme groups' handle='theme-groups' list='groups-list' name='groups'>" +
 						"<datalist handle='theme-groups-list' id='groups-list' class='theme-groups'></datalist>" +
 					"</div>"+
 					"<div class='themes-menu-container' handle='themes-menu-container'>" +
-						"<label class='control-label' for='themes'>Map Theme</label>" +
+						"<label handle='themes-label' class='control-label' for='themes'>Themes</label>" +
 						"<input aria-label='Themes' handle='themes' list='themes-list' name='themes'>" +
 						"<datalist handle='themes-list' id='themes-list' class='themes'></datalist>" +
 					"</div>"+
@@ -382,11 +392,11 @@ export default class Theme extends Control {
 		} else {
 			template = "<div handle='root' class='theme-selector mapboxgl-ctrl'>" +
 					"<div class='groups-menu-container' handle='groups-menu-container'>" +
-						"<label class='control-label'>Theme Groups</label>" +
+						"<label handle='theme-groups-label' class='control-label'>Theme Groups</label>" +
 						"<select aria-label='Theme groups' handle='theme-groups' name='theme-groups' class='theme-groups'></select>" +
 					"</div>"+
 					"<div class='themes-menu-container' handle='themes-menu-container'>"+
-						"<label class='control-label'>Map Theme</label>" +
+						"<label handle='themes-label' class='control-label'>Themes</label>" +
 						"<select aria-label='Themes' handle='themes' name='themes' class='themes'></select>" +
 					"</div>"+
 			   "</div>";
