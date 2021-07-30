@@ -1,6 +1,4 @@
 import Control from '../components/control.js';
-import Core from '../../basic-tools/tools/core.js';
-import Dom from '../../basic-tools/tools/dom.js';
 
 /**
  * LabelsToggle class
@@ -24,16 +22,25 @@ export default class LabelsToggle extends Control {
 		this.Node('labels-toggle-checkbox').addEventListener('change', this.onLabelsToggleCheckboxChange_Handler.bind(this));
 	}
 
+	/**
+	 * Retrieve a list of layers used by the map
+	 * @returns {array} List containing all layers in the map's style specification
+	 */
 	getMapStyleLayers() {
-		if (this.map && this.map.map && this.map.map.getStyle()) {
-			let mapStyle = this.map.map.getStyle();
+		let mapStyle = this.map.GetStyle();
 			
-			if (mapStyle && mapStyle.layers) {
-				return mapStyle.layers;
-			}
+		if (mapStyle && mapStyle.layers) {
+			return mapStyle.layers;
 		}
 	}
 
+	/**
+	 * Get a list of label layers.
+	 * 
+	 * Note: Label layers in Mapbox use the layer type 'symbol', and have the 
+	 * property 'text-field' defined. 
+	 * @returns {array} List of layer ids for label layers
+	 */
 	getLabelLayers() {
 		let layerIds = [];
 		let styleLayers = this.getMapStyleLayers();
@@ -41,7 +48,11 @@ export default class LabelsToggle extends Control {
 		for (let i = 0; i < styleLayers.length; i += 1) {
 			let layer = styleLayers[i];
 			if (layer.type && layer.type === 'symbol') {
-				layerIds.push(layer.id);
+				let layerId = layer.id;
+
+				if (this.map.GetLayoutProperty(layerId, 'text-field')) {
+					layerIds.push(layer.id);
+				}
 			}
 		}
 
