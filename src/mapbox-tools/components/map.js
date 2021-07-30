@@ -302,11 +302,12 @@ export default class Map extends Evented {
 	 * Get layout property for a layer
 	 * @param {string} layerId - Name of the map layer
 	 * @param {string} layoutProperty - Layout property name
+	 * @returns The layout property value
 	 */
 	GetLayoutProperty(layerId, layoutProperty) {
 		// Check that layer exists in map and update it
 		if (this.GetLayer(layerId)) {
-			this.map.getLayoutProperty(layerId, layoutProperty);
+			return this.map.getLayoutProperty(layerId, layoutProperty);
 		}
 	}
 
