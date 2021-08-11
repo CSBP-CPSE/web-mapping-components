@@ -170,6 +170,68 @@ let geolocate = Factory.GeolocateControl();
 <map-object>.AddControl(geolocate, 'top-left');
 ```
 
+### Opacity Control:
+The opacity control provides a slider that generates an opacity value (between 0 and 1), which can be used to adjust opacity for a selected layer.
+
+#### Create and Add an Opacity Control:
+```javascript
+let initialOpacity = 1;
+let opacityControl = Factory.OpacityControl(initialOpacity);
+
+<map-opacity>.AddControl(opacityControl);
+```
+
+#### Set the Opacity Control Label:
+```javascript
+<opacity-control-object>.label = "Opacity Control Label";
+```
+
+#### Set the Opacity Control Title:
+```javascript
+<opacity-control-object>.title = "Opacity Control Title";
+```
+
+#### Bind Opacity Control Change Events to a Function:
+```javascript
+<opacity-control-object>.On("OpacitySliderChanged", this.OnOpacitySlider_Changed.bind(this));
+
+OnOpacitySlider_Changed(ev) {
+	// Custom logic for handling changes to opacity
+	console.log("Current Opacity Value: " + ev.opacity);	
+};
+```
+
+### Group Control:
+The group control provides a structure to house a list of controls that can be added to an application.
+
+**Syntax**:
+```javascript
+// Define structure of group with an example of a control within the group
+let group = {
+	<control-name-1>: Factory.<control-1>,
+	<control-name-2>: Factory.<control-2>,
+	...,
+	<control-name-n>: Factory.<control-n>,
+
+};
+
+// Create a Group control object and add it to the map object.
+<map-object>.AddControl(Factory.Group({group}));
+```
+
+**Example**:
+```javascript
+// Define group structure with opacity control
+let group = {
+	opacity: Factory.OpacityControl(1);
+};
+
+myMap.AddControl(Factory.Group(group));
+
+// Update opacity control that's inside the group
+group.opacity.label = "Opacity Slider";
+```
+
 ### Legend
 The legend is arguably the most useful control provided by the Web-Mapping-Components Library, but requires multiple steps to be properly configured, including;
 
@@ -393,3 +455,4 @@ layer: The object containing the details about the layer.
 The Web-Mapping-Components library has a selection of custom events, which are listed below; 
 
 * **LegendChange** - When the Legend Control's state has changed (e.g. a legend item's checkbox is changed), it emits a "LegendChange" event.
+* **OpacitySliderChanged** - When the Opacity Control is updated (e.g. the slider bar is adjusted), it emits a "OpacitySliderChanged" event.
