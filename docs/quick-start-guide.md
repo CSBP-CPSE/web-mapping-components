@@ -170,6 +170,37 @@ let geolocate = Factory.GeolocateControl();
 <map-object>.AddControl(geolocate, 'top-left');
 ```
 
+### Opacity Control:
+The opacity control provides a slider that generates an opacity value (between 0 and 1), which can be used to adjust opacity for a selected layer.
+
+#### Create and Add an Opacity Control:
+```javascript
+let initialOpacity = 1;
+let opacityControl = Factory.OpacityControl(initialOpacity);
+
+<map-opacity>.AddControl(opacityControl);
+```
+
+#### Set the Opacity Control Label:
+```javascript
+<opacity-control-object>.label = "Opacity Control Label";
+```
+
+#### Set the Opacity Control Title:
+```javascript
+<opacity-control-object>.title = "Opacity Control Title";
+```
+
+#### Bind Opacity Control Change Events to a Function:
+```javascript
+<opacity-control-object>.On("OpacitySliderChanged", this.OnOpacitySlider_Changed.bind(this));
+
+OnOpacitySlider_Changed(ev) {
+	// Custom logic for handling changes to opacity
+	console.log("Current Opacity Value: " + ev.opacity);	
+};
+```
+
 ### Legend
 The legend is arguably the most useful control provided by the Web-Mapping-Components Library, but requires multiple steps to be properly configured, including;
 
@@ -371,3 +402,4 @@ layer: The object containing the details about the layer.
 The Web-Mapping-Components library has a selection of custom events, which are listed below; 
 
 * **LegendChange** - When the Legend Control's state has changed (e.g. a legend item's checkbox is changed), it emits a "LegendChange" event.
+* **OpacitySliderChanged** - When the Opacity Control is updated (e.g. the slider bar is adjusted), it emits a "OpacitySliderChanged" event.
