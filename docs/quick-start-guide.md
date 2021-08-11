@@ -201,6 +201,37 @@ OnOpacitySlider_Changed(ev) {
 };
 ```
 
+### Group Control:
+The group control provides a structure to house a list of controls that can be added to an application.
+
+**Syntax**:
+```javascript
+// Define structure of group with an example of a control within the group
+let group = {
+	<control-name-1>: Factory.<control-1>,
+	<control-name-2>: Factory.<control-2>,
+	...,
+	<control-name-n>: Factory.<control-n>,
+
+};
+
+// Create a Group control object and add it to the map object.
+<map-object>.AddControl(Factory.Group({group}));
+```
+
+**Example**:
+```javascript
+// Define group structure with opacity control
+let group = {
+	opacity: Factory.OpacityControl(1);
+};
+
+myMap.AddControl(Factory.Group(group));
+
+// Update opacity control that's inside the group
+group.opacity.label = "Opacity Slider";
+```
+
 ### Legend
 The legend is arguably the most useful control provided by the Web-Mapping-Components Library, but requires multiple steps to be properly configured, including;
 
