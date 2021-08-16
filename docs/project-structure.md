@@ -26,24 +26,24 @@ src/
 ├── main.js
 └── mapbox-tools
     ├── components
-    │   ├── control.js
-    │   └── map.js
+    │   ├── control.js # Logic for adding/removing controls in the map component
+    │   └── map.js # Contains logic related to the map component
     ├── controls
-    │   ├── bookmarks.js
-    │   ├── download.js
-    │   ├── fullscreen.js
-    │   ├── group.js
-    │   ├── legend.js
-    │   ├── mapsList.js
-    │   ├── menu.js
-    │   ├── navigation.js
-    │   ├── opacity.js
-    │   ├── search.js
-    │   └── toc.js
+    │   ├── bookmarks.js # Bookmarks control
+    │   ├── download.js # Download link control
+    │   ├── fullscreen.js # Fullscreen map control
+    │   ├── group.js # Group control
+    │   ├── legend.js # Legend control
+    │   ├── mapsList.js # Maplist control
+    │   ├── menu.js # Menu control
+    │   ├── navigation.js # Navigation control
+    │   ├── opacity.js # Opacity slider control
+    │   ├── search.js # Search control
+    │   └── toc.js # Table of Contents (TOC) control
     ├── README.md
     ├── styling
     │   ├── expression.js # Contains functions for generating mapbox data expressions for styling data
-    │   └── layer.js # Provides methods for manipulating mapbox layers
+    │   └── osm.js # Defines predefined OpenStreetMap (OSM) map style
     └── tools
         ├── factory.js # Factory for creating new components and control objects
         └── other.js
