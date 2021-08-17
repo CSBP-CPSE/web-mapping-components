@@ -278,7 +278,7 @@ A new legend control object can be instantiated using the `Factory.LegendControl
 
 Syntax:
 ```javascript
-let YourLegendControl = Factory.LegendControl(LegendItemsArray, "Legend Title", "Legend Banner", "Legend Sub-Title");
+let MyLegendControl = Factory.LegendControl(LegendItemsArray, "Legend Title", "Legend Banner", "Legend Sub-Title");
 ```
 
 #### Adding Legend Control To The Map:
@@ -286,7 +286,20 @@ Once the legend control object is created, it can then be added to the map appli
 
 Syntax:
 ```javascript
-YourMap.AddControl(YourLegendControl);
+MyMap.AddControl(MyLegendControl);
+```
+
+#### Applying Legend Style Rules to Map Layers:
+Style rules defined in the legend config can be applied to existing map layers using the `ApplyLegendStylesToMapLayers` map method. 
+
+Syntax:
+```javascript
+<map-object>.ApplyLegendStylesToMapLayers(<layer-list>, <legend-object>);
+```
+
+Example:
+```javascript
+MyMap.ApplyLegendStylesToMapLayers(['layer-a', 'layer-b', ..., 'layer-n'], MyLegend);
 ```
 
 #### Handling Legend State Changes:
@@ -296,10 +309,10 @@ To make updating map layers based on changes to a legend's state, a function was
 
 Syntax:
 ```javascript
-YourLegendControl.On("LegendChange", this.OnLegend_Changed.bind(this));
+MyLegendControl.On("LegendChange", this.OnLegend_Changed.bind(this));
 
 OnLegend_Changed(ev) {
-	YourMap.UpdateMapLayersWithLegendState(LayerIdsList, YourLegendControl, OpacityValue);
+	MyMap.UpdateMapLayersWithLegendState(LayerIdsList, MyLegendControl, OpacityValue);
 }
 ```
 
@@ -454,5 +467,10 @@ layer: The object containing the details about the layer.
 ## Events:
 The Web-Mapping-Components library has a selection of custom events, which are listed below; 
 
+* **BookmarkSelected** - When a bookmarked location is selected from the bookmarks control, "BookmarksSelected" event is emitted.
+* **enterFullscreen** - When the enter full screen control is clicked, the "enterFullscreen" event is emittted.
+* **exitFullscreen** - When exiting the full screen mode, the "exitFullscreen" event is emitted.
 * **LegendChange** - When the Legend Control's state has changed (e.g. a legend item's checkbox is changed), it emits a "LegendChange" event.
+* **MapSelected** - When a user selects a map style document, the "MapSelected" event is emitted. (e.g. the map list control sends a "MapSelected" event when a map is selected).
 * **OpacitySliderChanged** - When the Opacity Control is updated (e.g. the slider bar is adjusted), it emits a "OpacitySliderChanged" event.
+* **StyleChanged** - When the map style is changed, a "StyleChanged" event is emitted.

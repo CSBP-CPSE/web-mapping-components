@@ -357,23 +357,11 @@ export default class Map extends Evented {
 	}
 
 	/**
-	 * Update Map Layers based on current legend state. Layer styling is
-	 * updated by the current state of the legend which updates layer
-	 * paint properties for colour and opacity.
+	 * Apply legend style rules to map layers.
 	 * @param {array} layerIDs - a list of layer id
 	 * @param {object} legend - reference to the current legend object
-	 * @param {number} storedOpacity - Locally stored opacity value between 0 - 1.
 	 */
-	UpdateMapLayersWithLegendState(layerIDs, legend, storedOpacity) {
-		let opacity;
-
-		// Define opacity based on provided storedOpacity value; 
-		if (storedOpacity >= 0 && storedOpacity <= 1) {
-			opacity = storedOpacity;
-		} else {
-			opacity = 1;
-		}
-
+	ApplyLegendStylesToMapLayers(layerIDs, legend) {
 		// Generate colour mapbox expression
 		let colourExpression = generateColourExpression(legend);
 
@@ -392,6 +380,25 @@ export default class Map extends Evented {
 					}
 				}
 			}
+		}
+	}
+
+	/**
+	 * Update Map Layers based on current legend state. Layer styling is
+	 * updated by the current state of the legend which updates the opacity
+	 * a map features.
+	 * @param {array} layerIDs - a list of layer id
+	 * @param {object} legend - reference to the current legend object
+	 * @param {number} storedOpacity - Locally stored opacity value between 0 - 1.
+	 */
+	UpdateMapLayersWithLegendState(layerIDs, legend, storedOpacity) {
+		let opacity;
+
+		// Define opacity based on provided storedOpacity value; 
+		if (storedOpacity >= 0 && storedOpacity <= 1) {
+			opacity = storedOpacity;
+		} else {
+			opacity = 1;
 		}
 
 		// Generate opacity expressions
