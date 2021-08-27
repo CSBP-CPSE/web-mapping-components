@@ -3,6 +3,7 @@ import Toc from '../controls/toc.js';
 import Opacity from '../controls/opacity.js';
 import Download from '../controls/download.js';
 import MapsList from '../controls/mapsList.js';
+import MapsMenu from '../controls/mapsMenu.js';
 import Bookmarks from '../controls/bookmarks.js';
 import Search from '../controls/search.js';
 import Fullscreen from '../controls/fullscreen.js';
@@ -144,6 +145,16 @@ export default class Factory {
 	 */
 	static MapsListControl(maps) {
 		return new MapsList({ maps:maps });
+	}
+	
+	/**
+	 * Builds a Maps Menu Control
+	 * @param {object} maps A collection of keys containing the details on each map 
+	 * @param {string} label The label to be shown next to the maps select menu
+	 * @returns MapsMenu object
+	 */
+	static MapsMenuControl(maps, label) {
+		return new MapsMenu({ maps:maps, label:label });
 	}
 	
 	/**

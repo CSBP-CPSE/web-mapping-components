@@ -35,6 +35,7 @@ src/
     │   ├── group.js # Group control
     │   ├── legend.js # Legend control
     │   ├── mapsList.js # Maplist control
+    │   ├── mapsMenu.js # Contains logic for the MapsMenu Control
     │   ├── menu.js # Menu control
     │   ├── navigation.js # Navigation control
     │   ├── opacity.js # Opacity slider control
