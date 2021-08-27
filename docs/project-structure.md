@@ -33,6 +33,7 @@ src/
     │   ├── download.js # Download link control
     │   ├── fullscreen.js # Fullscreen map control
     │   ├── group.js # Group control
+    │   ├── labelsToggle.js # Contains logic for the Labels Toggle control
     │   ├── legend.js # Legend control
     │   ├── mapsList.js # Maplist control
     │   ├── mapsMenu.js # Contains logic for the MapsMenu Control
