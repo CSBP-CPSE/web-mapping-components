@@ -1,3 +1,5 @@
+import css from 'rollup-plugin-css-only';
+
 const banner = 
 `/*
  * Web Mapping Components
@@ -19,5 +21,8 @@ export default {
 			format: 'es',
 			banner: banner
 		}
-    ]
+    ],
+	plugins: [
+		css({ output: 'web-mapping-components.css' })
+	]
 }

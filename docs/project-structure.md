@@ -8,6 +8,13 @@ The web-mapping-components library has the following dependencies;
 
 ## Source Tree:
 ```
+css/
+├── controls.css # Style rules for map controls 
+├── layout.css # General application layout style rules
+├── popup.css # Style rules for popup windows
+├── search.css # Style rules for the search UI
+└── table.css # Style rules used by the table component
+
 src/
 ├── basic-tools
 │   ├── components

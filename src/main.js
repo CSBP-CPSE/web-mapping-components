@@ -29,3 +29,10 @@ export { default as Other } from './mapbox-tools/tools/other.js'
 
 export { default as Control } from './mapbox-tools/components/control.js'
 export { default as Map } from './mapbox-tools/components/map.js'
+
+// CSS files that are bundled into a single web-mapping-components.css file
+import '../css/layout.css';
+import '../css/controls.css';
+import '../css/popup.css';
+import '../css/search.css';
+import '../css/table.css';

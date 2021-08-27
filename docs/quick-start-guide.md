@@ -10,9 +10,9 @@ The web-mapping-components library is built on maplibre-gl technology (a fork of
 The web-mapping-components library consists of a number of modules which is split between two categories 1) basic-tools and 2) mapbox-tools. The mapbox-tools portion of the library handles logic directly related to using the maplibre-gl web-mapping library, while the basic-tools portion of the library contains all non-maplibre functionality.
 
 ## How to use the library in your project:
-The web-mapping-components library as mentioned above is modular in design (ECMAScript (ES) modules), and the project uses rollup to bundle these modules into a single web-mapping-components.js library. Note: running the command `npm run build` will generate a new web-mapping-components.js library which will be found in the `/dist` directory.
+The web-mapping-components library as mentioned above is modular in design (ECMAScript (ES) modules), and the project uses rollup to bundle these modules into a single web-mapping-components.js library. Note: running the command `npm run build` will generate new web-mapping-components.js and web-mapping-components.css files which will be found in the `/dist` directory.
 
-To include this library into your project, simply copy the built web-mapping-components.js to your project, and reference the module(s) you're interested in using in your code. 
+To include this library into your project, simply copy the built web-mapping-components.js and web-mapping-components.css to your project, and reference the css file and js module(s) you're interested in using in your code. 
 
 For example if you wanted to use the Factory module to create a Map from the web-mapping-components library in your own JavaScript library, you would import that module in the following way;
 
