@@ -3,7 +3,7 @@
 The goal of this guide is to provide those new to the library a quick guide to develop their own mapping application.
 
 ## Background:
-The web-mapping-components library was originally part of the [web-mapping-dev](https://github.com/CSBP-CPSE/web-mapping-dev) repository, which included both the core web mapping logic and various map viewer applications. In an effort to make this code more managable, the web-mapping-dev repository was separated between core functionality and the web mapping viewer applications which use it (e.g. [lode-viewer](https://github.com/CSBP-CPSE/lode-viewer).
+The web-mapping-components library was originally part of the [web-mapping-dev](https://github.com/CSBP-CPSE/web-mapping-dev) repository, which included both the core web mapping logic and various map viewer applications. In an effort to make this code more managable, the web-mapping-dev repository was separated between core functionality and the web mapping viewer applications which use it (e.g. [lode-viewer](https://github.com/CSBP-CPSE/lode-viewer)).
 
 The web-mapping-components library is built on maplibre-gl technology (a fork of the mapbox-gl library) and includes the core logic needed to add a dynamic web map to a webpage, and related controls/components to enhance the map's functionality (e.g. a map legend).
 
@@ -29,7 +29,7 @@ Various controls in the Web-Mapping-Components library were built with images (e
 The web-mapping-components library currently has two dependencies which are **not** currently bundled with the library, and will need to be included with your project in some manner.
 
 * [maplibre-gl](https://www.npmjs.com/package/maplibre-gl)
-* [promise-polyfill](https://www.npmjs.com/package/promise-polyfill))
+* [promise-polyfill](https://www.npmjs.com/package/promise-polyfill)
 
 ## Map Component:
 ### How To Add A Map:
