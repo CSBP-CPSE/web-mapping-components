@@ -55,6 +55,11 @@ popup.css style rules
     z-index: 1;
     background: white;
     border-radius: 30px;
+    padding: 0px;
+    color: #2a2a2b;
+    opacity: 0.7;
+	width : 30px;
+	height : 30px;
 }
 
 .popup p.warning  {
@@ -98,14 +103,6 @@ popup.css style rules
 
 .popup hr {
 	margin : 0px;
-}
-
-.popup button.close {
-    padding: 0px;
-    color: #2a2a2b;
-    opacity: 0.7;
-	width : 30px;
-	height : 30px;
 }
 
 .popup button.continue {
