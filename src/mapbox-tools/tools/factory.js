@@ -1,8 +1,10 @@
 import Legend from '../controls/legend.js';
 import Toc from '../controls/toc.js';
+import LabelsToggle from '../controls/labelsToggle.js';
 import Opacity from '../controls/opacity.js';
 import Download from '../controls/download.js';
 import MapsList from '../controls/mapsList.js';
+import MapsMenu from '../controls/mapsMenu.js';
 import Bookmarks from '../controls/bookmarks.js';
 import Search from '../controls/search.js';
 import Fullscreen from '../controls/fullscreen.js';
@@ -147,6 +149,16 @@ export default class Factory {
 	}
 	
 	/**
+	 * Builds a Maps Menu Control
+	 * @param {object} maps A collection of keys containing the details on each map 
+	 * @param {string} label The label to be shown next to the maps select menu
+	 * @returns MapsMenu object
+	 */
+	static MapsMenuControl(maps, label) {
+		return new MapsMenu({ maps:maps, label:label });
+	}
+	
+	/**
 	 * Creates a new Bookmarks control that can be added to a map.
 	 * The control provides an easy way to navigate the map to predefined
 	 * locations.
@@ -210,5 +222,15 @@ export default class Factory {
 	 */
 	static Group(controls) {
 		return new Group({ controls:controls });
+	}
+	
+	/**
+	 * Create a Labels Toggle Control
+	 * @param {object} map Web-Mapping-Components Map Object
+	 * @param {string} label Control label
+	 * @returns A new Labels Toggle control
+	 */
+	static LabelsToggleControl(map, label) {
+		return new LabelsToggle({ map: map, label : label });
 	}
 }
