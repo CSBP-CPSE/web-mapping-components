@@ -140,6 +140,14 @@ export default class Map extends Evented {
 	}
 
 	/**
+	 * Get the map style specification
+	 * @returns {object} Style JSON representing the map's style specification
+	 */
+	GetStyle() {
+		return this.map.getStyle();
+	}
+
+	/**
 	 * Set the map style of the map.
 	 * @param {string} style URL of the mapbox map style document
 	 */
@@ -236,6 +244,14 @@ export default class Map extends Evented {
 			this.map.addLayer(layer);
 		}
 	}
+	
+	/**
+	 * Get a specified layer
+	 * @param {string} layerId map layer id. 
+	 */
+	GetLayer(layerId) {
+		return this.map.getLayer(layerId) || null;
+	}
 
 	/**
 	 * Retrieves the layer type 
@@ -283,9 +299,22 @@ export default class Map extends Evented {
 	}
 
 	/**
-	 * Method to update a layout property for a layer
+	 * Get layout property for a layer
 	 * @param {string} layerId - Name of the map layer
-	 * @param {string} layoutProperty - Paint Property of the map layer
+	 * @param {string} layoutProperty - Layout property name
+	 * @returns The layout property value
+	 */
+	GetLayoutProperty(layerId, layoutProperty) {
+		// Check that layer exists in map and update it
+		if (this.GetLayer(layerId)) {
+			return this.map.getLayoutProperty(layerId, layoutProperty);
+		}
+	}
+
+	/**
+	 * Set a layout property for a layer
+	 * @param {string} layerId - Name of the map layer
+	 * @param {string} layoutProperty - Layout property name
 	 * @param {array || string} styleRules - Mapbox expression of style rules or a rgba string value.
 	 */
 	SetLayoutProperty(layerId, layoutProperty, styleRules) {
@@ -297,14 +326,6 @@ export default class Map extends Evented {
 
 	ReorderLayers(layers) {
 		layers.forEach(l => this.map.moveLayer(l));
-	}
-	
-	/**
-	 * Get a specified layer
-	 * @param {string} layerId map layer id. 
-	 */
-	GetLayer(layerId) {
-		return this.map.getLayer(layerId) || null;
 	}
 	
 	/**
@@ -336,23 +357,11 @@ export default class Map extends Evented {
 	}
 
 	/**
-	 * Update Map Layers based on current legend state. Layer styling is
-	 * updated by the current state of the legend which updates layer
-	 * paint properties for colour and opacity.
+	 * Apply legend style rules to map layers.
 	 * @param {array} layerIDs - a list of layer id
 	 * @param {object} legend - reference to the current legend object
-	 * @param {number} storedOpacity - Locally stored opacity value between 0 - 1.
 	 */
-	UpdateMapLayersWithLegendState(layerIDs, legend, storedOpacity) {
-		let opacity;
-
-		// Define opacity based on provided storedOpacity value; 
-		if (storedOpacity >= 0 && storedOpacity <= 1) {
-			opacity = storedOpacity;
-		} else {
-			opacity = 1;
-		}
-
+	ApplyLegendStylesToMapLayers(layerIDs, legend) {
 		// Generate colour mapbox expression
 		let colourExpression = generateColourExpression(legend);
 
@@ -371,6 +380,25 @@ export default class Map extends Evented {
 					}
 				}
 			}
+		}
+	}
+
+	/**
+	 * Update Map Layers based on current legend state. Layer styling is
+	 * updated by the current state of the legend which updates the opacity
+	 * a map features.
+	 * @param {array} layerIDs - a list of layer id
+	 * @param {object} legend - reference to the current legend object
+	 * @param {number} storedOpacity - Locally stored opacity value between 0 - 1.
+	 */
+	UpdateMapLayersWithLegendState(layerIDs, legend, storedOpacity) {
+		let opacity;
+
+		// Define opacity based on provided storedOpacity value; 
+		if (storedOpacity >= 0 && storedOpacity <= 1) {
+			opacity = storedOpacity;
+		} else {
+			opacity = 1;
 		}
 
 		// Generate opacity expressions

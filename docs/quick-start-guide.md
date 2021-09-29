@@ -10,9 +10,9 @@ The web-mapping-components library is built on maplibre-gl technology (a fork of
 The web-mapping-components library consists of a number of modules which is split between two categories 1) basic-tools and 2) mapbox-tools. The mapbox-tools portion of the library handles logic directly related to using the maplibre-gl web-mapping library, while the basic-tools portion of the library contains all non-maplibre functionality.
 
 ## How to use the library in your project:
-The web-mapping-components library as mentioned above is modular in design (ECMAScript (ES) modules), and the project uses rollup to bundle these modules into a single web-mapping-components.js library. Note: running the command `npm run build` will generate a new web-mapping-components.js library which will be found in the `/dist` directory.
+The web-mapping-components library as mentioned above is modular in design (ECMAScript (ES) modules), and the project uses rollup to bundle these modules into a single web-mapping-components.js library. Note: running the command `npm run build` will generate new web-mapping-components.js and web-mapping-components.css files which will be found in the `/dist` directory.
 
-To include this library into your project, simply copy the built web-mapping-components.js to your project, and reference the module(s) you're interested in using in your code. 
+To include this library into your project, simply copy the built web-mapping-components.js and web-mapping-components.css to your project, and reference the css file and js module(s) you're interested in using in your code. 
 
 For example if you wanted to use the Factory module to create a Map from the web-mapping-components library in your own JavaScript library, you would import that module in the following way;
 
@@ -29,7 +29,7 @@ Various controls in the Web-Mapping-Components library were built with images (e
 The web-mapping-components library currently has two dependencies which are **not** currently bundled with the library, and will need to be included with your project in some manner.
 
 * [maplibre-gl](https://www.npmjs.com/package/maplibre-gl)
-* [promise-polyfill](https://www.npmjs.com/package/promise-polyfill))
+* [promise-polyfill](https://www.npmjs.com/package/promise-polyfill)
 
 ## Map Component:
 ### How To Add A Map:
@@ -170,6 +170,68 @@ let geolocate = Factory.GeolocateControl();
 <map-object>.AddControl(geolocate, 'top-left');
 ```
 
+### Opacity Control:
+The opacity control provides a slider that generates an opacity value (between 0 and 1), which can be used to adjust opacity for a selected layer.
+
+#### Create and Add an Opacity Control:
+```javascript
+let initialOpacity = 1;
+let opacityControl = Factory.OpacityControl(initialOpacity);
+
+<map-opacity>.AddControl(opacityControl);
+```
+
+#### Set the Opacity Control Label:
+```javascript
+<opacity-control-object>.label = "Opacity Control Label";
+```
+
+#### Set the Opacity Control Title:
+```javascript
+<opacity-control-object>.title = "Opacity Control Title";
+```
+
+#### Bind Opacity Control Change Events to a Function:
+```javascript
+<opacity-control-object>.On("OpacitySliderChanged", this.OnOpacitySlider_Changed.bind(this));
+
+OnOpacitySlider_Changed(ev) {
+	// Custom logic for handling changes to opacity
+	console.log("Current Opacity Value: " + ev.opacity);	
+};
+```
+
+### Group Control:
+The group control provides a structure to house a list of controls that can be added to an application.
+
+**Syntax**:
+```javascript
+// Define structure of group with an example of a control within the group
+let group = {
+	<control-name-1>: Factory.<control-1>,
+	<control-name-2>: Factory.<control-2>,
+	...,
+	<control-name-n>: Factory.<control-n>,
+
+};
+
+// Create a Group control object and add it to the map object.
+<map-object>.AddControl(Factory.Group({group}));
+```
+
+**Example**:
+```javascript
+// Define group structure with opacity control
+let group = {
+	opacity: Factory.OpacityControl(1);
+};
+
+myMap.AddControl(Factory.Group(group));
+
+// Update opacity control that's inside the group
+group.opacity.label = "Opacity Slider";
+```
+
 ### Legend
 The legend is arguably the most useful control provided by the Web-Mapping-Components Library, but requires multiple steps to be properly configured, including;
 
@@ -216,7 +278,7 @@ A new legend control object can be instantiated using the `Factory.LegendControl
 
 Syntax:
 ```javascript
-let YourLegendControl = Factory.LegendControl(LegendItemsArray, "Legend Title", "Legend Banner", "Legend Sub-Title");
+let MyLegendControl = Factory.LegendControl(LegendItemsArray, "Legend Title", "Legend Banner", "Legend Sub-Title");
 ```
 
 #### Adding Legend Control To The Map:
@@ -224,7 +286,20 @@ Once the legend control object is created, it can then be added to the map appli
 
 Syntax:
 ```javascript
-YourMap.AddControl(YourLegendControl);
+MyMap.AddControl(MyLegendControl);
+```
+
+#### Applying Legend Style Rules to Map Layers:
+Style rules defined in the legend config can be applied to existing map layers using the `ApplyLegendStylesToMapLayers` map method. 
+
+Syntax:
+```javascript
+<map-object>.ApplyLegendStylesToMapLayers(<layer-list>, <legend-object>);
+```
+
+Example:
+```javascript
+MyMap.ApplyLegendStylesToMapLayers(['layer-a', 'layer-b', ..., 'layer-n'], MyLegend);
 ```
 
 #### Handling Legend State Changes:
@@ -234,10 +309,10 @@ To make updating map layers based on changes to a legend's state, a function was
 
 Syntax:
 ```javascript
-YourLegendControl.On("LegendChange", this.OnLegend_Changed.bind(this));
+MyLegendControl.On("LegendChange", this.OnLegend_Changed.bind(this));
 
 OnLegend_Changed(ev) {
-	YourMap.UpdateMapLayersWithLegendState(LayerIdsList, YourLegendControl, OpacityValue);
+	MyMap.UpdateMapLayersWithLegendState(LayerIdsList, MyLegendControl, OpacityValue);
 }
 ```
 
@@ -280,6 +355,91 @@ legendControl.On("LegendChange", this.OnLegend_Changed.bind(this));
 
 OnLegend_Changed(ev) {
 	myMap.UpdateMapLayersWithLegendState(['layer1','layer2','layer3'], legendControl, 1);
+}
+```
+
+### Labels Toggle Control:
+The labels toggle control provides a simple interface control for toggling on/off all map layers which show labels. 
+
+#### Creating And Adding A Labels Toggle Control:
+A new Labels Toggle control object can be created using the `Factory.LabelsToggleControl` method, which has two parameters; `map`, and `label`.
+
+**Labels Toggle Control Parameters**:
+* map: A Web-Mapping-Component Map object. 
+* label: A string representing the label for the Labels Toggle control. Default value is 'Labels' if no string is provided.
+
+Syntax:
+```javascript
+let MyLabelsToggleControl = Factory.LabelsToggleControl(<map-object>, <label-string>);
+<map-object>.AddControl(MyLabelsToggleControl);
+```
+
+#### Example:
+```javascript
+let MyLabelsToggleControl = Factory.LabelsToggleControl(MyMap, "Labels");
+MyMap.AddControl(MyLabelsToggleControl);
+```
+
+### Maps Menu Control:
+The maps menu control provides a drop down list of maps, to allow a user to switch between map files. The process to add a Maps Menu control requires a couple steps; 1) Create and add the control to the map application, 2) Listen for events from the control which to trigger the map to be updated with the selected map.
+
+#### Create And Add A Maps Menu Control:
+The Maps Menu control is a very simple control that only requires you to pass a collection of maps to the control, which will result in a drop down list of 
+
+**Maps Menu Parameters**:
+* maps: A collection of map configuration details, including an id, title, and the address to the map style document. 
+* label (optional): A string representing the Maps Menu label (default is "Maps")
+
+Syntax:
+```javascript
+...
+let myMapsMenuControl = Factory.MapsMenuControl(<map-collection>,<control-label>);
+myMap.AddControl(myMapsMenuControl);
+```
+
+#### Handle Change Events From Maps Menu Control:
+To handle change events from the Maps Menu Control, you will need to listen for `MapsMenuControlChanged` events, and bind it to a function to handle the change.
+
+```javascript
+myMapsMenuControl.On("MapsMenuControlChanged", OnMapSelected_Handler.bind(this));
+
+OnMapSelected_Handler(ev) {
+	if (ev && ev.map && ev.map.style) {
+		MyMap.SetStyle(ev.map.style);
+	}
+}
+```
+
+#### Example: 
+```javascript
+...
+let mapCollection = {
+	mapa: {
+		id: 'mapa',
+		title: 'Map A',
+		style: 'mapbox://styles/<my-user-name>/<map-a-style-id>'
+	},
+	mapb: {
+		id: 'mapb',
+		title: 'Map B',
+		style: 'mapbox://styles/<my-user-name>/<map-b-style-id>'
+	}
+};
+
+// Create Maps Menu Control
+let myMapsMenuControl = Factory.MapsMenuControl(mapCollection, 'Maps');
+
+// Add Maps Menu Control to Map
+myMap.AddControl(myMapsMenuControl);
+
+// Handle MapsMenuControlChange Events
+myMapsMenuControl.On("MapsMenuControlChanged", OnMapSelected_Handler.bind(this));
+
+// Update Map Style based on Map Menu Seleciton
+OnMapSelected_Handler(ev) {
+	if (ev && ev.map && ev.map.style) {
+		myMap.SetStyle(ev.map.style);
+	}
 }
 ```
 
@@ -370,4 +530,11 @@ layer: The object containing the details about the layer.
 ## Events:
 The Web-Mapping-Components library has a selection of custom events, which are listed below; 
 
+* **BookmarkSelected** - When a bookmarked location is selected from the bookmarks control, "BookmarksSelected" event is emitted.
+* **enterFullscreen** - When the enter full screen control is clicked, the "enterFullscreen" event is emittted.
+* **exitFullscreen** - When exiting the full screen mode, the "exitFullscreen" event is emitted.
 * **LegendChange** - When the Legend Control's state has changed (e.g. a legend item's checkbox is changed), it emits a "LegendChange" event.
+* **MapsMenuControlChanged** - When the Maps Menu Control has changed (i.e. a user selects an option in the drop down menu), it emits a "MapsMenuControlChanged" event.
+* **MapSelected** - When a user selects a map style document, the "MapSelected" event is emitted. (e.g. the map list control sends a "MapSelected" event when a map is selected).
+* **OpacitySliderChanged** - When the Opacity Control is updated (e.g. the slider bar is adjusted), it emits a "OpacitySliderChanged" event.
+* **StyleChanged** - When the map style is changed, a "StyleChanged" event is emitted.

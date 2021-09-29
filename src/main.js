@@ -16,8 +16,10 @@ export { default as Bookmarks } from './mapbox-tools/controls/bookmarks.js'
 export { default as Download } from './mapbox-tools/controls/download.js'
 export { default as Fullscreen } from './mapbox-tools/controls/fullscreen.js'
 export { default as Group } from './mapbox-tools/controls/group.js'
+export { default as LabelsToggle } from './mapbox-tools/controls/labelsToggle.js'
 export { default as Legend } from './mapbox-tools/controls/legend.js'
 export { default as MapsList } from './mapbox-tools/controls/mapsList.js'
+export { default as MapsMenu } from './mapbox-tools/controls/mapsMenu.js'
 export { default as Menu } from './mapbox-tools/controls/menu.js'
 export { default as Navigation } from './mapbox-tools/controls/navigation.js'
 export { default as Opacity } from './mapbox-tools/controls/opacity.js'
@@ -30,3 +32,10 @@ export { default as Other } from './mapbox-tools/tools/other.js'
 
 export { default as Control } from './mapbox-tools/components/control.js'
 export { default as Map } from './mapbox-tools/components/map.js'
+
+// CSS files that are bundled into a single web-mapping-components.css file
+import '../css/layout.css';
+import '../css/controls.css';
+import '../css/popup.css';
+import '../css/search.css';
+import '../css/table.css';
