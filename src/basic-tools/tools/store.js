@@ -114,7 +114,8 @@ export default class Store {
 	 * @returns {object} current search-item details
 	 */
 	static get SearchItem() {
-		return sessionStorage.getItem("search-item");
+		let currentSearchItem = sessionStorage.getItem("search-item");
+		return JSON.parse(currentSearchItem);
 	}
 
 	/**
@@ -122,6 +123,7 @@ export default class Store {
 	 * @param {object} value current search-item object details
 	 */
 	static set SearchItem(value) {
-		sessionStorage.setItem("search-item", value);
+		let currentSearchItem = JSON.stringify(value);
+		sessionStorage.setItem("search-item", currentSearchItem);
 	}
 }
