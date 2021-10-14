@@ -102,10 +102,26 @@ export default class Store {
 	}
 	
 	/**
-	 * Set the lode-layer layer from localStorage
+	 * Set the lode-layer layer in localStorage
 	 * @param {string} value - layer name
 	 */
 	static set Layer(value) {
 		localStorage.setItem("lode-layer", value);
+	}
+
+	/**
+	 * Get the current search-item from the sessionStorage
+	 * @returns {object} current search-item details
+	 */
+	static get SearchItem() {
+		return sessionStorage.getItem("search-item");
+	}
+
+	/**
+	 * Set the search-item in sessionStorage
+	 * @param {object} value current search-item object details
+	 */
+	static set SearchItem(value) {
+		sessionStorage.setItem("search-item", value);
 	}
 }
