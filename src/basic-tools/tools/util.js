@@ -104,7 +104,12 @@ export default class Util {
 		var i = 0;
 		
 		var lines = [[]];
-		
+
+		// Replace CRLF line breaks with LF if they exist
+		// This ensures that CR are not included in the array output
+		let CRLFRegex = new RegExp("\r\n", "g");
+		csv = csv.replace(CRLFRegex, "\n");
+
 		while (s < csv.length) {
 			if (csv[s] == '"') {
 				s++;
