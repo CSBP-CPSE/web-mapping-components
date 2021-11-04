@@ -46,6 +46,26 @@ export default class Theme extends Control {
 	}
 	
 	/**
+	 * Get current theme group value
+	 * @returns {string} Current theme group selection value
+	 */
+	get themeGroupValue() {
+		if (this.Node('theme-groups')) {
+			return this.Node('theme-groups').value;
+		}
+	}
+
+	/**
+	 * Get current theme selection
+	 * @returns {string} Current theme selection value
+	 */
+	get themeValue() {
+		if (this.Node('themes')) {
+			return this.Node('themes').value;
+		}
+	}
+
+	/**
 	 * Update theme selection menu
 	 * @param {object} themes 
 	 */
