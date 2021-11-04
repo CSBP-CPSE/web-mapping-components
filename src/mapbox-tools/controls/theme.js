@@ -11,12 +11,6 @@ export default class Theme extends Control {
 
 	constructor(options) {	
 		super(options);
-		
-		if (options.type && options.type === 'datalist') {
-			this.type = options.type;
-		} else {
-			this.type = 'select';
-		}
 
 		// If a custom label is provided, update groups label
 		if (options.groups_label && typeof(options.groups_label) === 'string') {
@@ -28,41 +22,13 @@ export default class Theme extends Control {
 			this.Node('themes-label').innerHTML = options.themes_label;			
 		}
 		
-		this._container = this.Node('root');
 		this.themes = options.themes;
-
-		this.currentTheme = "";
-		this.currentThemeGroup = "";
 
 		this.updateThemeControl(this.themes);
 
 		// Add event listeners for change events on both select menus
 		this.Node('theme-groups').addEventListener("change", this.onThemeGroupSelectorChange_Handler.bind(this));
-		this.Node('theme-groups').addEventListener("focus", this.onThemeGroupSelectorFocused_Handler.bind(this));
-		this.Node('theme-groups').addEventListener("blur", this.onThemeGroupSelectorBlured_Handler.bind(this));
 		this.Node('themes').addEventListener("change", this.onThemeSelectorChange_Handler.bind(this));
-		this.Node('themes').addEventListener("focus", this.onThemeSelectorFocused_Handler.bind(this));
-		this.Node('themes').addEventListener("blur", this.onThemeSelectorBlured_Handler.bind(this));
-	}
-	
-	/**
-	 * Get current theme group value
-	 * @returns {string} Current theme group selection value
-	 */
-	get themeGroupValue() {
-		if (this.Node('theme-groups')) {
-			return this.Node('theme-groups').value;
-		}
-	}
-
-	/**
-	 * Get current theme selection
-	 * @returns {string} Current theme selection value
-	 */
-	get themeValue() {
-		if (this.Node('themes')) {
-			return this.Node('themes').value;
-		}
 	}
 
 	/**
@@ -104,10 +70,6 @@ export default class Theme extends Control {
 		let i, group;
 		let group_menu_node = 'theme-groups';
 
-		if (this.type === 'datalist'){
-			group_menu_node = "theme-groups-list"
-		}
-
 		// Empty theme groups selection menu before adding items
 		Dom.Empty(this.Node(group_menu_node));
 
@@ -116,12 +78,6 @@ export default class Theme extends Control {
 			for (i = 0; i < groups.length; i += 1) {
 				group = groups[i];	
 				this.addGroupItem(group, group_menu_node)
-			}
-
-			// Set initial value to first group datalist option
-			if (this.type === 'datalist') {
-				let firstGroupItem = groups[0];
-				this.Node('theme-groups').value = firstGroupItem[Core.locale];
 			}
 
 			// Dispatch a change event to trigger a group selection change
@@ -136,10 +92,6 @@ export default class Theme extends Control {
 	updateThemesMenu(themes) {
 		let i, theme;
 		let themes_menu_node = 'themes';
-
-		if (this.type === 'datalist'){
-			themes_menu_node = "themes-list";
-		}
 
 		// Empty theme selection menu before adding items
 		Dom.Empty(this.Node(themes_menu_node));
@@ -204,20 +156,10 @@ export default class Theme extends Control {
 	 */
 	addThemeItem(item, node) {
 		if (item && item.id && item.label) {
-			let opt;
-
-			if (this.type === 'datalist') {
-				opt = Dom.Create("option", {
-					value: item.label[Core.locale], 
-					innerHTML: item.label[Core.locale]
-				}, this.Node(node));
-				opt.dataset.themeid = item.id;
-			} else {
-				opt = Dom.Create("option", {
-					value: item.id, 
-					innerHTML: item.label[Core.locale]
-				}, this.Node(node));
-			}
+			let opt = Dom.Create("option", {
+				value: item.id,
+				innerHTML: item.label[Core.locale]
+			}, this.Node(node));
 
 			opt.setAttribute('handle', 'theme-option');
 		}
@@ -277,52 +219,10 @@ export default class Theme extends Control {
 	 * @param {object} ev menu selection change event
 	 */
 	onThemeGroupSelectorChange_Handler(ev) {
-		let themes;
-		let selectionId = this.Node("theme-groups").value;
-
 		// Get theme by the selection Id
-		themes = this.getThemesByGroup(this.themes, selectionId);
+		let themes = this.getThemesByGroup(this.themes, this.Node('theme-groups').value);
 
 		this.updateThemesMenu(themes);
-
-		if (this.type === 'datalist') {
-			// Blur theme group input if input string matches one of the dataset options
-			let themeGroupList = this.Node('theme-groups-list').options;
-			for (let i = 0; i < themeGroupList.length; i += 1) {
-				if (themeGroupList[i].value === selectionId) {
-					this.Node('theme-groups').blur();
-				}
-			};
-
-			// When switching the theme group update the themes selection
-			// to the first available option.
-			this.Node("themes").value = themes[0].label[Core.locale];
-
-			// Dispatch a change event to trigger a theme selection change
-			this.Node('themes').dispatchEvent(new Event('change', { 'bubbles': true }));
-		}
-	}
-	
-	/**
-	 * Handler for theme group selector select event when type is datalist
-	 * @param {object} ev menu selection change event
-	 */
-	onThemeGroupSelectorFocused_Handler(ev) {
-		if (this.type === 'datalist') {
-			this.currentTheme = this.Node('theme-groups').value;
-
-			this.Node('theme-groups').value = "";
-		}
-	}
-	
-	/**
-	 * Handler for theme group selector blur event when type is datalist
-	 * @param {object} ev menu selection change event
-	 */
-	onThemeGroupSelectorBlured_Handler(ev) {
-		if (this.type === 'datalist' && this.Node('theme-groups').value === "") {
-			this.Node('theme-groups').value = this.currentTheme;
-		}
 	}
 
 	/**
@@ -330,97 +230,27 @@ export default class Theme extends Control {
 	 * @param {object} ev menu selection change event
 	 */
 	onThemeSelectorChange_Handler(ev) {
-		let datalist, selection, selectionId, inputValue;
-
-		if (this.type === 'datalist') {
-			// Get Datalist Input value
-			inputValue = this.Node('themes').value;
-			// Get DataList Node
-			datalist = this.Node('themes-list');
-
-			for (let i = 0; i < datalist.options.length; i += 1) {
-				let dataListItem = datalist.options[i];
-				// Check if datalist item value matches input value
-				if (dataListItem.value === inputValue) {
-					// Get themeid from list item dataset
-					if (dataListItem.dataset && dataListItem.dataset.themeid) {
-						selectionId = dataListItem.dataset.themeid;
-						break;
-					}
-				}
-			}
-
-			// Blur theme input if input string matches one of the dataset options
-			let themeList = this.Node('themes-list').options;
-			for (let i = 0; i < themeList.length; i += 1) {
-				if (themeList[i].value === inputValue) {
-					this.Node('themes').blur();
-				}
-			};
-		} else {
-			selectionId = this.Node("themes").value;
-		}
-
 		// Get theme by the selection Id
-		selection = this.getThemeById(this.themes, selectionId);
+		let selection = this.getThemeById(this.themes, this.Node('themes').value);
 
 		this.Emit("ThemeSelectorChange", { theme: selection });
 	}
 	
 	/**
-	 * Handler for theme selector select event when type is datalist
-	 * @param {object} ev menu selection change event
-	 */
-	onThemeSelectorFocused_Handler(ev) {
-		if (this.type === 'datalist') {
-			this.currentTheme = this.Node('themes').value;
-
-			this.Node('themes').value = "";
-		}
-	}
-	
-	/**
-	 * Handler for theme selector blur event when type is datalist
-	 * @param {object} ev menu selection change event
-	 */
-	onThemeSelectorBlured_Handler(ev) {
-		if (this.type === 'datalist' && this.Node('themes').value === "") {
-			this.Node('themes').value = this.currentTheme;
-		}
-	}
-
-	/**
 	 * Provides the HTML template for a theme selector control
 	 * @returns {string} controller template
 	 */
-	Template() {        
-		let template;
-
-		if (this.type = 'datalist') {
-			template = "<div handle='root' class='theme-selector mapboxgl-ctrl'>" +
-					"<div class='groups-menu-container' handle='groups-menu-container'>" +
-						"<label handle='theme-groups-label' class='control-label' for='groups'>Theme Groups</label>" +
-						"<input aria-label='Theme groups' handle='theme-groups' list='groups-list' name='groups'>" +
-						"<datalist handle='theme-groups-list' id='groups-list' class='theme-groups'></datalist>" +
-					"</div>"+
-					"<div class='themes-menu-container' handle='themes-menu-container'>" +
-						"<label handle='themes-label' class='control-label' for='themes'>Themes</label>" +
-						"<input aria-label='Themes' handle='themes' list='themes-list' name='themes'>" +
-						"<datalist handle='themes-list' id='themes-list' class='themes'></datalist>" +
-					"</div>"+
-			   "</div>";
-		} else {
-			template = "<div handle='root' class='theme-selector mapboxgl-ctrl'>" +
-					"<div class='groups-menu-container' handle='groups-menu-container'>" +
-						"<label handle='theme-groups-label' class='control-label'>Theme Groups</label>" +
-						"<select aria-label='Theme groups' handle='theme-groups' name='theme-groups' class='theme-groups'></select>" +
-					"</div>"+
-					"<div class='themes-menu-container' handle='themes-menu-container'>"+
-						"<label handle='themes-label' class='control-label'>Themes</label>" +
-						"<select aria-label='Themes' handle='themes' name='themes' class='themes'></select>" +
-					"</div>"+
-			   "</div>";
-	}
+	Template() {
+		let template = "<div handle='root' class='theme-selector mapboxgl-ctrl'>" +
+				"<div class='groups-menu-container' handle='groups-menu-container'>" +
+					"<label handle='theme-groups-label' class='control-label'>Theme Groups</label>" +
+					"<select aria-label='Theme groups' handle='theme-groups' name='theme-groups' class='theme-groups'></select>" +
+				"</div>"+
+				"<div class='themes-menu-container' handle='themes-menu-container'>"+
+					"<label handle='themes-label' class='control-label'>Themes</label>" +
+					"<select aria-label='Themes' handle='themes' name='themes' class='themes'></select>" +
+				"</div>"+
+			"</div>";
 
 		return template;
 	}
