@@ -110,22 +110,6 @@ export default class Store {
 	}
 
 	/**
-	 * Get the theme-item from localStorage
-	 * @returns {string} - theme-item id
-	 */
-	static get Theme() {
-		return localStorage.getItem("theme-item");
-	}
-	
-	/**
-	 * Set the theme-item layer in localStorage
-	 * @param {string} value - theme-item id
-	 */
-	static set Theme(value) {
-		localStorage.setItem("theme-item", value);
-	}
-
-	/**
 	 * Get the current search-item from the sessionStorage
 	 * @returns {object} current search-item details
 	 */
