@@ -14,9 +14,6 @@ export default class ThemeDatalist extends Theme {
 		
 		this.themes = options.themes;
 
-		this.currentTheme = "";
-		this.currentThemeGroup = "";
-
 		this.updateThemeControl(this.themes);
 
 		// Add event listeners for change events on both select menus
@@ -36,22 +33,45 @@ export default class ThemeDatalist extends Theme {
 		let i, group;
 		let group_menu_node = 'theme-groups-list';
 
-		// Empty theme groups selection menu before adding items
-		Dom.Empty(this.Node(group_menu_node));
+		if (!this.isValidGroup(groups, this.currentThemeGroup)) {
+			// Empty theme groups selection menu before adding items
+			Dom.Empty(this.Node(group_menu_node));
 
-		// Add group items if they're defined
-		if (Array.isArray(groups) && groups.length) {
-			for (i = 0; i < groups.length; i += 1) {
-				group = groups[i];	
-				this.addGroupItem(group, group_menu_node)
+			// Add group items if they're defined
+			if (Array.isArray(groups) && groups.length) {
+				// Add items to group menu
+				for (i = 0; i < groups.length; i += 1) {
+					group = groups[i];
+					this.addGroupItem(group, group_menu_node)
+				}
+
+				// Set initial value to first group datalist option
+				let firstGroupItem = groups[0];
+				this.Node('theme-groups').value = firstGroupItem[Core.locale];
+
+				// Updated current theme group selection
+				this.currentThemeGroup = this.Node('theme-groups').value;
 			}
+		}
+		// Dispatch a change event to trigger a group selection change
+		this.Node("theme-groups").dispatchEvent(new Event('change', { 'bubbles': true }));
+	}
 
-			// Set initial value to first group datalist option
-			let firstGroupItem = groups[0];
-			this.Node('theme-groups').value = firstGroupItem[Core.locale];
+	/**
+	 * Add a menu item to select menu
+	 * @param {object} item Details on the item being added as an option
+	 * @param {string} node A string representing the node which will have the option added to.
+	 * @returns Dom element representing select menu option.
+	 */
+	 addThemeItem(item, node) {
+		if (item && item.id && item.label) {
+			let opt = Dom.Create("option", {
+				value: item.label[Core.locale], 
+				innerHTML: item.label[Core.locale]
+			}, this.Node(node));
+			opt.dataset.themeid = item.id;
 
-			// Dispatch a change event to trigger a group selection change
-			this.Node("theme-groups").dispatchEvent(new Event('change', { 'bubbles': true }));
+			opt.setAttribute('handle', 'theme-option');
 		}
 	}
 
@@ -63,40 +83,26 @@ export default class ThemeDatalist extends Theme {
 		let i, theme;
 		let themes_menu_node = 'themes-list';
 
-		// Empty theme selection menu before adding items
-		Dom.Empty(this.Node(themes_menu_node));
+		if (!this.isValidTheme(themes, this.currentTheme)) {
+			// Empty theme selection menu before adding items
+			Dom.Empty(this.Node(themes_menu_node));
 
-		// Add updated themes to selection menu
-		if (Array.isArray(themes) && themes.length) {
-			for (i = 0; i < themes.length; i += 1) {
-				theme = themes[i];
-				this.addThemeItem(theme, themes_menu_node);
+			// Add updated themes to selection menu
+			if (Array.isArray(themes) && themes.length) {
+				for (i = 0; i < themes.length; i += 1) {
+					theme = themes[i];
+					this.addThemeItem(theme, themes_menu_node);
+				}
+
+				// Initial selection of first available theme
+				this.Node('themes').value = themes[0].label[Core.locale];
+	
+				// Update current theme selection
+				this.currentTheme = this.Node('themes').value;
 			}
-
-			// Initial selection of first available theme 
-			this.Node('themes').value = themes[0].label[Core.locale];
-
-			// Dispatch a change event to trigger a theme selection change
-			this.Node('themes').dispatchEvent(new Event('change', { 'bubbles': true }));
 		}
-	}
-
-	/**
-	 * Add a menu item to select menu
-	 * @param {object} item Details on the item being added as an option
-	 * @param {string} node A string representing the node which will have the option added to.
-	 * @returns Dom element representing select menu option.
-	 */
-	addThemeItem(item, node) {
-		if (item && item.id && item.label) {
-			let opt = Dom.Create("option", {
-				value: item.label[Core.locale], 
-				innerHTML: item.label[Core.locale]
-			}, this.Node(node));
-			opt.dataset.themeid = item.id;
-
-			opt.setAttribute('handle', 'theme-option');
-		}
+		// Dispatch a change event to trigger a theme selection change
+		this.Node('themes').dispatchEvent(new Event('change', { 'bubbles': true }));
 	}
 
 	/**

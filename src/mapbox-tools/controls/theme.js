@@ -21,8 +21,11 @@ export default class Theme extends Control {
 		if (options.themes_label && typeof(options.themes_label) === 'string') {
 			this.Node('themes-label').innerHTML = options.themes_label;			
 		}
-		
+
 		this.themes = options.themes;
+		
+		this.currentTheme = "";
+		this.currentThemeGroup = "";
 
 		this.updateThemeControl(this.themes);
 
@@ -38,9 +41,9 @@ export default class Theme extends Control {
 	updateThemeControl(themes) {
 		let themeGroups;
 
-		// Reset theme control input values before updating
-		this.Node('theme-groups').value = "";
-		this.Node('themes').value = "";
+		// Set theme control input values before updating
+		this.Node('theme-groups').value = this.currentThemeGroup;
+		this.Node('themes').value = this.currentTheme;
 
 		// Update themes
 		this.themes = themes; 
@@ -70,19 +73,28 @@ export default class Theme extends Control {
 		let i, group;
 		let group_menu_node = 'theme-groups';
 
-		// Empty theme groups selection menu before adding items
-		Dom.Empty(this.Node(group_menu_node));
+		if (!this.isValidGroup(groups, this.currentThemeGroup)) {
+			// Empty theme groups selection menu before adding items
+			Dom.Empty(this.Node(group_menu_node));
 
-		// Add group items if they're defined
-		if (Array.isArray(groups) && groups.length) {
-			for (i = 0; i < groups.length; i += 1) {
-				group = groups[i];	
-				this.addGroupItem(group, group_menu_node)
+			// Add group items if they're defined
+			if (Array.isArray(groups) && groups.length) {
+				// Add items to group menu
+				for (i = 0; i < groups.length; i += 1) {
+					group = groups[i];
+					this.addGroupItem(group, group_menu_node)
+				}
+			
+				// Set initial value to first group datalist option
+				let firstGroupItem = groups[0];
+				this.Node('theme-groups').value = firstGroupItem[Core.locale];
+
+				// Updated current theme group selection
+				this.currentThemeGroup = this.Node('theme-groups').value;
 			}
-
-			// Dispatch a change event to trigger a group selection change
-			this.Node("theme-groups").dispatchEvent(new Event('change', { 'bubbles': true }));
 		}
+		// Dispatch a change event to trigger a group selection change
+		this.Node("theme-groups").dispatchEvent(new Event('change', { 'bubbles': true }));
 	}
 
 	/**
@@ -93,23 +105,26 @@ export default class Theme extends Control {
 		let i, theme;
 		let themes_menu_node = 'themes';
 
-		// Empty theme selection menu before adding items
-		Dom.Empty(this.Node(themes_menu_node));
+		if (!this.isValidTheme(themes, this.currentTheme)) {
+			// Empty theme selection menu before adding items
+			Dom.Empty(this.Node(themes_menu_node));
 
-		// Add updated themes to selection menu
-		if (Array.isArray(themes) && themes.length) {
-			for (i = 0; i < themes.length; i += 1) {
-				theme = themes[i];
-				this.addThemeItem(theme, themes_menu_node);
+			// Add updated themes to selection menu
+			if (Array.isArray(themes) && themes.length) {
+				for (i = 0; i < themes.length; i += 1) {
+					theme = themes[i];
+					this.addThemeItem(theme, themes_menu_node);
+				}
+
+				// Initial selection of first available theme
+				this.Node('themes').value = themes[0].id;
+
+				// Update current theme selection
+				this.currentTheme = this.Node('themes').value;
 			}
-
-			if (this.Node('themes').value === "") {
-				this.Node('themes').value = themes[0].label[Core.locale];
-			}
-
-			// Dispatch a change event to trigger a theme selection change
-			this.Node('themes').dispatchEvent(new Event('change', { 'bubbles': true }));
 		}
+		// Dispatch a change event to trigger a theme selection change
+		this.Node('themes').dispatchEvent(new Event('change', { 'bubbles': true }));
 	}
 
 	/**
@@ -215,12 +230,62 @@ export default class Theme extends Control {
 	}
 
 	/**
+	 * Checks if the currently selected theme is within the list of theme items
+	 * @param {array} themes list of themes
+	 * @param {string} currentTheme the name of the currently selected theme
+	 * @returns {boolean} 
+	 */
+	isValidTheme(themes, currentTheme) {
+		let theme, i;
+		let validTheme = false;
+
+		if (themes && Array.isArray(themes)) {
+			for (i = 0; i < themes.length; i += 1) {
+				theme = themes[i];
+				if (theme && theme.label 
+					&& (theme.label[Core.locale] === currentTheme
+					|| theme.id === currentTheme)) {
+					validTheme = true;
+					break;
+				}
+			}
+		}
+
+		return validTheme;
+	}
+
+	/**
+	 * Checks if the currently selected theme group is within the list of group items
+	 * @param {array} groups list of groups of themes
+	 * @param {string} currentThemeGroup the name of the currently selected group
+	 * @returns {boolean} 
+	 */
+	isValidGroup(groups, currentThemeGroup) {
+		let group, i;
+		let validThemeGroup = false;
+
+		if (groups && Array.isArray(groups)) {
+			for (i = 0; i < groups.length; i += 1) {
+				group = groups[i];
+				if (group && group[Core.locale] === currentThemeGroup) {
+					validThemeGroup = true;
+					break;
+				}
+			}
+		}
+
+		return validThemeGroup;
+	}
+
+	/**
 	 * Handler for theme-groups selector change event
 	 * @param {object} ev menu selection change event
 	 */
 	onThemeGroupSelectorChange_Handler(ev) {
+		this.currentThemeGroup = this.Node('theme-groups').value;
+
 		// Get theme by the selection Id
-		let themes = this.getThemesByGroup(this.themes, this.Node('theme-groups').value);
+		let themes = this.getThemesByGroup(this.themes, this.currentThemeGroup);
 
 		this.updateThemesMenu(themes);
 	}
@@ -230,8 +295,10 @@ export default class Theme extends Control {
 	 * @param {object} ev menu selection change event
 	 */
 	onThemeSelectorChange_Handler(ev) {
+		this.currentTheme = this.Node('themes').value;
+
 		// Get theme by the selection Id
-		let selection = this.getThemeById(this.themes, this.Node('themes').value);
+		let selection = this.getThemeById(this.themes, this.currentTheme);
 
 		this.Emit("ThemeSelectorChange", { theme: selection });
 	}
