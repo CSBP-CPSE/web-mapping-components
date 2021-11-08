@@ -13,6 +13,7 @@ import Fullscreen from '../controls/fullscreen.js';
 import Navigation from '../controls/navigation.js';
 import Menu from '../controls/menu.js';
 import Group from '../controls/group.js';
+import CollapsableGroup from '../controls/collapsableGroup.js';
 import Map from '../components/map.js';
 
 /**
@@ -258,6 +259,26 @@ export default class Factory {
 	 */
 	static Group(controls) {
 		return new Group({ controls:controls });
+	}
+	
+	/**
+	 * Creates a collapsable group container that contains a collection of controls.
+	 * @param {object} controls A collection of map controls
+	 * Example: 
+	 * {
+	 * 		opacity: Factory.OpacityControl(1),
+	 * 		...
+	 * }
+	 * @param {string} summaryLabel Text label for collapsable group
+	 * @returns {object} Collapsable group control object
+	 */
+	 static CollapsableGroup(controls, summaryLabel) {
+		return new CollapsableGroup(
+			{
+				controls: controls, 
+				summary: summaryLabel
+			}
+		);
 	}
 	
 	/**

@@ -80,6 +80,32 @@ controls.css style rules
     width: 100%;
 }
 
+/* Collapsable Group Control */
+details.mapboxgl-ctrl-collapsable-group {
+    border: 0px;
+    padding-bottom: 5px;
+}
+
+details.mapboxgl-ctrl-collapsable-group:focus {
+    box-shadow: none !important;
+}
+
+details.mapboxgl-ctrl-collapsable-group summary {
+    border: 0px;
+    border-radius: 0;
+    color: #000000;
+    padding-bottom: 0px;
+}
+
+details.mapboxgl-ctrl-collapsable-group summary:focus,
+details.mapboxgl-ctrl-collapsable-group summary:hover {
+    background-color: transparent;
+    background: #ffffff; 
+    color: #000000;
+    text-decoration: none;
+    box-shadow: none !important;
+}
+
 /* Legend Control */
 .legend .legend-item {
     display: -ms-flexbox;
