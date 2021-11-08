@@ -2,23 +2,29 @@ import Control from '../components/control.js';
 import Dom from '../../basic-tools/tools/dom.js';
 
 /**
- * Menu class
+ * Group class
  * @class
  */
-export default class Menu extends Control { 
+export default class Group extends Control { 
 		
 	constructor(options) {	
 		super(options);
+
+		this._container = this.Node('root');
 		
 		this.controls = {}
 		
+		// Add controls to the group
 		for (var id in options.controls) {
 			this.AddControl(id, options.controls[id]);
 		}
-		
-		this._container = this.Node('root');
 	}
 	
+	/**
+	 * Add a control to the group
+	 * @param {string} id The control id being added
+	 * @param {object} control The control for 
+	 */
 	AddControl(id, control) {
 		if (this.controls.hasOwnProperty(id)) throw new Error("Control already exists in the group");
 		
@@ -27,6 +33,7 @@ export default class Menu extends Control {
 		Dom.Place(control._container, this.Node("root"));
 	}
 	
+	// HTML template for a group control
 	Template() {
 		return "<div handle='root' class='mapboxgl-ctrl mapboxgl-ctrl-group'></div>";
 	}
