@@ -1,3 +1,5 @@
+import Theme from '../controls/theme.js';
+import ThemeDatalist from '../controls/themeDatalist.js';
 import Legend from '../controls/legend.js';
 import Toc from '../controls/toc.js';
 import LabelsToggle from '../controls/labelsToggle.js';
@@ -114,6 +116,40 @@ export default class Factory {
 	
 	static TocControl(toc) {
 		return new Toc({ toc:toc });
+	}
+
+	/**
+	 * Theme map control 
+	 * @param {array} themes a list of themes
+	 * @param {string} groups_label the groups label
+	 * @param {string} themes_label the themes label
+	 * @returns an instantiated Theme control object
+	 */
+	static ThemeControl(themes, groups_label, themes_label) {
+		return new Theme(
+			{ 
+				themes:themes,
+				groups_label:groups_label, 
+				themes_label:themes_label
+			}
+		);
+	}
+	
+	/**
+	 * Theme Datalist map control 
+	 * @param {array} themes a list of themes
+	 * @param {string} groups_label the groups label
+	 * @param {string} themes_label the themes label
+	 * @returns an instantiated Theme control object
+	 */
+	 static ThemeDatalistControl(themes, groups_label, themes_label) {
+		return new ThemeDatalist(
+			{ 
+				themes:themes,
+				groups_label:groups_label,
+				themes_label:themes_label
+			}
+		);
 	}
 	
 	/**
