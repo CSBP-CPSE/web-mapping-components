@@ -40,7 +40,7 @@ export default class CollapsableGroup extends Control {
 
 	// HTML template for a collapsable group control
 	Template() {
-		return "<details handle='root' class='mapboxgl-ctrl mapboxgl-ctrl-collapsable-group'>" +
+		return "<details open handle='root' class='mapboxgl-ctrl mapboxgl-ctrl-collapsable-group'>" +
 		"<summary handle='collapsable-group-summary'></summary>" +
 		"</details>";
 	}
