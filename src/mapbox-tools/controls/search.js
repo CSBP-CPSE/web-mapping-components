@@ -40,6 +40,7 @@ export default class Search extends Control {
 	 */
 	set searchItems(items) {
 		this.items = items;
+		this.UpdateSearchItems();
 	}
 
 	/**
