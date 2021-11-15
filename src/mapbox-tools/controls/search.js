@@ -4,9 +4,9 @@ import Control from '../components/control.js';
  * Search class
  * @class
  */
-export default class Search extends Control { 
+export default class Search extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this._container = this.Node('root');
@@ -15,13 +15,14 @@ export default class Search extends Control {
 		this.field = options.field;
 		this.color = options.color;
 		this.items = options.items;
-		
+
 		// TODO : This should probably happen outside of the widget.
 		this.Node('typeahead').items = this.Itemize(options.items);
 		this.Node('typeahead').placeholder = options.placeholder;
 		this.Node('typeahead').title = options.title;
 	
 		this.Node('typeahead').On('Change', this.onTypeaheadChange_Handler.bind(this));
+		this.Node('typeahead').On('Focusin', this.onTypeaheadFocusin_Handler.bind(this));
 	}
 
 	/**
@@ -66,7 +67,18 @@ export default class Search extends Control {
 	Itemize(items) {		
 		return items.sort((a, b) => { return a.label > b.label ? 1 : -1 });
 	}
-	
+
+	/**
+	 * Event handler for typeahead focusin events
+	 * @param {object} ev typeahead focusin change event 
+	 */
+	 onTypeaheadFocusin_Handler(ev) {
+		if (ev.target && ev.target.nodes && ev.target.nodes.input && ev.target.nodes.input.value) {
+			// Clear search input
+			ev.target.nodes.input.value = "";
+		}
+	}
+
 	/**
 	 * Event handler for typeahead changes
 	 * @param {object} ev typeahead change event
@@ -86,7 +98,7 @@ export default class Search extends Control {
 	 * Create a template for the search control
 	 * @returns {string} html template for search control
 	 */
-	Template() {        
+	Template() {
 		return "<div handle='root' class='search-control mapboxgl-ctrl'>" +
 				  "<div handle='typeahead' widget='Basic.Components.Typeahead'></div>" +
 			   "</div>";
