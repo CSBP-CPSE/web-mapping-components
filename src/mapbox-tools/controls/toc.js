@@ -22,7 +22,16 @@ export default class Toc extends Control {
 	get items() {
 		return this.options.toc;
 	}
-	
+
+	/**
+	 * Set the list of TOC items
+	 * @param {array} tocItems list of TOC items used for radio button options
+	 */
+	set items(tocItems) {
+		this.options.toc = tocItems;
+		this.Reload(this.options.toc);
+	}
+
 	HasLayer(layerId) {
 		return this.radios.hasOwnProperty(layerId);
 	}
