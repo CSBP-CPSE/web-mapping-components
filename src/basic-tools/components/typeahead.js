@@ -113,6 +113,8 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		this.Fill(ev.target.value);
 		
 		this.UpdateClass();
+		
+		this.Emit("Focusin", {});
 	}
 	
 	OnInputKeyDown_Handler(ev) {		
