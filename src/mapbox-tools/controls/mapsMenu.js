@@ -84,7 +84,7 @@ export default class MapsMenu extends Control {
 
 	/**
 	 * Handle maps menu selection changes and emit required map selection details 
-	 * @param {object} ev Change event
+	 * @param {Event} ev
 	 */
 	onMapsMenuSelectorChange_Handler(ev) {
 		let mapsMenuSelection = this.Node('maps-menu').value;

@@ -107,7 +107,7 @@ export default class ThemeDatalist extends Theme {
 
 	/**
 	 * Handler for theme-groups selector change event
-	 * @param {object} ev menu selection change event
+	 * @param {Event} ev
 	 */
 	onThemeGroupSelectorChange_Handler(ev) {
 		let themes;
@@ -130,7 +130,7 @@ export default class ThemeDatalist extends Theme {
 	
 	/**
 	 * Handler for theme group selector select event when type is datalist
-	 * @param {object} ev menu selection change event
+	 * @param {Event} ev
 	 */
 	onThemeGroupSelectorFocused_Handler(ev) {
 		this.currentThemeGroup = this.Node('theme-groups').value;
@@ -139,7 +139,7 @@ export default class ThemeDatalist extends Theme {
 	
 	/**
 	 * Handler for theme group selector blur event when type is datalist
-	 * @param {object} ev menu selection change event
+	 * @param {Event} ev
 	 */
 	onThemeGroupSelectorBlured_Handler(ev) {
 		this.Node('theme-groups').value = this.currentThemeGroup;
@@ -147,7 +147,7 @@ export default class ThemeDatalist extends Theme {
 
 	/**
 	 * Handler for theme selector change event
-	 * @param {object} ev menu selection change event
+	 * @param {Event} ev
 	 */
 	onThemeSelectorChange_Handler(ev) {
 		let datalist, selectionId;
@@ -184,7 +184,7 @@ export default class ThemeDatalist extends Theme {
 	
 	/**
 	 * Handler for theme selector select event when type is datalist
-	 * @param {object} ev menu selection change event
+	 * @param {Event} ev
 	 */
 	onThemeSelectorFocused_Handler(ev) {
 		this.currentTheme = this.Node('themes').value;
@@ -193,7 +193,7 @@ export default class ThemeDatalist extends Theme {
 	
 	/**
 	 * Handler for theme selector blur event when type is datalist
-	 * @param {object} ev menu selection change event
+	 * @param {Event} ev
 	 */
 	onThemeSelectorBlured_Handler(ev) {
 		this.Node('themes').value = this.currentTheme;

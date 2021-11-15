@@ -279,7 +279,7 @@ export default class Theme extends Control {
 
 	/**
 	 * Handler for theme-groups selector change event
-	 * @param {object} ev menu selection change event
+	 * @param {Event} ev
 	 */
 	onThemeGroupSelectorChange_Handler(ev) {
 		this.currentThemeGroup = this.Node('theme-groups').value;
@@ -292,7 +292,7 @@ export default class Theme extends Control {
 
 	/**
 	 * Handler for theme selector change event
-	 * @param {object} ev menu selection change event
+	 * @param {Event} ev
 	 */
 	onThemeSelectorChange_Handler(ev) {
 		this.currentTheme = this.Node('themes').value;

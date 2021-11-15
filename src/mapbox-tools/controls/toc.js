@@ -80,7 +80,7 @@ export default class Toc extends Control {
 	 * 		selected: true,
 	 *      ...
 	 * }
-	 * @param {object} ev event object
+	 * @param {Event} ev
 	 */
 	onChange_Handler(item, ev) {
 		if (this.current) this.radios[this.current].checked = false;

@@ -8,11 +8,27 @@ import Dom from '../tools/dom.js';
  */
 export default Core.Templatable("Basic.Components.Typeahead", class Typeahead extends Templated {
 	
-    set placeholder(value) { this.Node('input').setAttribute('placeholder', value); }
+	/** 
+	 * Set the placeholder text for the search input
+	 * @param {string} value Placeholder text
+	 */
+    set placeholder(value) {
+		this.Node('input').setAttribute('placeholder', value);
+	}
 	
-	set title(value) { this.Node('input').setAttribute('title', value); }
+	/**
+	 * Set title for the search
+	 * @param {string} value title property for the search input
+	 */
+	set title(value) {
+		this.Node('input').setAttribute('title', value);
+	}
 	
-	set items(value) {		
+	/**
+	 * Set the typeahead items
+	 * @param {array} value list of typeahead items
+	 */
+	set items(value) {
 		this._items = value.map(i => {
 			var li = Dom.Create("li", { innerHTML : i.label, tabIndex : -1 });
 			var item = { data : i, node : li };
@@ -23,15 +39,23 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		});
 	}
 	
+	/**
+	 * Set the current typeahead item
+	 * @param {object} value typeahead item
+	 */
 	set current(value) {
 		this._curr = value;
 	}
 	
+	/**
+	 * Get the current typeahead item
+	 * @returns {object} the currently selected typeahead item
+	 */
 	get current() {
 		return this._curr;
 	}
 	
-	constructor(container, options) {	
+	constructor(container, options) {
 		super(container, options);
 		
 		this._items = null;
@@ -52,13 +76,18 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		this.items = options.items;
 	}
 	
-	Empty() {		
+	// Empty the list of typeahead suggestions
+	Empty() {
 		Dom.Empty(this.Node("list"));
 		
 		this._filt = [];
 	}
 	
-	Fill(mask) {		
+	/**
+	 * Create a filtered list of typeahead search results and add them to the list
+	 * @param {string} mask search input box text
+	 */
+	Fill(mask) {
 		this._filt = this._items.filter(i => compare(i.data.label, mask));
 		
 		var frag = document.createDocumentFragment();
@@ -81,10 +110,12 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		}
 	}
 	
-	UpdateClass() {		
-		Dom.ToggleClass(this.Node("root"), "collapsed", this._filt.length == 0);
+	// Toggle collapsed class on typeahead DOM element
+	UpdateClass() {
+		Dom.ToggleClass(this.Node("root"), "collapsed", this._filt.length === 0);
 	}
 	
+	// Reset the typeahead component
 	Reset() {
 		if (this._temp) Dom.SetClass(this._temp.node, "");
 			
@@ -97,19 +128,31 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		this.Node("input").value = value;
 	}
 	
+	/**
+	 * Handle input events on search input
+	 * @param {InputEvent} ev
+	 */
 	OnInputInput_Handler(ev) {
+		// If input is less than 3 character in length, do nothing
 		if (ev.target.value.length < 3) return;
 		
 		this.Empty();
 		
+		// Fill in typeahead suggestions 
 		this.Fill(ev.target.value);
 		
 		this.UpdateClass();
 	}
 	
-	OnInputClick_Handler(ev) {			
+	/**
+	 * Handle click events on search input
+	 * @param {FocusEvent} ev
+	 */
+	OnInputClick_Handler(ev) {
+		// If input is less than 3 character in length, do nothing
 		if (ev.target.value.length < 3) return;
 		
+		// Fill in typeahead suggestions 
 		this.Fill(ev.target.value);
 		
 		this.UpdateClass();
@@ -117,7 +160,11 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		this.Emit("Focusin", {});
 	}
 	
-	OnInputKeyDown_Handler(ev) {		
+	/**
+	 * Handle specific key input events; including up, down, shift+up, enter and esc inputs
+	 * @param {KeyboardEvent} ev
+	 */
+	OnInputKeyDown_Handler(ev) {
 		// prevent default event on specifically handled keys
 		if (ev.keyCode == 40 || ev.keyCode == 38 || ev.keyCode == 13 || ev.keyCode == 27) ev.preventDefault();
 
@@ -140,7 +187,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		}
 
 		// enter : select currently focused
-		else if (ev.keyCode == 13){
+		else if (ev.keyCode == 13) {
 			// if an item is currently selected through arrows, select that one
 			if (this._temp) this.onLiClick_Handler(this._temp);
 			
@@ -148,22 +195,31 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 			else if (this._filt.length > 0) this.onLiClick_Handler(this._filt[0]);
 
 			// nothing is selected (don't think this can happen		    	
-			else {				
+			else {
 				this.OnInputClick_Handler({ target:this.Node("input") });
 			}
 		}
 
 		// if escape key
-		else if (ev.keyCode == 27) this.OnInputBlur_Handler();	
+		else if (ev.keyCode == 27) this.OnInputBlur_Handler();
 	}
 	
-	OnInputBlur_Handler(ev) {			
+	/**
+	 * Handle blur events
+	 * @param {FocusEvent} ev
+	 */
+	OnInputBlur_Handler(ev) {
 		this.Reset();
 		
 		this.UpdateClass();
 	}
 	
-	onLiClick_Handler(item, ev) {		
+	/**
+	 * Handle click events on typeahead list item
+	 * @param {object} item list item content
+	 * @param {MouseEvent} ev
+	 */
+	onLiClick_Handler(item, ev) {
 		this.current = item;
 				
 		this.Reset();
@@ -173,7 +229,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		this.Emit("Change", { item:item.data });
 	}
 	
-	ScrollTo(item) {				
+	ScrollTo(item) {
 		// create rectangules to know the position of the elements
 		var ul = this.Node("list");
 		var liBx = item.node.getBoundingClientRect();
@@ -184,8 +240,9 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		
 		else if (liBx.top < ulBx.top) ul.scrollTop = ul.scrollTop + liBx.top - ulBx.top;
 	}
-	
-	Template() {        
+
+	// Create a html template for the typeahead component
+	Template() {
 		return "<div handle='root' class='typeahead collapsed'>" +
 				 "<input handle='input' type='text' class='input'>" + 
 			     "<ul handle='list' class='list'></ul>" +
