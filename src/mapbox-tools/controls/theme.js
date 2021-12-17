@@ -14,12 +14,14 @@ export default class Theme extends Control {
 
 		// If a custom label is provided, update groups label
 		if (options.groups_label && typeof(options.groups_label) === 'string') {
-			this.Node('theme-groups-label').innerHTML = options.groups_label;			
+			this.Node('theme-groups-label').innerHTML = options.groups_label;
+			Dom.SetAttribute(this.Node('theme-groups'),'aria-label',options.groups_label);
 		}
 
 		// If a custom label is provided, update themes label
 		if (options.themes_label && typeof(options.themes_label) === 'string') {
-			this.Node('themes-label').innerHTML = options.themes_label;			
+			this.Node('themes-label').innerHTML = options.themes_label;
+			Dom.SetAttribute(this.Node('themes'),'aria-label',options.themes_label);
 		}
 
 		this.themes = options.themes;
