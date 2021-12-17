@@ -97,7 +97,6 @@ details.mapboxgl-ctrl-collapsable-group summary {
     padding-bottom: 0px;
 }
 
-details.mapboxgl-ctrl-collapsable-group summary:focus,
 details.mapboxgl-ctrl-collapsable-group summary:hover {
     background-color: transparent;
     background: #ffffff; 
