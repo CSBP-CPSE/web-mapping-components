@@ -15,7 +15,8 @@ export default class MapsMenu extends Control {
 
 		// If a custom label is provided, update menu label
 		if (options.label && typeof(options.label) === 'string') {
-			this.Node('maps-menu-label').innerHTML = options.label;			
+			this.Node('maps-menu-label').innerHTML = options.label;
+			Dom.SetAttribute(this.Node('maps-menu'), 'aria-label', options.label);
 		}
 
 		// Update the Maps Select Menu

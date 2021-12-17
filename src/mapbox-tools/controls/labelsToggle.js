@@ -15,7 +15,8 @@ export default class LabelsToggle extends Control {
 
 		// If a custom label is provided, update menu label
 		if (options.label && typeof(options.label) === 'string') {
-			this.Node('labels-toggle-label').innerHTML = options.label;			
+			this.Node('labels-toggle-label').innerHTML = options.label;
+			Dom.SetAttribute(this.Node('labels-toggle-checkbox'), 'aria-label', options.label);
 		}
 
 		// Add event listeners for change events on maps menu
