@@ -77,7 +77,7 @@ export default class Popup extends Templated {
 				  "<div class='popup-container'>" +
 					  "<div class='popup-header'>" +
 						  "<div class='popup-title' handle='title'></div>" +
-						  "<button class='close' handle='close'>x</button>" +
+						  "<button handle='close'>×</button>" +
 					  "</div>" +
 					
 					  "<div class='popup-body' handle='body'></div>" +
