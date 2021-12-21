@@ -112,7 +112,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 	
 	// Toggle collapsed class on typeahead DOM element
 	UpdateClass() {
-		Dom.ToggleClass(this.Node("root"), "collapsed", this._filt.length === 0);
+		Dom.ToggleClass(this.Node("root"), "collapsed", this._filt.length === 0);
 	}
 	
 	// Reset the typeahead component
@@ -134,7 +134,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 	 */
 	OnInputInput_Handler(ev) {
 		// If input is less than 3 character in length, do nothing
-		if (ev.target.value.length < 3) return;
+		if (ev.target.value.length < 3) return;
 		
 		this.Empty();
 		
@@ -150,7 +150,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 	 */
 	OnInputClick_Handler(ev) {
 		// If input is less than 3 character in length, do nothing
-		if (ev.target.value.length < 3) return;
+		if (ev.target.value.length < 3) return;
 		
 		// Fill in typeahead suggestions 
 		this.Fill(ev.target.value);
@@ -236,7 +236,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		var ulBx = ul.getBoundingClientRect();
 		
 		//if the element is in this range then it is inside the main container, don't scroll
-		if (liBx.bottom > ulBx.bottom) ul.scrollTop = ul.scrollTop + liBx.bottom - ulBx.top - ulBx.height;
+		if (liBx.bottom > ulBx.bottom) ul.scrollTop = ul.scrollTop + liBx.bottom - ulBx.top - ulBx.height;
 		
 		else if (liBx.top < ulBx.top) ul.scrollTop = ul.scrollTop + liBx.top - ulBx.top;
 	}

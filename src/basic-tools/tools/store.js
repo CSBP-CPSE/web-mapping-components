@@ -10,7 +10,7 @@ export default class Store {
 	 * @returns {string} - map name
 	 */
 	static get Map() {
-		return localStorage.getItem("lode-map") || "trans";
+		return localStorage.getItem("lode-map") || "trans";
 	}
 
 	/**
@@ -98,7 +98,7 @@ export default class Store {
 	 * @returns {string} - layer name
 	 */
 	static get Layer() {
-		return localStorage.getItem("lode-layer") || "da";
+		return localStorage.getItem("lode-layer") || "da";
 	}
 	
 	/**

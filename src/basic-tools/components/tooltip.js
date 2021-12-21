@@ -40,7 +40,7 @@ export default class Tooltip extends Templated  {
 		this.Node("root").style.left = x + "px";
 		this.Node("root").style.top = y + "px";
 				
-		if (this.BBox.left + this.BBox.width > window.innerWidth) {
+		if (this.BBox.left + this.BBox.width > window.innerWidth) {
 			this.Node("root").style.top = y + 30 + "px";
 			this.Node("root").style.left = -180 + x + "px";
 		}

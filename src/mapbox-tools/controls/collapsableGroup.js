@@ -10,7 +10,7 @@ export default class CollapsableGroup extends Control {
 	constructor(options) {	
 		super(options);
 		
-		this.controls = {}
+		this.controls = {}
 
 		this._container = this.Node('root');
 

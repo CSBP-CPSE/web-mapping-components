@@ -15,15 +15,15 @@ export default class Bookmarks extends Control {
 		
 		if (!options.items) return;
 		
-		options.items = options.items.sort((a,b) => {
-			if (a.label < b.label) return -1;
+		options.items = options.items.sort((a,b) => {
+			if (a.label < b.label) return -1;
 			
-			if (a.label > b.label) return 1;
+			if (a.label > b.label) return 1;
 
 			return 0;
 		});
 		
-		options.items.forEach((i) => { this.AddBookmark(i); });
+		options.items.forEach((i) => { this.AddBookmark(i); });
 	}
 	
 	AddBookmark(item) {
