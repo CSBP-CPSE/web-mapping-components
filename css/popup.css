@@ -132,7 +132,7 @@ popup.css style rules
 /* Mapbox popup */
 .mapboxgl-popup {
     max-width: 325px !important;
-	z-index: 1000;
+	z-index: 1;
 }
 
 .mapboxgl-popup ul.popup-inner {
