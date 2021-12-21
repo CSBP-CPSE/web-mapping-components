@@ -164,7 +164,7 @@ export default class Legend extends Control {
 	// Template for legend widget
 	Template() {        
 		return "<div handle='root' class='legend mapboxgl-ctrl'>" +
-					"<div handle='banner' class='control-label legend-banner'></div>" +
+					"<h2 handle='banner' class='control-label legend-banner'></h2>" +
 						"<div>" +
 							"<div handle='title' class='control-label'></div>" +
 							"<div handle='subtitle' class='control-label legend-subtitle'></div>" +

@@ -61,6 +61,8 @@ controls.css style rules
 	background: #26374a;
 	color: white;
     margin: 0;
+    font: 13px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: bold;
 }
 
 .mapboxgl-ctrl-group .mapboxgl-ctrl.legend .legend-subtitle {
