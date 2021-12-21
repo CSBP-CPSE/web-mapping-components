@@ -100,7 +100,7 @@ export default class Map extends Evented {
 		this.WrapEvent('load', 'Load');
 		this.WrapEvent('sourcedata', 'SourceData');
 		
-		this.map.once('load', ev => {
+		this.map.once('load', ev => {
 			let mapContainer = this.map.getContainer();
 			// Fix for improve this map in french
 			if (mapContainer && mapContainer.querySelector('.mapbox-improve-map')) {

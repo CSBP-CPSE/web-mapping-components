@@ -124,7 +124,7 @@ export default class Util {
 				var e1 = csv.indexOf(',', s);
 				var e2 = csv.indexOf('\n', s);
 								
-				var e = (e1 > -1 && e1 < e2) ? e1 : e2;							
+				var e = (e1 > -1 && e1 < e2) ? e1 : e2;							
 								
 				lines[i].push(csv.substr(s, e - s));
 					
@@ -154,9 +154,9 @@ export default class Util {
 		nodes.forEach(n => {
 			var selection = n.querySelectorAll(focusable);
 			
-			if (selection.length == 0) return;
+			if (selection.length == 0) return;
 			
-			for (var i = 0; i < selection.length; i++) selection[i].disabled = disabled;
+			for (var i = 0; i < selection.length; i++) selection[i].disabled = disabled;
 		});
 	}
 }

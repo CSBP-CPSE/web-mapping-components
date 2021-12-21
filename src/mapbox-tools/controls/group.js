@@ -12,7 +12,7 @@ export default class Group extends Control {
 
 		this._container = this.Node('root');
 		
-		this.controls = {}
+		this.controls = {}
 		
 		// Add controls to the group
 		for (var id in options.controls) {

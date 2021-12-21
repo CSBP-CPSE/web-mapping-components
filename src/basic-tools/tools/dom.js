@@ -212,7 +212,7 @@ export default class Dom {
 		var h = h - pT - pB;
 		
 		// Use smallest width as width and height for square grid that fits in container
-		// var s = w < h ? w : h;
+		// var s = w < h ? w : h;
 		
 		return { w : w , h : h }
 	}
@@ -226,7 +226,7 @@ export default class Dom {
 	static Siblings(elem) {
 		var elements = [];
 		
-		for (var i = 0; i < elem.parentNode.children.length; i++) elements.push(elem.parentNode.children[i]);
+		for (var i = 0; i < elem.parentNode.children.length; i++) elements.push(elem.parentNode.children[i]);
 		
 		elements.splice(elements.indexOf(elem), 1);
 		

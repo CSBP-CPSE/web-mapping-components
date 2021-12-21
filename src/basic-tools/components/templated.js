@@ -46,7 +46,7 @@ export default class Templated extends Evented {
 		this.nodes = {};
 		
 		// Can't use Array ForEach here since named is a NodeList, not an array
-		for (var i = 0; i < named.length; i++) { 
+		for (var i = 0; i < named.length; i++) { 
 			var name = Dom.GetAttribute(named[i], "handle");
 			
 			this.nodes[name] = named[i];
@@ -58,7 +58,7 @@ export default class Templated extends Evented {
 		var targets = {};
 		
 		// Can't use Array ForEach here since nodes is a NodeList, not an array
-		for (var i = 0; i < nodes.length; i++) {
+		for (var i = 0; i < nodes.length; i++) {
 			var path = Dom.GetAttribute(nodes[i], "widget");
 			var module = Core.Templatable(path);
 			var widget = new module(nodes[i]);
@@ -79,7 +79,7 @@ export default class Templated extends Evented {
 	Place(container) {
 		this.container = container;
 		
-		this.roots.forEach(r => Dom.Place(r, container));
+		this.roots.forEach(r => Dom.Place(r, container));
 	}
 	
 	Template() {

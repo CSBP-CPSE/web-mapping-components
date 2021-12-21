@@ -244,7 +244,7 @@ export default class Factory {
 	 * @returns {object} Search control object
 	 */
 	static SearchControl(items, placeholder, title) {
-		return new Search({ items:items, placeholder:placeholder, title:title });
+		return new Search({ items:items, placeholder:placeholder, title:title });
 	}
 
 	/**
