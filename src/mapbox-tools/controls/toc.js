@@ -107,7 +107,8 @@ export default class Toc extends Control {
 		var div = Dom.Create("div", { className:"toc-item" }, this.Node("toc"));
 		var ipt = Dom.Create("input", { type:"radio", name:"toc", id:`rd-${i}` }, div);
 		var lbl = Dom.Create("label", { innerHTML:item.label }, div);
-		
+
+		ipt.setAttribute("aria-describedby", "toc-label");
 		lbl.setAttribute("for", `rd-${i}`);
 		
 		ipt.addEventListener('change', this.onChange_Handler.bind(this, item))
@@ -118,7 +119,7 @@ export default class Toc extends Control {
 	// Create a HTML template for the TOC control
 	Template() {        
 		return "<div handle='root' class='toc mapboxgl-ctrl'>" +
-					"<div class='control-label'>nls(Toc_Instruction)</div>" +
+					"<div id='toc-label' class='control-label'>nls(Toc_Instruction)</div>" +
 					"<div handle='toc' class='legend-container toc-container'></div>" +
 				"</div>";
 	}
