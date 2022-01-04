@@ -59,7 +59,7 @@ export default class MapsList extends Control {
 		return "<div handle='root' class='maps'>" + 
 				  "<div class='maps-header-container'>" + 
 					 `<img class='maps-header-icon' src='${Core.root}assets/layers.png'></img>` +
-					 "<h2 handler='maps-header' class='maps-header'>Maps</h2>" +
+					 "<h2 handle='maps-header' class='maps-header'>Maps</h2>" +
 				  "</div>" +
 				  "<ul handle='ul' class='maps-list'></ul>" + 
 				  // "<div handle='description' class='maps-description'></div>" +
