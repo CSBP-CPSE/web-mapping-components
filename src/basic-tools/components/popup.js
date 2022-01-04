@@ -1,3 +1,4 @@
+import Core from '../tools/core.js';
 import Dom from '../tools/dom.js';
 import Util from '../tools/util.js';
 import Templated from './templated.js';
@@ -8,6 +9,15 @@ import Templated from './templated.js';
  */
 export default class Popup extends Templated { 
 	
+	get CloseBtnTitle() {
+		let label = {
+			en: "Close overlay (escape key)",
+			fr: "Fermer la fenêtre superposée (touche d\'échappement)"
+		};
+
+		return label[Core.locale] || ""
+	}
+
 	set Content(content) {
 		this.content = content;
 		
@@ -77,7 +87,7 @@ export default class Popup extends Templated {
 				  "<div class='popup-container'>" +
 					  "<div class='popup-header'>" +
 						  "<div class='popup-title' handle='title'></div>" +
-						  "<button class='close' handle='close'>×</button>" +
+						  `<button title="${this.CloseBtnTitle}" class="close" handle="close">×</button>` +
 					  "</div>" +
 					
 					  "<div class='popup-body' handle='body'></div>" +
