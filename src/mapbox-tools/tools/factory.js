@@ -114,9 +114,15 @@ export default class Factory {
 	static LegendControl(config, title, banner, subtitle) {
 		return new Legend({ config:config, title:title, banner:banner, subtitle:subtitle});
 	}
-	
-	static TocControl(toc) {
-		return new Toc({ toc:toc });
+
+	/**
+	 * Builds a Table of Contents Control
+	 * @param {object} toc A collection of TOC items
+	 * @param {string} label The label to be shown above the TOC options
+	 * @returns TOC object
+	 */
+	static TocControl(toc, label) {
+		return new Toc({ toc:toc, label:label });
 	}
 
 	/**
@@ -162,8 +168,14 @@ export default class Factory {
 		return new Opacity({ opacity:opacity });
 	}
 	
-	static DownloadControl(link) {
-		return new Download({ link:link });
+	/**
+	 * Builds a Download Control
+	 * @param {string} link The link URL
+	 * @param {string} label The link label text
+	 * @returns Download Control object
+	 */
+	static DownloadControl(link, label) {
+		return new Download({ link:link, label:label });
 	}
 	
 	/**
@@ -179,10 +191,11 @@ export default class Factory {
 	 * 		},
 	 * 		...
 	 * }
+	 * @param {string} label The label text to be shown as the header of the maps list control
 	 * @returns {object} MapsList control object
 	 */
-	static MapsListControl(maps) {
-		return new MapsList({ maps:maps });
+	static MapsListControl(maps, label) {
+		return new MapsList({ maps:maps, label:label });
 	}
 	
 	/**
@@ -213,10 +226,12 @@ export default class Factory {
 	 * 			label: "Location N"
 	 * 		}
 	 * ] 
+	 * @param {string} label The label text to be shown as the header of the bookmarks control
+	 * @param {string} description The description text to be shown at the bottom of the bookmarks control
 	 * @returns {object} Bookmarks control object
 	 */
-	static BookmarksControl(items) {
-		return new Bookmarks({ items:items });
+	static BookmarksControl(items, label, description) {
+		return new Bookmarks({ items:items, label:label, description:description });
 	}
 	
 	static MenuControl(items) {

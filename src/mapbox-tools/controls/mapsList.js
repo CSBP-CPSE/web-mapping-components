@@ -14,6 +14,11 @@ export default class MapsList extends Control {
 		
 		this._container = this.Node('root');
 		
+		// If a custom label is provided, update menu label
+		if (options.label && typeof(options.label) === 'string') {
+			this.Node('maps-header').innerHTML = options.label;
+		}
+
 		//this.tooltip = new Tooltip();
 		
 		for (var id in options.maps) this.AddMapItem(id, options.maps[id]);
@@ -54,10 +59,10 @@ export default class MapsList extends Control {
 		return "<div handle='root' class='maps'>" + 
 				  "<div class='maps-header-container'>" + 
 					 `<img class='maps-header-icon' src='${Core.root}assets/layers.png'></img>` +
-					 "<h2 class='maps-header'>nls(Maps_Header)</h2>" +
+					 "<h2 handler='maps-header' class='maps-header'>Maps</h2>" +
 				  "</div>" +
 				  "<ul handle='ul' class='maps-list'></ul>" + 
-				  // "<div handle='description' class='maps-description'>nls(Maps_Description)</div>" +
+				  // "<div handle='description' class='maps-description'></div>" +
 			   "</div>"
 	}
 }

@@ -24,6 +24,16 @@ export default class Bookmarks extends Control {
 		});
 		
 		options.items.forEach((i) => { this.AddBookmark(i); });
+
+		// If a custom label is provided, update control label
+		if (options.label && typeof(options.label) === 'string') {
+			this.Node('bookmarks-header').innerHTML = options.label;
+		}
+
+		// If a custom description is provided, update control description
+		if (options.description && typeof(options.description) === 'string') {
+			this.Node('description').innerHTML = options.description;
+		}
 	}
 	
 	AddBookmark(item) {
@@ -49,10 +59,10 @@ export default class Bookmarks extends Control {
 		return "<div handle='root' class='bookmarks'>" + 
 				  "<div class='bookmarks-header-container'>" + 
 					 `<img class='bookmarks-header-icon' src='${Core.root}assets/bookmarks.png'></img>` +
-					 "<h2 class='bookmarks-header'>nls(Bookmarks_Header)</h2>" +
+					 "<h2 handler='bookmarks-header' class='bookmarks-header'>Bookmarks</h2>" +
 				  "</div>" +
 				  "<ul handle='ul' class='bookmarks-list'></ul>" + 
-				  "<div handle='description' class='bookmarks-description'>nls(Bookmarks_Description)</div>" +
+				  "<div handle='description' class='bookmarks-description'></div>" +
 			   "</div>"
 	}
 }
