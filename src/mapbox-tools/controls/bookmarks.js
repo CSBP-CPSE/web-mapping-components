@@ -59,7 +59,7 @@ export default class Bookmarks extends Control {
 		return "<div handle='root' class='bookmarks'>" + 
 				  "<div class='bookmarks-header-container'>" + 
 					 `<img class='bookmarks-header-icon' src='${Core.root}assets/bookmarks.png'></img>` +
-					 "<h2 handler='bookmarks-header' class='bookmarks-header'>Bookmarks</h2>" +
+					 "<h2 handle='bookmarks-header' class='bookmarks-header'>Bookmarks</h2>" +
 				  "</div>" +
 				  "<ul handle='ul' class='bookmarks-list'></ul>" + 
 				  "<div handle='description' class='bookmarks-description'></div>" +
