@@ -9,6 +9,11 @@ export default class Toc extends Control {
 		
 	constructor(options) {	
 		super(options);
+
+		// If a custom label is provided, update TOC label
+		if (options.label && typeof(options.label) === 'string') {
+			this.Node('toc-label').innerHTML = options.label;
+		}
 		
 		this._container = this.Node('root');
 
@@ -119,7 +124,7 @@ export default class Toc extends Control {
 	// Create a HTML template for the TOC control
 	Template() {        
 		return "<div handle='root' class='toc mapboxgl-ctrl'>" +
-					"<div id='toc-label' class='control-label'>nls(Toc_Instruction)</div>" +
+					"<div id='toc-label' handle='toc-label' class='control-label'>Table of Contents</div>" +
 					"<div handle='toc' class='legend-container toc-container'></div>" +
 				"</div>";
 	}
