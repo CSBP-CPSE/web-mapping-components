@@ -51,7 +51,7 @@ search.css style rules
 .typeahead ul,
 .typeahead li {
 	width: 350px;
-	cursor: pointer;
+	cursor: text;
 }
 
 .search-control .typeahead li {
