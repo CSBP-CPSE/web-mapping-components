@@ -154,6 +154,10 @@ details.mapboxgl-ctrl-collapsable-group summary:hover {
 }
 
 /* TOC Control */
+.toc .toc-item label {
+    display: inline;
+}
+
 .toc .toc-item > * {
     display: inline-block;
     vertical-align: middle;
