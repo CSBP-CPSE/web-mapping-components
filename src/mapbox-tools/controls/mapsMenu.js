@@ -41,7 +41,21 @@ export default class MapsMenu extends Control {
 	set value(val) {
 		let menu = this.Node('maps-menu');
 		menu.value = val;
+
+		// Dispatch a change event to trigger a menu selection change
+		this.Node("maps-menu").dispatchEvent(new Event('change', { 'bubbles': true }));
 	}
+
+	/**
+	 * Set maps menu map options
+	 * @param {object} val The collection of map configurations used to generate menu options
+	 */
+	 set mapoptions(val) {
+		if (typeof val === 'object' && val != null && Object.keys(val).length) {
+		   Dom.Empty(this.Node('maps-menu'));
+		   this.updateMapsMenu(val);
+		}
+   }
 
 	/**
 	 * Update the maps menu with a collection of maps as select menu options.
