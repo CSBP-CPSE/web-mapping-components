@@ -126,4 +126,20 @@ export default class Store {
 		let currentSearchItem = JSON.stringify(value);
 		sessionStorage.setItem("search-item", currentSearchItem);
 	}
+
+	/**
+	 * Get the year from localStorage
+	 * @returns {number} - year
+	 */
+	 static get Year() {
+		return Number(localStorage.getItem("year"));
+	}
+	
+	/**
+	 * Set the year in localStorage
+	 * @param {number} value - year
+	 */
+	static set Year(value) {
+		localStorage.setItem("year", value);
+	}
 }
