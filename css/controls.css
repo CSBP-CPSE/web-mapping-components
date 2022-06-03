@@ -48,6 +48,7 @@ controls.css style rules
 .mapboxgl-ctrl-group .mapboxgl-ctrl.legend > *,
 .mapboxgl-ctrl-group .mapboxgl-ctrl.opacity,
 .mapboxgl-ctrl-group .mapboxgl-ctrl.maps-menu,
+.mapboxgl-ctrl-group .mapboxgl-ctrl.years-menu,
 .mapboxgl-ctrl-group .mapboxgl-ctrl.labels-toggle,
 .mapboxgl-ctrl-group .mapboxgl-ctrl.theme-selector,
 .mapboxgl-ctrl-group .mapboxgl-ctrl.toc,

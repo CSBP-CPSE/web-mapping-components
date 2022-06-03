@@ -7,6 +7,7 @@ import Opacity from '../controls/opacity.js';
 import Download from '../controls/download.js';
 import MapsList from '../controls/mapsList.js';
 import MapsMenu from '../controls/mapsMenu.js';
+import YearsMenu from '../controls/yearsMenu.js';
 import Bookmarks from '../controls/bookmarks.js';
 import Search from '../controls/search.js';
 import Fullscreen from '../controls/fullscreen.js';
@@ -206,6 +207,16 @@ export default class Factory {
 	 */
 	static MapsMenuControl(maps, label) {
 		return new MapsMenu({ maps:maps, label:label });
+	}
+		
+	/**
+	 * Builds a Years Menu Control
+	 * @param {array} years A list of years 
+	 * @param {string} label The label to be shown next to the years select menu
+	 * @returns YearsMenu object
+	 */
+	 static YearsMenuControl(years, label) {
+		return new YearsMenu({ years:years, label:label });
 	}
 	
 	/**

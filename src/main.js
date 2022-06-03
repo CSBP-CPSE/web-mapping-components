@@ -28,6 +28,7 @@ export { default as Search } from './mapbox-tools/controls/search.js'
 export { default as Toc } from './mapbox-tools/controls/toc.js'
 export { default as Theme } from './mapbox-tools/controls/theme.js'
 export { default as ThemeDatalist } from './mapbox-tools/controls/themeDatalist.js'
+export { default as YearsMenu } from './mapbox-tools/controls/yearsMenu.js'
 
 export { default as Factory } from './mapbox-tools/tools/factory.js'
 export { default as Other } from './mapbox-tools/tools/other.js'
