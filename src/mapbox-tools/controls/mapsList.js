@@ -21,17 +21,40 @@ export default class MapsList extends Control {
 
 		//this.tooltip = new Tooltip();
 		
-		for (var id in options.maps) this.AddMapItem(id, options.maps[id]);
+		// Update the Maps List
+		this.updateMapsList(options.maps);
+	}
+
+	/**
+	 * Set the list of map options
+	 * @param {object} val The collection of map configurations used to generate menu list items
+	 */
+	 set mapoptions(val) {
+		if (typeof val === 'object' && val != null && Object.keys(val).length) {
+		   Dom.Empty(this.Node('maps-ul'));
+		   this.updateMapsList(val);
+		}
+   }
+
+	/**
+	 * Update the list of maps in the control
+	 * @param maps a list of map configurations
+	 */
+	updateMapsList(maps) {
+		for (var id in maps) {
+			this.AddMapItem(id, maps[id]);
+		}
 	}
 
 	AddMapItem(id, map) {
-		var li = Dom.Create('li', { className:"maps-list-item", innerHTML:map.title, tabIndex:0 }, this.Node("ul"));
+		var li = Dom.Create('li', { className:"maps-list-item", innerHTML:map.title, tabIndex:0 }, this.Node("maps-ul"));
 		
 		//li.addEventListener("mousemove", this.OnLiMouseMove_Handler.bind(this, id, map));
 		//li.addEventListener("mouseleave", this.OnLiMouseLeave_Handler.bind(this, id, map));
 		li.addEventListener("click", this.OnLiClick_Handler.bind(this, id, map));
 		li.addEventListener("keydown", this.OnLiKeydown_Handler.bind(this, id, map));
 	}
+
 	/*
 	OnLiMouseMove_Handler(id, map, ev) {	
 		this.tooltip.Node("content").innerHTML = map.description;
@@ -42,6 +65,7 @@ export default class MapsList extends Control {
 		this.tooltip.Hide();
 	}
 	*/
+
 	OnLiKeydown_Handler(id, map, ev) {		
 		// prevent default event on specifically handled keys
 		if (ev.keyCode != 13) return;
@@ -61,7 +85,7 @@ export default class MapsList extends Control {
 					 `<img class='maps-header-icon' src='${Core.root}assets/layers.png'></img>` +
 					 "<h2 handle='maps-header' class='maps-header'>Maps</h2>" +
 				  "</div>" +
-				  "<ul handle='ul' class='maps-list'></ul>" + 
+				  "<ul handle='maps-ul' class='maps-list'></ul>" + 
 				  // "<div handle='description' class='maps-description'></div>" +
 			   "</div>"
 	}
