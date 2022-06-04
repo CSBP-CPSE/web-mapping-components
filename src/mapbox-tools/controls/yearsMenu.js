@@ -49,7 +49,7 @@ export default class YearsMenu extends Control {
 	 */
 	updateYearsMenu(years) {
 		for (let i = 0; i < years.length; i += 1) {
-			let year = years[i];
+			let year = String(years[i]);
 
 			let opt = Dom.Create('option', {
 				value: year,

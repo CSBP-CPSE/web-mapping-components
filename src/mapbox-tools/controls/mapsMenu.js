@@ -90,8 +90,8 @@ export default class MapsMenu extends Control {
 			let map = maps[mapKey];
 
 			let opt = Dom.Create('option', {
-				value: map.id,
-				innerHTML: map.title
+				value: String(map.id),
+				innerHTML: String(map.title)
 			}, this.Node('maps-menu'));
 			opt.setAttribute('handle', 'maps-menu-option');
 		}

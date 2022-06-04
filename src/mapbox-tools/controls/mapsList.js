@@ -42,12 +42,12 @@ export default class MapsList extends Control {
 	 */
 	updateMapsList(maps) {
 		for (var id in maps) {
-			this.AddMapItem(id, maps[id]);
+			this.AddMapItem(String(id), maps[id]);
 		}
 	}
 
 	AddMapItem(id, map) {
-		var li = Dom.Create('li', { className:"maps-list-item", innerHTML:map.title, tabIndex:0 }, this.Node("maps-ul"));
+		var li = Dom.Create('li', { className:"maps-list-item", innerHTML:String(map.title), tabIndex:0 }, this.Node("maps-ul"));
 		
 		//li.addEventListener("mousemove", this.OnLiMouseMove_Handler.bind(this, id, map));
 		//li.addEventListener("mouseleave", this.OnLiMouseLeave_Handler.bind(this, id, map));
