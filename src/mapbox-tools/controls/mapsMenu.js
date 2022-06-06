@@ -41,9 +41,6 @@ export default class MapsMenu extends Control {
 	set value(val) {
 		let menu = this.Node('maps-menu');
 		menu.value = val;
-
-		// Dispatch a change event to trigger a menu selection change
-		this.Node("maps-menu").dispatchEvent(new Event('change', { 'bubbles': true }));
 	}
 
 	/**
