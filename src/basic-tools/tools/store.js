@@ -129,15 +129,15 @@ export default class Store {
 
 	/**
 	 * Get the year from localStorage
-	 * @returns {number} - year
+	 * @returns {string} - year
 	 */
 	 static get Year() {
-		return Number(localStorage.getItem("year"));
+		return localStorage.getItem("year");
 	}
 	
 	/**
 	 * Set the year in localStorage
-	 * @param {number} value - year
+	 * @param {string} value - year
 	 */
 	static set Year(value) {
 		localStorage.setItem("year", value);
