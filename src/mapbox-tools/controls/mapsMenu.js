@@ -49,8 +49,11 @@ export default class MapsMenu extends Control {
 	 */
 	 set mapoptions(val) {
 		if (typeof val === 'object' && val != null && Object.keys(val).length) {
-		   Dom.Empty(this.Node('maps-menu'));
-		   this.updateMapsMenu(val);
+			this.maps = val;
+			this.options.maps = val;
+
+			Dom.Empty(this.Node('maps-menu'));
+			this.updateMapsMenu(val);
 		}
    }
 
