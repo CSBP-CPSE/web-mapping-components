@@ -33,26 +33,35 @@ export default class ThemeDatalist extends Theme {
 		let i, group;
 		let group_menu_node = 'theme-groups-list';
 
-		if (!this.isValidGroup(groups, this.currentThemeGroup)) {
-			// Empty theme groups selection menu before adding items
-			Dom.Empty(this.Node(group_menu_node));
+		// Empty theme groups selection menu before adding items
+		Dom.Empty(this.Node(group_menu_node));
 
-			// Add group items if they're defined
-			if (Array.isArray(groups) && groups.length) {
-				// Add items to group menu
-				for (i = 0; i < groups.length; i += 1) {
-					group = groups[i];
-					this.addGroupItem(group, group_menu_node)
-				}
-
-				// Set initial value to first group datalist option
-				let firstGroupItem = groups[0];
-				this.Node('theme-groups').value = firstGroupItem[Core.locale];
-
-				// Updated current theme group selection
-				this.currentThemeGroup = this.Node('theme-groups').value;
+		// Add group items if they're defined
+		if (Array.isArray(groups) && groups.length) {
+			// Add items to group menu
+			for (i = 0; i < groups.length; i += 1) {
+				group = groups[i];
+				this.addGroupItem(group, group_menu_node);
 			}
 		}
+
+		// Re-set current theme group selection to previous selection if
+		// current selection after group menu options is updated
+		if (this.currentThemeGroup && this.Node('theme-groups').value != this.currentThemeGroup) {
+			this.Node('theme-groups').value = this.currentThemeGroup;
+		}
+
+		// Update group selection to first item if current theme selection
+		// is not in group.
+		if (!this.isValidGroup(groups, this.currentThemeGroup)) {
+			// Set initial value to first group datalist option
+			let firstGroupItem = groups[0];
+			this.Node('theme-groups').value = firstGroupItem[Core.locale];
+
+			// Updated current theme group selection
+			this.currentThemeGroup = this.Node('theme-groups').value;
+		}
+
 		// Dispatch a change event to trigger a group selection change
 		this.Node("theme-groups").dispatchEvent(new Event('change', { 'bubbles': true }));
 	}
