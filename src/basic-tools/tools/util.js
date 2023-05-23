@@ -100,9 +100,10 @@ export default class Util {
 	 * @returns {array} a list containing each row of csv data
 	 */
 	static ParseCsv(csv) {		
+		var e, e1, e2;
 		var s = 0;
 		var i = 0;
-		
+
 		var lines = [[]];
 
 		// Replace CRLF line breaks with LF if they exist
@@ -113,34 +114,37 @@ export default class Util {
 		while (s < csv.length) {
 			if (csv[s] == '"') {
 				s++;
-				
-				var e = csv.indexOf('"', s);
+
+				e = csv.indexOf('"', s);
 				
 				lines[i].push(csv.substr(s, e - s));
-				
+
 				e++;
+				e2 = csv.indexOf('\n', s);
 			}
 			else {
-				var e1 = csv.indexOf(',', s);
-				var e2 = csv.indexOf('\n', s);
-								
-				var e = (e1 > -1 && e1 < e2) ? e1 : e2;							
-								
+				e1 = csv.indexOf(',', s);
+				e2 = csv.indexOf('\n', s);
+
+				e = (e1 > -1 && e1 < e2) ? e1 : e2;
+
 				lines[i].push(csv.substr(s, e - s));
-					
-				if (e == e2) {					
-					lines.push([]);
-					
-					i++;
-				}
 			}
+
+			// Add next list to the lines and increment the index when the end
+			// character is a new line character.
+			if (e == e2) {					
+				lines.push([]);
 				
+				i++;
+			}
+
 			s = e + 1;
 		}
-		
+
 		return lines;
 	}
-	
+
 	/**
 	 * Sets the disabled property to true or false for a provided selection
 	 * of nodes if they are of a focusable type.
