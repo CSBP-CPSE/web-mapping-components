@@ -5,9 +5,9 @@ import Dom from '../../basic-tools/tools/dom.js';
  * LabelsToggle class
  * @class
  */
-export default class LabelsToggle extends Control { 
+export default class LabelsToggle extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this.map = options.map;
@@ -38,9 +38,9 @@ export default class LabelsToggle extends Control {
 
 	/**
 	 * Get a list of label layers.
-	 * 
-	 * Note: Label layers in Mapbox use the layer type 'symbol', and have the 
-	 * property 'text-field' defined. 
+	 *
+	 * Note: Label layers in Mapbox use the layer type 'symbol', and have the
+	 * property 'text-field' defined.
 	 * @returns {array} List of layer ids for label layers
 	 */
 	getLabelLayers() {
@@ -86,8 +86,8 @@ export default class LabelsToggle extends Control {
 	 * @returns {string} Template representing a labels toggle control
 	 */
 	Template() {
-		return "<div handle='root' class='labels-toggle mapboxgl-ctrl'>" + 
-					"<div class='labels-toggle-container'>" + 
+		return "<div handle='root' class='labels-toggle mapboxgl-ctrl'>" +
+					"<div class='labels-toggle-container'>" +
 						"<label handle='labels-toggle-label' class='labels-toggle-label'>Labels</label>" +
 						"<input type='checkbox' checked aria-label='Labels' handle='labels-toggle-checkbox' name='labels-toggle-checkbox' class='labels-toggle-checkbox'></input>" +
 					"</div>" +

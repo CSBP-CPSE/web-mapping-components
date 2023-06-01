@@ -63,17 +63,17 @@ export default class Core {
 	}
 		
 	/**
-	* A convenience function to get a deffered object for asynchronous processing. 
+	* A convenience function to get a deffered object for asynchronous processing.
 	* Removes one level of nesting when working with promises
 	*
 	* Parameters :
 	*	none
 	* Return : Object, an object with a Resolve and Reject function
 	*
-	* { 
-	*	promise: the promise object associated to the asynchronous process, 
-	*	Resolve: a function to resolve the promise, 
-	*	Reject: a function to reject the promise 
+	* {
+	*	promise: the promise object associated to the asynchronous process,
+	*	Resolve: a function to resolve the promise,
+	*	Reject: a function to reject the promise
 	* }
 	*/
 	static Defer() {
@@ -88,13 +88,13 @@ export default class Core {
 	}
 	
 	/**
-	* Get or set a templated class definition, this is required to nest Templated UI 
+	* Get or set a templated class definition, this is required to nest Templated UI
 	* components within other Templated UI components.
 	*
 	* Parameters :
 	*	id : String, the id of the templated class definition to get or set
-	*	definition : Class, when specified, the class definition to set 
-	* Return : Class, the class definition created  
+	*	definition : Class, when specified, the class definition to set
+	* Return : Class, the class definition created
 	*/
 	static Templatable(id, definition) {
 		if (definition) {

@@ -61,16 +61,16 @@ export default class Search extends Control {
 
 	/**
 	 * Itemize the search items for the search control
-	 * @param {array} items 
+	 * @param {array} items
 	 * @returns {array} list of sorted items
 	 */
-	Itemize(items) {		
+	Itemize(items) {
 		return items.sort((a, b) => { return a.label > b.label ? 1 : -1 });
 	}
 
 	/**
 	 * Event handler for typeahead focusin events
-	 * @param {object} ev typeahead focusin change event 
+	 * @param {object} ev typeahead focusin change event
 	 */
 	onTypeaheadFocusin_Handler(ev) {
 		if (ev.target && ev.target.nodes && ev.target.nodes.input && ev.target.nodes.input.value) {

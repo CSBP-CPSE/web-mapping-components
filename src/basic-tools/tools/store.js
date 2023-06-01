@@ -1,9 +1,9 @@
 /**
- * The Store class contains various utility methods used to store lode-viewer map 
+ * The Store class contains various utility methods used to store lode-viewer map
  * properties in localStorage.
  * @class
  */
-export default class Store { 
+export default class Store {
 	
 	/**
 	 * Get the lode-map value from localStorage
@@ -15,7 +15,7 @@ export default class Store {
 
 	/**
 	 * Set the lode-map value in localStorage
-	 * @param {string} value - map name (e.g. odhf, odcaf) 
+	 * @param {string} value - map name (e.g. odhf, odcaf)
 	 */
 	static set Map(value) {
 		localStorage.setItem("lode-map", value);

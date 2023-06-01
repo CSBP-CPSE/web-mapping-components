@@ -5,11 +5,11 @@ import Dom from '../../basic-tools/tools/dom.js';
 /**
  * Theme Datalist control class
  * @class
- * 
+ *
  */
-export default class ThemeDatalist extends Theme { 
+export default class ThemeDatalist extends Theme {
 
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this.themes = options.themes;
@@ -75,7 +75,7 @@ export default class ThemeDatalist extends Theme {
 	addThemeItem(item, node) {
 		if (item && item.id && item.label) {
 			let opt = Dom.Create("option", {
-				value: item.label[Core.locale], 
+				value: item.label[Core.locale],
 				innerHTML: item.label[Core.locale]
 			}, this.Node(node));
 			opt.dataset.themeid = item.id;

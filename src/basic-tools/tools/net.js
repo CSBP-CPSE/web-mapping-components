@@ -41,7 +41,7 @@ export default class Net {
 	}
 	
 	/**
-	 * Request a JSON file 
+	 * Request a JSON file
 	 * @param {string} url reference to a json file
 	 * @returns a promise to the json file being requested
 	 */
@@ -60,7 +60,7 @@ export default class Net {
 	*	name : String, the name of the parameter to retrieve from the URL
 	* Return : String, the value of the parameter from the URL, an empty string if not found
 	*/
-	static GetUrlParameter (name) {				
+	static GetUrlParameter (name) {
 		name = name.replace(/[\[\]]/g, '\\$&');
 		
 		var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
@@ -79,7 +79,7 @@ export default class Net {
 	*
 	* Parameters :
 	*	name : String, the name of the file to download
-	*	content : 
+	*	content :
 	* Return : none
 	*/
 	static Download(name, content) {

@@ -5,9 +5,9 @@ import Dom from '../../basic-tools/tools/dom.js';
  * Table of Contents (TOC) class
  * @class
  */
-export default class Toc extends Control { 
+export default class Toc extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 
 		// If a custom label is provided, update TOC label
@@ -38,7 +38,7 @@ export default class Toc extends Control {
 	}
 
 	/**
-	 * Checks if the provided layered ID is a TOC radio button items 
+	 * Checks if the provided layered ID is a TOC radio button items
 	 * @param {string} layerId id of the TOC item
 	 * @returns {boolean}
 	 */
@@ -48,7 +48,7 @@ export default class Toc extends Control {
 
 	/**
 	 * Generate the radio button options for the TOC Control
-	 * @param {array} toc list of toc items 
+	 * @param {array} toc list of toc items
 	 */
 	Reload(toc) {
 		Dom.Empty(this.Node("toc"));
@@ -78,7 +78,7 @@ export default class Toc extends Control {
 	/**
 	 * Event handler for change events in TOC control
 	 * @param {object} item toc item details
-	 * Example: 
+	 * Example:
 	 * {
 	 * 		id: 1,
 	 * 		label: "Item Label",
@@ -98,7 +98,7 @@ export default class Toc extends Control {
 	/**
 	 * Add a radio button for TOC control item to the TOC control.
 	 * @param {object} item toc item details
-	 * Example: 
+	 * Example:
 	 * {
 	 * 		id: 1,
 	 * 		label: "Item Label",
@@ -122,7 +122,7 @@ export default class Toc extends Control {
 	}
 	
 	// Create a HTML template for the TOC control
-	Template() {        
+	Template() {
 		return "<div handle='root' class='toc mapboxgl-ctrl'>" +
 					"<div id='toc-label' handle='toc-label' class='control-label'>Table of Contents</div>" +
 					"<div handle='toc' class='legend-container toc-container'></div>" +

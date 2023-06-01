@@ -5,8 +5,8 @@ import Dom from '../../basic-tools/tools/dom.js';
  * Opacity class
  * @class
  */
-export default class Opacity extends Control { 
-		
+export default class Opacity extends Control {
+	
 	set label(value) {
 		Dom.Node(this._container, ".control-label").innerHTML = value;
 	}
@@ -15,14 +15,14 @@ export default class Opacity extends Control {
 		this.Node("slider").title = value;
 	}
 	
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this._container = this.Node('root');
         
 		this.opacity = (this.options.opacity == undefined) ? 0.75 : this.options.opacity;
 		
-		this.Node("slider").value = this.opacity * 100;		
+		this.Node("slider").value = this.opacity * 100;
 		this.Node('slider').addEventListener("change", this.onSliderChange_Handler.bind(this));
 	}
 	
@@ -32,7 +32,7 @@ export default class Opacity extends Control {
 		this.Emit("OpacitySliderChanged", { opacity:this.opacity });
 	}
 	
-	Template() {        
+	Template() {
 		return "<div handle='root' class='opacity mapboxgl-ctrl'>" +
 					"<label class='control-label'>Opacity</label>" +
 					"<input handle='slider' type='range' min='0' max='100' value='100' class='slider'>" +

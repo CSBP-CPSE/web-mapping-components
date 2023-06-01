@@ -4,7 +4,7 @@ import Util from '../tools/util.js';
  * Evented class
  * @class
  */
-export default class Evented { 
+export default class Evented {
 
 	constructor() {
 		this.listeners = {};
@@ -50,7 +50,7 @@ export default class Evented {
 	}
 	
 	Emit(type, data) {
-		// Let base event properties be overwritten by whatever was provided.	
+		// Let base event properties be overwritten by whatever was provided.
 		var event = { bubbles:true, cancelable:true };
 	
 		Util.Mixin(event, data);

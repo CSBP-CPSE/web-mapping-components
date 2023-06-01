@@ -7,7 +7,7 @@ import Templated from './templated.js';
  * Popup class
  * @class
  */
-export default class Popup extends Templated { 
+export default class Popup extends Templated {
 	
 	get CloseBtnTitle() {
 		let label = {
@@ -26,7 +26,7 @@ export default class Popup extends Templated {
 	
 	get Content() { return this.content; }
 	
-	constructor(classes, container) {	
+	constructor(classes, container) {
 		super(container || document.body);
 				
 		this.onBody_KeyUp_Bound = this.onBody_KeyUp.bind(this);

@@ -5,9 +5,9 @@ import Dom from '../../basic-tools/tools/dom.js';
  * Group class
  * @class
  */
-export default class Group extends Control { 
+export default class Group extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 
 		this._container = this.Node('root');
@@ -23,14 +23,14 @@ export default class Group extends Control {
 	/**
 	 * Add a control to the group
 	 * @param {string} id The control id being added
-	 * @param {object} control The control for 
+	 * @param {object} control The control being added to the group
 	 */
 	AddControl(id, control) {
 		if (Object.prototype.hasOwnProperty.call(this.controls, id)) {
 			throw new Error("Control already exists in the group");
 		}
 		
-		this.controls[id] = control;		
+		this.controls[id] = control;
 		Dom.Place(control._container, this.Node("root"));
 	}
 	

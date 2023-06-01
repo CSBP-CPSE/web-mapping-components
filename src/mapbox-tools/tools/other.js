@@ -30,7 +30,7 @@ export default class Other {
 			var inner = Core.Nls("Gen_Label_Field", [label, json[f.id]]);
 			
             html += `<li tabIndex=0><label>${inner}</label></li>`;
-		}) 
+		})
         
 		return `<ul class='popup-inner'>${html}</ul>`;
     }

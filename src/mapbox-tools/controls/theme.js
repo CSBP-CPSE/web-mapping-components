@@ -5,11 +5,11 @@ import Dom from '../../basic-tools/tools/dom.js';
 /**
  * Theme control class
  * @class
- * 
+ *
  */
-export default class Theme extends Control { 
+export default class Theme extends Control {
 
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 
 		// If a custom label is provided, update groups label
@@ -38,7 +38,7 @@ export default class Theme extends Control {
 
 	/**
 	 * Update theme selection menu
-	 * @param {object} themes 
+	 * @param {object} themes
 	 */
 	updateThemeControl(themes) {
 		let themeGroups;
@@ -48,7 +48,7 @@ export default class Theme extends Control {
 		this.Node('themes').value = this.currentTheme;
 
 		// Update themes
-		this.themes = themes; 
+		this.themes = themes;
 
 		// Get theme groups defined in config
 		themeGroups = this.getThemeGroups(this.themes);
@@ -167,7 +167,7 @@ export default class Theme extends Control {
 	addGroupItem(item, node) {
 		if (item) {
 			let opt = Dom.Create("option", {
-				value: item[Core.locale], 
+				value: item[Core.locale],
 				innerHTML: item[Core.locale]
 			}, this.Node(node));
 			opt.setAttribute('handle', 'theme-option');
@@ -204,7 +204,7 @@ export default class Theme extends Control {
 			let theme = themes[i];
 			if (theme) {
 				if (theme.group && theme.items && Array.isArray(theme.items)) {
-					if (theme.group[Core.locale] === groupId){ 
+					if (theme.group[Core.locale] === groupId) {
 						groupThemes = theme.items;
 						break;
 					}
@@ -244,7 +244,7 @@ export default class Theme extends Control {
 	 * Checks if the currently selected theme is within the list of theme items
 	 * @param {array} themes list of themes
 	 * @param {string} currentTheme the name of the currently selected theme
-	 * @returns {boolean} 
+	 * @returns {boolean}
 	 */
 	isValidTheme(themes, currentTheme) {
 		let theme, i;
@@ -253,7 +253,7 @@ export default class Theme extends Control {
 		if (themes && Array.isArray(themes)) {
 			for (i = 0; i < themes.length; i += 1) {
 				theme = themes[i];
-				if (theme && theme.label 
+				if (theme && theme.label
 					&& (theme.label[Core.locale] === currentTheme
 					|| theme.id === currentTheme)) {
 					validTheme = true;
@@ -269,7 +269,7 @@ export default class Theme extends Control {
 	 * Checks if the currently selected theme group is within the list of group items
 	 * @param {array} groups list of groups of themes
 	 * @param {string} currentThemeGroup the name of the currently selected group
-	 * @returns {boolean} 
+	 * @returns {boolean}
 	 */
 	isValidGroup(groups, currentThemeGroup) {
 		let group, i;

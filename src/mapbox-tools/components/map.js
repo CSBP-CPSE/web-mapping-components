@@ -2,7 +2,8 @@ import Core from '../../basic-tools/tools/core.js'
 import Evented from '../../basic-tools/components/evented.js'
 import Util from '../../basic-tools/tools/util.js'
 import { OSM } from '../styling/osm.js'
-import {generateColourExpression, generateOpacityExpression, generateSymbolOpacityExpression} from '../styling/expression.js'
+import { generateColourExpression } from '../styling/expression.js'
+import { generateOpacityExpression, generateSymbolOpacityExpression } from '../styling/expression.js'
 
 /**
  * Map class
@@ -14,16 +15,16 @@ export default class Map extends Evented {
 	 * Set the mapbox access token
 	 * @param {string} value map box access token
 	 */
-	static set Token(value) { 
-		maplibregl.accessToken = value; 
+	static set Token(value) {
+		maplibregl.accessToken = value;
 	}
 	
 	/**
 	 * Get the access token
 	 * @returns {string} mapbox access token
 	 */
-	static get Token() { 
-		return maplibregl.accessToken; 
+	static get Token() {
+		return maplibregl.accessToken;
 	}
 	
 	/**
@@ -55,7 +56,7 @@ export default class Map extends Evented {
 	/**
 	 * Get the current map zoom level
 	 * @returns {number} map zoom level (between 0-22)
-	 */ 
+	 */
 	get Zoom() {
 		return this.map.getZoom();
 	}
@@ -89,7 +90,7 @@ export default class Map extends Evented {
 
 		this.click = this.OnLayerClick_Handler.bind(this);
 		
-		this.map = new maplibregl.Map(options); 
+		this.map = new maplibregl.Map(options);
 		
 		this.map.once('styledata', this.OnceStyleData_Handler.bind(this));
 		
@@ -115,9 +116,9 @@ export default class Map extends Evented {
 	/**
 	 * Set the map bounds for the map.
 	 * @param {array} bounds - An array containing coordinate pairs for the map bounds.
-	 * @param {object} options - object containing options when fitting the map bounds 
+	 * @param {object} options - object containing options when fitting the map bounds.
 	 */
-	FitBounds(bounds, options) {		
+	FitBounds(bounds, options) {
 		this.map.fitBounds(bounds, options);
 	}
 
@@ -132,8 +133,8 @@ export default class Map extends Evented {
 
 	/**
 	 * Set the maximum zoom level for the map. If the value is null/undefined,
-	 * the max zoom level is reset to 22. 
-	 * @param {number} zoomLevel A numeric value between 0 and 22. 
+	 * the max zoom level is reset to 22.
+	 * @param {number} zoomLevel A numeric value between 0 and 22.
 	 */
 	SetMaxZoom(zoomLevel) {
 		this.map.setMaxZoom(zoomLevel);
@@ -163,7 +164,7 @@ export default class Map extends Evented {
 		this.map.setStyle(style);
 	}
 	
-	SetClickableMap(layers) {				
+	SetClickableMap(layers) {
 		this.map.on('click', this.click);
 	}
 
@@ -179,7 +180,7 @@ export default class Map extends Evented {
 		this.map.addControl(control, location);
 	}
 	
-	InfoPopup(lngLat, html) {	
+	InfoPopup(lngLat, html) {
 		var popup = new maplibregl.Popup({ closeOnClick: true })
 			.setLngLat(lngLat)
 			.setHTML(html)
@@ -191,7 +192,7 @@ export default class Map extends Evented {
 	}
 	
 	SetClickableLayers(layers) {
-		layers.forEach(l => this.map.off('click', l, this.click)); 
+		layers.forEach(l => this.map.off('click', l, this.click));
 		
 		this.layers = layers;
 		
@@ -247,14 +248,14 @@ export default class Map extends Evented {
 	
 	/**
 	 * Get a specified layer
-	 * @param {string} layerId map layer id. 
+	 * @param {string} layerId map layer id.
 	 */
 	GetLayer(layerId) {
 		return this.map.getLayer(layerId) || null;
 	}
 
 	/**
-	 * Retrieves the layer type 
+	 * Retrieves the layer type
 	 * @param {string} layerId - id of the map layer
 	 */
 	GetLayerType(layerId) {
@@ -330,7 +331,7 @@ export default class Map extends Evented {
 	
 	/**
 	 * Show a specified layer
-	 * @param {string} layerId map layer id. 
+	 * @param {string} layerId map layer id.
 	 */
 	ShowLayer(layerId) {
 		this.SetLayoutProperty(layerId, 'visibility', 'visible');
@@ -338,7 +339,7 @@ export default class Map extends Evented {
 	
 	/**
 	 * Hides a specified layer
-	 * @param {string} layerId map layer id. 
+	 * @param {string} layerId map layer id.
 	 */
 	HideLayer(layerId) {
 		this.SetLayoutProperty(layerId, 'visibility', 'none');
@@ -394,7 +395,7 @@ export default class Map extends Evented {
 	UpdateMapLayersWithLegendState(layerIDs, legend, storedOpacity) {
 		let opacity;
 
-		// Define opacity based on provided storedOpacity value; 
+		// Define opacity based on provided storedOpacity value.
 		if (storedOpacity >= 0 && storedOpacity <= 1) {
 			opacity = storedOpacity;
 		} else {
@@ -409,7 +410,8 @@ export default class Map extends Evented {
 		var opacityExpression = generateOpacityExpression(legend, opacity);
 		var symbolOpacityExpression = generateSymbolOpacityExpression(opacityExpression);
 
-		if ((opacityExpression || opacityExpression === 0) && (symbolOpacityExpression || symbolOpacityExpression === 0)) {
+		if ((opacityExpression || opacityExpression === 0)
+		&& (symbolOpacityExpression || symbolOpacityExpression === 0)) {
 			for (var i = 0; i < layerIDs.length; i += 1) {
 				// Get Layer Colour Property
 				let currentLayerID = layerIDs[i];
@@ -429,7 +431,7 @@ export default class Map extends Evented {
 						}
 
 					} else {
-						// Set opacity of feature labels based on opacity values. 
+						// Set opacity of feature labels based on opacity values.
 						// if opacity = 0 for a layer, then the labels are also set to 0.
 						this.SetPaintProperty(currentLayerID, 'text-opacity', symbolOpacityExpression);
 					}
@@ -445,7 +447,7 @@ export default class Map extends Evented {
 	 * Add layers for clustering the data.
 	 * @param {object} definedOpts - an object containing all of the cluster options
 	 * {
-	 * 		source: data-source-id, 
+	 * 		source: data-source-id,
 	 * 		id: cluster-layer-id,
 	 * 		filter: mapbox-expression,
 	 * 		circle_paint: object containing the paint properties for the cluster circle,
@@ -485,7 +487,7 @@ export default class Map extends Evented {
 			id: clusterLayerId,
 			type: 'circle',
 			source: options.source,
-			filter: options.filter, 
+			filter: options.filter,
 			paint: options.circle_paint
 		});
 
@@ -496,7 +498,7 @@ export default class Map extends Evented {
 			source: options.source,
 			filter: options.filter,
 			layout: options.label_layout,
-			paint: options.label_paint 
+			paint: options.label_paint
 		});
 	}
 

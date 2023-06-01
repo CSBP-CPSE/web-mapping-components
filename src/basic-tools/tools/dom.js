@@ -56,13 +56,13 @@ export default class Dom {
 	/**
 	* Create an Element from a namespace
 	*
-	* Valid Namespaces are : 
+	* Valid Namespaces are:
 	*	HTML : http://www.w3.org/1999/xhtml
 	*	SVG  : http://www.w3.org/2000/svg
 	*	XBL  : http://www.mozilla.org/xbl
 	*	XUL  : http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul
 	*
-	* @param {string} ns - the URI namespace containing the Element to create 
+	* @param {string} ns - the URI namespace containing the Element to create
 	* @param {string} tagName - the type of Element to be created (rect, path, etc.)
 	* @param {object} options - a dictionary type object containing the options to assign to the created Element
 	* @param {HTML Element} pNode - the parent Element where the created Element will be apended
@@ -112,7 +112,7 @@ export default class Dom {
 			if (c1.indexOf(c) == -1) c1.push(c);
 		})
 		
-		elem.className = c1.join(" "); 
+		elem.className = c1.join(" ");
 	}
 
 	/**
@@ -121,7 +121,7 @@ export default class Dom {
 	* @param {HTML Element} elem - the Element to modify
 	* @param {string} elemClass - the class to be removed from the Element
 	*/
-	static RemoveClass(elem, elemClass) {				
+	static RemoveClass(elem, elemClass) {
 		var c1 = elem.className.split(" ");
 		var c2 = elemClass.split(" ");
 		
@@ -146,7 +146,7 @@ export default class Dom {
 	* @param {string} elemClass - set the class of the Element
 	*/
 	static SetClass(elem, elemClass) {
-		elem.className = elemClass; 
+		elem.className = elemClass;
 	}
 
 	/**
@@ -193,9 +193,9 @@ export default class Dom {
 	*
 	* @param {HTML Element} elem - the Element to retrieve the size
 	* @returns {object} An object literal containing the size of the Element
-	* { 
-	*	w: width of the Element, 
-	*	h: height of the Element 
+	* {
+	*	w: width of the Element,
+	*	h: height of the Element
 	* }
 	*/
 	static Size(elem) {

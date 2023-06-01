@@ -6,9 +6,9 @@ import Dom from '../../basic-tools/tools/dom.js';
  * Bookmarks class
  * @class
  */
-export default class Bookmarks extends Control { 
+export default class Bookmarks extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this._container = this.Node('root');
@@ -37,13 +37,16 @@ export default class Bookmarks extends Control {
 	}
 	
 	AddBookmark(item) {
-		var li = Dom.Create('li', { className:"bookmarks-list-item", innerHTML:item.label, tabIndex:0 }, this.Node("ul"));
+		var li = Dom.Create('li', {
+			className:"bookmarks-list-item",
+			innerHTML:item.label,
+			tabIndex:0 }, this.Node("ul"));
 		
 		li.addEventListener("keydown", this.OnLiKeydown_Handler.bind(this, item));
 		li.addEventListener("click", this.OnLiClick_Handler.bind(this, item));
 	}
 	
-	OnLiKeydown_Handler(item, ev) {		
+	OnLiKeydown_Handler(item, ev) {
 		if (ev.keyCode != 13) return;
 		
 		ev.preventDefault();
@@ -51,17 +54,17 @@ export default class Bookmarks extends Control {
 		this.Emit("BookmarkSelected", { item:item });
 	}
 	
-	OnLiClick_Handler(item, ev) {		
+	OnLiClick_Handler(item, ev) {
 		this.Emit("BookmarkSelected", { item:item });
 	}
 	
 	Template() {
-		return "<div handle='root' class='bookmarks'>" + 
-					"<div class='bookmarks-header-container'>" + 
+		return "<div handle='root' class='bookmarks'>" +
+					"<div class='bookmarks-header-container'>" +
 						`<img class='bookmarks-header-icon' src='${Core.root}assets/bookmarks.png'></img>` +
 						"<h2 handle='bookmarks-header' class='bookmarks-header'>Bookmarks</h2>" +
 					"</div>" +
-					"<ul handle='ul' class='bookmarks-list'></ul>" + 
+					"<ul handle='ul' class='bookmarks-list'></ul>" +
 					"<div handle='description' class='bookmarks-description'></div>" +
 				"</div>"
 	}

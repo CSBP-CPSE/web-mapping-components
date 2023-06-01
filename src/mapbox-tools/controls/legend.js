@@ -7,7 +7,7 @@ let n = 0;
  * Legend class
  * @class
  */
-export default class Legend extends Control { 
+export default class Legend extends Control {
 		
 	constructor(options) {
 		super(options);
@@ -89,7 +89,12 @@ export default class Legend extends Control {
 			}
 
 		} else {
-			chkBox = Dom.Create("input", { id:id, title: item.title, className: "legend-tickbox", type:"checkbox", checked:true }, div);
+			chkBox = Dom.Create("input", {
+				id:id,
+				title: item.title,
+				className: "legend-tickbox",
+				type:"checkbox",
+				checked:true }, div);
 			svg = Dom.CreateSVG("svg", { width:15, height:15 }, div);
 			icn = Dom.CreateSVG("rect", { width:15, height:15 }, svg);
 			lbl = Dom.Create("label", { innerHTML:item.label }, div);
@@ -110,7 +115,7 @@ export default class Legend extends Control {
 
 	/**
 	 * Gets the style data from provided legend item
-	 * @param {object} legendItem - Object containing the style information 
+	 * @param {object} legendItem - Object containing the style information
 	 * @retruns - An object containing the legendItem color and value if available
 	 */
 	static GetStylingFromLegendItem(legendItem) {
@@ -155,14 +160,14 @@ export default class Legend extends Control {
 		}
 
 		return styleCollection;
-	}	
+	}
 
 	OnCheckbox_Checked(ev) {
 		this.Emit("LegendChange", { state:this.chkBoxesState });
 	}
 
 	// Template for legend widget
-	Template() {        
+	Template() {
 		return "<div handle='root' class='legend mapboxgl-ctrl'>" +
 					"<h2 handle='banner' class='control-label legend-banner'></h2>" +
 						"<div>" +

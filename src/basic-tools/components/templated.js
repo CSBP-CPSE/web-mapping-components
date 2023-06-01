@@ -6,7 +6,7 @@ import Evented from './evented.js';
  * Templated class
  * @class
  */
-export default class Templated extends Evented { 
+export default class Templated extends Evented {
 
 	constructor(container, options) {
 		super();
@@ -40,13 +40,13 @@ export default class Templated extends Evented {
 		this.template = Dom.Create("div", { innerHTML:html });
 	}
 	
-	SetNamedNodes() {		
+	SetNamedNodes() {
 		var named = this.template.querySelectorAll("[handle]");
 		
 		this.nodes = {};
 		
 		// Can't use Array ForEach here since named is a NodeList, not an array
-		for (var i = 0; i < named.length; i++) { 
+		for (var i = 0; i < named.length; i++) {
 			var name = Dom.GetAttribute(named[i], "handle");
 			
 			this.nodes[name] = named[i];
@@ -55,7 +55,6 @@ export default class Templated extends Evented {
 	
 	BuildSubWidgets() {
 		var nodes = this.template.querySelectorAll("[widget]");
-		var targets = {};
 		
 		// Can't use Array ForEach here since nodes is a NodeList, not an array
 		for (var i = 0; i < nodes.length; i++) {
@@ -83,7 +82,7 @@ export default class Templated extends Evented {
 	}
 	
 	Template() {
-		return null;		
+		return null;
 	}
 
 	Replace(str, expr, delegate) {

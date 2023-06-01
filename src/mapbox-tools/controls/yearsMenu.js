@@ -5,9 +5,9 @@ import Dom from '../../basic-tools/tools/dom.js';
  * YearsMenu Control class
  * @class
  */
-export default class YearsMenu extends Control { 
+export default class YearsMenu extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this._container = this.Node('root');
@@ -60,7 +60,7 @@ export default class YearsMenu extends Control {
 	}
 
 	/**
-	 * Handle years menu selection changes and emit required year selection details 
+	 * Handle years menu selection changes and emit required year selection details
 	 * @param {Event} ev
 	 */
 	onYearsMenuSelectorChange_Handler(ev) {
@@ -77,8 +77,8 @@ export default class YearsMenu extends Control {
 	 * @returns {string} Template representing a years menu control
 	 */
 	Template() {
-		return "<div handle='root' class='years-menu mapboxgl-ctrl'>" + 
-					"<div class='years-menu-container'>" + 
+		return "<div handle='root' class='years-menu mapboxgl-ctrl'>" +
+					"<div class='years-menu-container'>" +
 						"<label handle='years-menu-label' class='years-menu-label'>Year</label> " +
 						"<select aria-label='Years' handle='years-menu' name='years-menu' class='years-menu'></select>" +
 					"</div>" +

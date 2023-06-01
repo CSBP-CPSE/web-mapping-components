@@ -127,7 +127,7 @@ export default class Factory {
 	}
 
 	/**
-	 * Theme map control 
+	 * Theme map control
 	 * @param {array} themes a list of themes
 	 * @param {string} groups_label the groups label
 	 * @param {string} themes_label the themes label
@@ -135,16 +135,16 @@ export default class Factory {
 	 */
 	static ThemeControl(themes, groups_label, themes_label) {
 		return new Theme(
-			{ 
+			{
 				themes:themes,
-				groups_label:groups_label, 
+				groups_label:groups_label,
 				themes_label:themes_label
 			}
 		);
 	}
 	
 	/**
-	 * Theme Datalist map control 
+	 * Theme Datalist map control
 	 * @param {array} themes a list of themes
 	 * @param {string} groups_label the groups label
 	 * @param {string} themes_label the themes label
@@ -152,7 +152,7 @@ export default class Factory {
 	 */
 	static ThemeDatalistControl(themes, groups_label, themes_label) {
 		return new ThemeDatalist(
-			{ 
+			{
 				themes:themes,
 				groups_label:groups_label,
 				themes_label:themes_label
@@ -201,7 +201,7 @@ export default class Factory {
 	
 	/**
 	 * Builds a Maps Menu Control
-	 * @param {object} maps A collection of keys containing the details on each map 
+	 * @param {object} maps A collection of keys containing the details on each map
 	 * @param {string} label The label to be shown next to the maps select menu
 	 * @returns MapsMenu object
 	 */
@@ -211,7 +211,7 @@ export default class Factory {
 		
 	/**
 	 * Builds a Years Menu Control
-	 * @param {array} years A list of years 
+	 * @param {array} years A list of years
 	 * @param {string} label The label to be shown next to the years select menu
 	 * @returns YearsMenu object
 	 */
@@ -225,7 +225,7 @@ export default class Factory {
 	 * locations.
 	 * @param {array} items List of bookmarked location, which includes the
 	 * bookmarked location's extent and a label.
-	 * Example: 
+	 * Example:
 	 * [
 	 * 		{
 	 * 			extent: [[-75, 50],[-74, 52]],
@@ -236,7 +236,7 @@ export default class Factory {
 	 * 			extent: [[20, 35],[22,36]],
 	 * 			label: "Location N"
 	 * 		}
-	 * ] 
+	 * ]
 	 * @param {string} label The label text to be shown as the header of the bookmarks control
 	 * @param {string} description The description text to be shown at the bottom of the bookmarks control
 	 * @returns {object} Bookmarks control object
@@ -264,8 +264,8 @@ export default class Factory {
 	 * 		...
 	 * ]
 	 * @param {string} placeholder The placeholder text shown in the search
-	 * input field. 
-	 * @param {string} title The title text that's shown when hovering over 
+	 * input field.
+	 * @param {string} title The title text that's shown when hovering over
 	 * the control.
 	 * @returns {object} Search control object
 	 */
@@ -276,7 +276,7 @@ export default class Factory {
 	/**
 	 * Creates a container, which contains a collection of map controls.
 	 * @param {object} controls A collection of map controls
-	 * Example: 
+	 * Example:
 	 * {
 	 * 		opacity: Factory.OpacityControl(1),
 	 * 		...
@@ -290,7 +290,7 @@ export default class Factory {
 	/**
 	 * Creates a collapsable group container that contains a collection of controls.
 	 * @param {object} controls A collection of map controls
-	 * Example: 
+	 * Example:
 	 * {
 	 * 		opacity: Factory.OpacityControl(1),
 	 * 		...
@@ -301,7 +301,7 @@ export default class Factory {
 	static CollapsableGroup(controls, summaryLabel) {
 		return new CollapsableGroup(
 			{
-				controls: controls, 
+				controls: controls,
 				summary: summaryLabel
 			}
 		);
