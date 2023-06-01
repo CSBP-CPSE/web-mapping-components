@@ -36,15 +36,16 @@ export default class Evented {
 	
 	dispatchEvent(event){
 		if (!(event.type in this.listeners)) return;
-
+		
+		var i;
 		var stack = this.listeners[event.type];
 
-		for (var i = 0; i < stack.length; i++) {
+		for (i = 0; i < stack.length; i++) {
 			stack[i].callback.call(this, event);
 		}
 		
-		for (var i = stack.length - 1; i >= 0; i--) {
-			if (!!stack[i].once) this.removeEventListener(event.type, stack[i].callback);
+		for (i = stack.length - 1; i >= 0; i--) {
+			if (stack[i].once) this.removeEventListener(event.type, stack[i].callback);
 		}
 	}
 	

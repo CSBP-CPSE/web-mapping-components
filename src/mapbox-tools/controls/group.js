@@ -26,10 +26,11 @@ export default class Group extends Control {
 	 * @param {object} control The control for 
 	 */
 	AddControl(id, control) {
-		if (this.controls.hasOwnProperty(id)) throw new Error("Control already exists in the group");
+		if (Object.prototype.hasOwnProperty.call(this.controls, id)) {
+			throw new Error("Control already exists in the group");
+		}
 		
-		this.controls[id] = control;
-		
+		this.controls[id] = control;		
 		Dom.Place(control._container, this.Node("root"));
 	}
 	

@@ -31,7 +31,9 @@ export default class CollapsableGroup extends Control {
 	 * @param {object} control The control for 
 	 */
 	AddControl(id, control) {
-		if (this.controls.hasOwnProperty(id)) throw new Error("Control already exists in the collapsable group");
+		if (Object.prototype.hasOwnProperty.call(this.controls, id)) {
+			throw new Error("Control already exists in the collapsable group");
+		}
 		
 		this.controls[id] = control;
 		

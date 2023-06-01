@@ -128,7 +128,7 @@ export default class ThemeDatalist extends Theme {
 			if (themeGroupList[i].value === this.currentThemeGroup) {
 				this.Node('theme-groups').blur();
 			}
-		};
+		}
 
 		// Get themes by the theme group selection Id
 		themes = this.getThemesByGroup(this.themes, this.currentThemeGroup);
@@ -183,7 +183,7 @@ export default class ThemeDatalist extends Theme {
 			if (themeList[i].value === this.currentTheme) {
 				this.Node('themes').blur();
 			}
-		};
+		}
 
 		// Get theme by the selection Id
 		let selection = this.getThemeById(this.themes, selectionId);

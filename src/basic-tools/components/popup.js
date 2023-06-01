@@ -12,7 +12,7 @@ export default class Popup extends Templated {
 	get CloseBtnTitle() {
 		let label = {
 			en: "Close overlay (escape key)",
-			fr: "Fermer la fenêtre superposée (touche d\'échappement)"
+			fr: "Fermer la fenêtre superposée (touche d'échappement)"
 		};
 
 		return label[Core.locale] || ""

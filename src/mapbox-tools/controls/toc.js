@@ -43,7 +43,7 @@ export default class Toc extends Control {
 	 * @returns {boolean}
 	 */
 	HasLayer(layerId) {
-		return this.radios.hasOwnProperty(layerId);
+		return Object.prototype.hasOwnProperty.call(this.radios, layerId);
 	}
 
 	/**

@@ -14,7 +14,7 @@ export default class Util {
 	*/
 	static Mixin(a, b) {				
 		for (var key in b) {
-			if (b.hasOwnProperty(key)) a[key] = b[key];
+			if (Object.prototype.hasOwnProperty.call(b,key)) a[key] = b[key];
 		}
 
 		// TODO : Why did I use arguments[0] instead of a?

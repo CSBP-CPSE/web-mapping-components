@@ -85,7 +85,7 @@ export default class Dom {
 	* @param {HTML Element} pNode - the parent Element where the Element will be apended
 	*/
 	static Place(elem, pNode) {
-		if (!!pNode) pNode.appendChild(elem);
+		if (pNode) pNode.appendChild(elem);
 	}
 
 	/**
@@ -208,8 +208,8 @@ export default class Dom {
 		var pT = +(style.getPropertyValue("padding-top").slice(0, -2));
 		var pB = +(style.getPropertyValue("padding-bottom").slice(0, -2));
 		
-		var w = w - pL - pR;
-		var h = h - pT - pB;
+		w = w - pL - pR;
+		h = h - pT - pB;
 		
 		// Use smallest width as width and height for square grid that fits in container
 		// var s = w < h ? w : h;
