@@ -73,7 +73,7 @@ export default class Store {
 	 * Get the lode-opacity vector opacity level from localStorage
 	 * @returns {number} - opacity value
 	 */
-	 static get Opacity() {
+	static get Opacity() {
 		// default opacity is set to 75%
 		let opacity = 0.75;
 		let storedOpacity = localStorage.getItem("lode-opacity");
@@ -131,7 +131,7 @@ export default class Store {
 	 * Get the year from localStorage
 	 * @returns {string} - year
 	 */
-	 static get Year() {
+	static get Year() {
 		return localStorage.getItem("year");
 	}
 	

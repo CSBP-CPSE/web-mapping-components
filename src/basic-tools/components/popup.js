@@ -84,14 +84,13 @@ export default class Popup extends Templated {
 	
 	Template() {
 		return "<div handle='root' class='popup'>" +
-				  "<div class='popup-container'>" +
-					  "<div class='popup-header'>" +
-						  "<div class='popup-title' handle='title'></div>" +
-						  `<button title="${this.CloseBtnTitle}" class="close" handle="close">×</button>` +
-					  "</div>" +
-					
-					  "<div class='popup-body' handle='body'></div>" +
-				  "</div>" +
-			  "</div>";
+					"<div class='popup-container'>" +
+						"<div class='popup-header'>" +
+							"<div class='popup-title' handle='title'></div>" +
+							`<button title="${this.CloseBtnTitle}" class="close" handle="close">×</button>` +
+						"</div>" +
+						"<div class='popup-body' handle='body'></div>" +
+					"</div>" +
+				"</div>";
 	}
 }

@@ -8,7 +8,7 @@ import Tooltip from '../../basic-tools/components/tooltip.js';
  * @class
  */
 export default class MapsList extends Control { 
-		
+
 	constructor(options) {	
 		super(options);
 		
@@ -29,12 +29,12 @@ export default class MapsList extends Control {
 	 * Set the list of map options
 	 * @param {object} val The collection of map configurations used to generate menu list items
 	 */
-	 set mapoptions(val) {
+	set mapoptions(val) {
 		if (typeof val === 'object' && val != null && Object.keys(val).length) {
 			this.options.maps = val;
 
 			Dom.Empty(this.Node('maps-ul'));
-		    this.updateMapsList(val);
+			this.updateMapsList(val);
 		}
    }
 
@@ -83,12 +83,12 @@ export default class MapsList extends Control {
 	
 	Template() {
 		return "<div handle='root' class='maps'>" + 
-				  "<div class='maps-header-container'>" + 
-					 `<img class='maps-header-icon' src='${Core.root}assets/layers.png'></img>` +
-					 "<h2 handle='maps-header' class='maps-header'>Maps</h2>" +
-				  "</div>" +
-				  "<ul handle='maps-ul' class='maps-list'></ul>" + 
-				  // "<div handle='description' class='maps-description'></div>" +
-			   "</div>"
+					"<div class='maps-header-container'>" + 
+						`<img class='maps-header-icon' src='${Core.root}assets/layers.png'></img>` +
+						"<h2 handle='maps-header' class='maps-header'>Maps</h2>" +
+					"</div>" +
+					"<ul handle='maps-ul' class='maps-list'></ul>" + 
+					// "<div handle='description' class='maps-description'></div>" +
+				"</div>"
 	}
 }

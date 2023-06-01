@@ -85,12 +85,12 @@ export default class LabelsToggle extends Control {
 	 * HTML Template for Labels Toggle Control
 	 * @returns {string} Template representing a labels toggle control
 	 */
-	 Template() {
+	Template() {
 		return "<div handle='root' class='labels-toggle mapboxgl-ctrl'>" + 
 					"<div class='labels-toggle-container'>" + 
 						"<label handle='labels-toggle-label' class='labels-toggle-label'>Labels</label>" +
 						"<input type='checkbox' checked aria-label='Labels' handle='labels-toggle-checkbox' name='labels-toggle-checkbox' class='labels-toggle-checkbox'></input>" +
 					"</div>" +
-			   "</div>"
+				"</div>"
 	}
 }

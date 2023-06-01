@@ -34,8 +34,8 @@ export default class Opacity extends Control {
 	
 	Template() {        
 		return "<div handle='root' class='opacity mapboxgl-ctrl'>" +
-				  "<label class='control-label'>Opacity</label>" +
-				  "<input handle='slider' type='range' min='0' max='100' value='100' class='slider'>" +
-			   "</div>";
+					"<label class='control-label'>Opacity</label>" +
+					"<input handle='slider' type='range' min='0' max='100' value='100' class='slider'>" +
+				"</div>";
 	}
 }

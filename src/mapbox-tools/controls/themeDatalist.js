@@ -72,7 +72,7 @@ export default class ThemeDatalist extends Theme {
 	 * @param {string} node A string representing the node which will have the option added to.
 	 * @returns Dom element representing select menu option.
 	 */
-	 addThemeItem(item, node) {
+	addThemeItem(item, node) {
 		if (item && item.id && item.label) {
 			let opt = Dom.Create("option", {
 				value: item.label[Core.locale], 
@@ -224,7 +224,7 @@ export default class ThemeDatalist extends Theme {
 					"<input aria-label='Themes' handle='themes' list='themes-list' name='themes'>" +
 					"<datalist handle='themes-list' id='themes-list' class='themes'></datalist>" +
 				"</div>"+
-		   "</div>";
+			"</div>";
 	
 		return template;
 	}

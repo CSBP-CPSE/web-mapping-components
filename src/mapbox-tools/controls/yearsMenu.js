@@ -82,6 +82,6 @@ export default class YearsMenu extends Control {
 						"<label handle='years-menu-label' class='years-menu-label'>Year</label> " +
 						"<select aria-label='Years' handle='years-menu' name='years-menu' class='years-menu'></select>" +
 					"</div>" +
-			   "</div>"
+				"</div>"
 	}
 }

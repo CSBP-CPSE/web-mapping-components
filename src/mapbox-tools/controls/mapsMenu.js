@@ -47,7 +47,7 @@ export default class MapsMenu extends Control {
 	 * Set maps menu map options
 	 * @param {object} val The collection of map configurations used to generate menu options
 	 */
-	 set mapoptions(val) {
+	set mapoptions(val) {
 		if (typeof val === 'object' && val != null && Object.keys(val).length) {
 			this.maps = val;
 			this.options.maps = val;
@@ -121,6 +121,6 @@ export default class MapsMenu extends Control {
 						"<label handle='maps-menu-label' class='maps-menu-label'>Maps</label>" +
 						"<select aria-label='Maps' handle='maps-menu' name='maps-menu' class='maps-menu'></select>" +
 					"</div>" +
-			   "</div>"
+				"</div>"
 	}
 }

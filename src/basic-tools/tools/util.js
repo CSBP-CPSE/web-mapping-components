@@ -40,9 +40,9 @@ export default class Util {
 				
 				timeout = null; 
 			}
-	 
+
 			if (timeout) clearTimeout(timeout);
-	 
+
 			timeout = setTimeout(delayed.bind(this), threshold || 100); 
 		};
 	}

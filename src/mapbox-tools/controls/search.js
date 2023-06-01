@@ -72,7 +72,7 @@ export default class Search extends Control {
 	 * Event handler for typeahead focusin events
 	 * @param {object} ev typeahead focusin change event 
 	 */
-	 onTypeaheadFocusin_Handler(ev) {
+	onTypeaheadFocusin_Handler(ev) {
 		if (ev.target && ev.target.nodes && ev.target.nodes.input && ev.target.nodes.input.value) {
 			// Clear search input
 			ev.target.nodes.input.value = "";
@@ -100,7 +100,7 @@ export default class Search extends Control {
 	 */
 	Template() {
 		return "<div handle='root' class='search-control mapboxgl-ctrl'>" +
-				  "<div handle='typeahead' widget='Basic.Components.Typeahead'></div>" +
-			   "</div>";
+					"<div handle='typeahead' widget='Basic.Components.Typeahead'></div>" +
+				"</div>";
 	}
 }

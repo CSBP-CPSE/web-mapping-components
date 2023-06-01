@@ -150,7 +150,7 @@ export default class Factory {
 	 * @param {string} themes_label the themes label
 	 * @returns an instantiated Theme control object
 	 */
-	 static ThemeDatalistControl(themes, groups_label, themes_label) {
+	static ThemeDatalistControl(themes, groups_label, themes_label) {
 		return new ThemeDatalist(
 			{ 
 				themes:themes,
@@ -215,7 +215,7 @@ export default class Factory {
 	 * @param {string} label The label to be shown next to the years select menu
 	 * @returns YearsMenu object
 	 */
-	 static YearsMenuControl(years, label) {
+	static YearsMenuControl(years, label) {
 		return new YearsMenu({ years:years, label:label });
 	}
 	
@@ -298,7 +298,7 @@ export default class Factory {
 	 * @param {string} summaryLabel Text label for collapsable group
 	 * @returns {object} Collapsable group control object
 	 */
-	 static CollapsableGroup(controls, summaryLabel) {
+	static CollapsableGroup(controls, summaryLabel) {
 		return new CollapsableGroup(
 			{
 				controls: controls, 

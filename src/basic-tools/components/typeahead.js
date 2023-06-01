@@ -244,8 +244,8 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 	// Create a html template for the typeahead component
 	Template() {
 		return "<div handle='root' class='typeahead collapsed'>" +
-				 "<input handle='input' type='text' class='input'>" + 
-			     "<ul handle='list' class='list'></ul>" +
-			   "</div>";
+					"<input handle='input' type='text' class='input'>" + 
+					"<ul handle='list' class='list'></ul>" +
+				"</div>";
 	}
 })
