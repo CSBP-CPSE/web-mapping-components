@@ -6,5 +6,9 @@
     "extends": "eslint:recommended",
     "parserOptions": {
         "sourceType": "module"
+    },
+    "rules": {
+        "max-len": ["warn", 120],
+        "no-trailing-spaces": ["warn", { "skipBlankLines": true }]
     }
   }
