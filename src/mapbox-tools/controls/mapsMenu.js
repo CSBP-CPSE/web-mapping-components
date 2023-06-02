@@ -5,9 +5,9 @@ import Dom from '../../basic-tools/tools/dom.js';
  * MapsMenu Control class
  * @class
  */
-export default class MapsMenu extends Control { 
+export default class MapsMenu extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this._container = this.Node('root');
@@ -47,7 +47,7 @@ export default class MapsMenu extends Control {
 	 * Set maps menu map options
 	 * @param {object} val The collection of map configurations used to generate menu options
 	 */
-	 set mapoptions(val) {
+	set mapoptions(val) {
 		if (typeof val === 'object' && val != null && Object.keys(val).length) {
 			this.maps = val;
 			this.options.maps = val;
@@ -66,7 +66,7 @@ export default class MapsMenu extends Control {
 	 * 			id: "mapa",
 	 * 			title: "Map A",
 	 * 			style: "mapbox://styles/<user-name>/<map-style-id>",
-	 * 			...	
+	 * 			...
 	 * 		},
 	 * 		"mapb": {
 	 * 			id: "mapb",
@@ -98,7 +98,7 @@ export default class MapsMenu extends Control {
 	}
 
 	/**
-	 * Handle maps menu selection changes and emit required map selection details 
+	 * Handle maps menu selection changes and emit required map selection details
 	 * @param {Event} ev
 	 */
 	onMapsMenuSelectorChange_Handler(ev) {
@@ -106,7 +106,7 @@ export default class MapsMenu extends Control {
 
 		// Emit change event for maps menu
 		this.Emit('MapsMenuControlChanged', {
-			id: mapsMenuSelection, 
+			id: mapsMenuSelection,
 			map: this.maps[mapsMenuSelection]
 		});
 	}
@@ -116,11 +116,11 @@ export default class MapsMenu extends Control {
 	 * @returns {string} Template representing a maps menu control
 	 */
 	Template() {
-		return "<div handle='root' class='maps-menu mapboxgl-ctrl'>" + 
-					"<div class='maps-menu-container'>" + 
+		return "<div handle='root' class='maps-menu mapboxgl-ctrl'>" +
+					"<div class='maps-menu-container'>" +
 						"<label handle='maps-menu-label' class='maps-menu-label'>Maps</label>" +
 						"<select aria-label='Maps' handle='maps-menu' name='maps-menu' class='maps-menu'></select>" +
 					"</div>" +
-			   "</div>"
+				"</div>"
 	}
 }

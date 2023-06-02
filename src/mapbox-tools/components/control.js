@@ -4,9 +4,9 @@ import Templated from '../../basic-tools/components/templated.js';
  * Control class
  * @class
  */
-export default class Control extends Templated { 
+export default class Control extends Templated {
 	
-	constructor(options) {	
+	constructor(options) {
 		super(null, options);
 		
 		if (!this.template) throw new Error("MapBox controls cannot be empty");

@@ -4,13 +4,13 @@ import Evented from '../../basic-tools/components/evented.js';
  * Fullscreen class
  * @class
  */
-export default class Fullscreen extends Evented { 
+export default class Fullscreen extends Evented {
 	
 	set title(value) { this._fs._controlContainer.firstChild.title = value; }
 	
 	get fullscreen() { return this._fs._fullscreen; }
 	
-	constructor(options) {	
+	constructor(options) {
 		super();
 		
 		this._fs = new maplibregl.FullscreenControl();
@@ -18,13 +18,13 @@ export default class Fullscreen extends Evented {
 		this.options = options;
 	}
 			
-	onFullscreenClick_Handler(ev) {		
+	onFullscreenClick_Handler(ev) {
 		if (!this.fullscreen) this.Emit("enterFullscreen", {});
 		
 		else this.Emit("exitFullscreen", {});
 	}
 	
-	onAdd(map) {		
+	onAdd(map) {
 		this._container = this._fs.onAdd(map);
 		
 		this._fs._controlContainer.firstChild.addEventListener("click", this.onFullscreenClick_Handler.bind(this));

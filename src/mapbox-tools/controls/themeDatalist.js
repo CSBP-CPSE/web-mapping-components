@@ -5,11 +5,11 @@ import Dom from '../../basic-tools/tools/dom.js';
 /**
  * Theme Datalist control class
  * @class
- * 
+ *
  */
-export default class ThemeDatalist extends Theme { 
+export default class ThemeDatalist extends Theme {
 
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this.themes = options.themes;
@@ -72,10 +72,10 @@ export default class ThemeDatalist extends Theme {
 	 * @param {string} node A string representing the node which will have the option added to.
 	 * @returns Dom element representing select menu option.
 	 */
-	 addThemeItem(item, node) {
+	addThemeItem(item, node) {
 		if (item && item.id && item.label) {
 			let opt = Dom.Create("option", {
-				value: item.label[Core.locale], 
+				value: item.label[Core.locale],
 				innerHTML: item.label[Core.locale]
 			}, this.Node(node));
 			opt.dataset.themeid = item.id;
@@ -128,7 +128,7 @@ export default class ThemeDatalist extends Theme {
 			if (themeGroupList[i].value === this.currentThemeGroup) {
 				this.Node('theme-groups').blur();
 			}
-		};
+		}
 
 		// Get themes by the theme group selection Id
 		themes = this.getThemesByGroup(this.themes, this.currentThemeGroup);
@@ -183,7 +183,7 @@ export default class ThemeDatalist extends Theme {
 			if (themeList[i].value === this.currentTheme) {
 				this.Node('themes').blur();
 			}
-		};
+		}
 
 		// Get theme by the selection Id
 		let selection = this.getThemeById(this.themes, selectionId);
@@ -224,7 +224,7 @@ export default class ThemeDatalist extends Theme {
 					"<input aria-label='Themes' handle='themes' list='themes-list' name='themes'>" +
 					"<datalist handle='themes-list' id='themes-list' class='themes'></datalist>" +
 				"</div>"+
-		   "</div>";
+			"</div>";
 	
 		return template;
 	}

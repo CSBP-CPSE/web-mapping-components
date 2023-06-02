@@ -8,7 +8,7 @@ import Dom from '../tools/dom.js';
  */
 export default Core.Templatable("Basic.Components.Typeahead", class Typeahead extends Templated {
 	
-	/** 
+	/**
 	 * Set the placeholder text for the search input
 	 * @param {string} value Placeholder text
 	 */
@@ -35,7 +35,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 			
 			li.addEventListener("mousedown", this.onLiClick_Handler.bind(this, item));
 			
-			return item; 
+			return item;
 		});
 	}
 	
@@ -63,12 +63,12 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		this._curr = null;
 		this._temp = null;
 		
-		this.Node("input").addEventListener("input", function(ev) { this.OnInputInput_Handler(ev); }.bind(this));	
+		this.Node("input").addEventListener("input", function(ev) { this.OnInputInput_Handler(ev); }.bind(this));
 
 		// this.Node("input").addEventListener("click", this.OnInputClick_Handler.bind(this));
-		this.Node("input").addEventListener("keydown", function(ev) { this.OnInputKeyDown_Handler(ev); }.bind(this));		
-		this.Node("input").addEventListener("blur", function(ev) { this.OnInputBlur_Handler(ev); }.bind(this));		
-		this.Node("input").addEventListener("focusin", function(ev) { this.OnInputClick_Handler(ev); }.bind(this));		
+		this.Node("input").addEventListener("keydown", function(ev) { this.OnInputKeyDown_Handler(ev); }.bind(this));
+		this.Node("input").addEventListener("blur", function(ev) { this.OnInputBlur_Handler(ev); }.bind(this));
+		this.Node("input").addEventListener("focusin", function(ev) { this.OnInputClick_Handler(ev); }.bind(this));
 		// this.Node("input").addEventListener("focusout", this.OnInputBlur_Handler.bind(this));
 		
 		if (!options) return;
@@ -138,7 +138,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		
 		this.Empty();
 		
-		// Fill in typeahead suggestions 
+		// Fill in typeahead suggestions
 		this.Fill(ev.target.value);
 		
 		this.UpdateClass();
@@ -152,7 +152,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		// If input is less than 3 character in length, do nothing
 		if (ev.target.value.length < 3) return;
 		
-		// Fill in typeahead suggestions 
+		// Fill in typeahead suggestions
 		this.Fill(ev.target.value);
 		
 		this.UpdateClass();
@@ -172,7 +172,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 		if (ev.shiftKey == true &&  ev.keyCode == 38)  this.nodes.Input.select();
 		
 		// up or down key : cycle through dropdown
-		else if (ev.keyCode == 40 || ev.keyCode == 38 ) {	
+		else if (ev.keyCode == 40 || ev.keyCode == 38 ) {
 			this._temp = this._temp || this._filt[this._filt.length - 1];
 			
 			Dom.SetClass(this._temp.node, "");
@@ -194,7 +194,7 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 			// if a filtered list is being shown, select the first item
 			else if (this._filt.length > 0) this.onLiClick_Handler(this._filt[0]);
 
-			// nothing is selected (don't think this can happen		    	
+			// nothing is selected (don't think this can happen
 			else {
 				this.OnInputClick_Handler({ target:this.Node("input") });
 			}
@@ -244,8 +244,8 @@ export default Core.Templatable("Basic.Components.Typeahead", class Typeahead ex
 	// Create a html template for the typeahead component
 	Template() {
 		return "<div handle='root' class='typeahead collapsed'>" +
-				 "<input handle='input' type='text' class='input'>" + 
-			     "<ul handle='list' class='list'></ul>" +
-			   "</div>";
+					"<input handle='input' type='text' class='input'>" +
+					"<ul handle='list' class='list'></ul>" +
+				"</div>";
 	}
 })

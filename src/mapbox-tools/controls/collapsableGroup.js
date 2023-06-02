@@ -5,9 +5,9 @@ import Dom from '../../basic-tools/tools/dom.js';
  * Collapsable Group class
  * @class
  */
-export default class CollapsableGroup extends Control { 
+export default class CollapsableGroup extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this.controls = {}
@@ -22,16 +22,18 @@ export default class CollapsableGroup extends Control {
 		// Add controls to collapsable group
 		for (var id in options.controls) {
 			this.AddControl(id, options.controls[id]);
-		}	
+		}
 	}
 
 	/**
 	 * Add a control to the collapsable group
 	 * @param {string} id The control id being added
-	 * @param {object} control The control for 
+	 * @param {object} control The control being added to the group
 	 */
 	AddControl(id, control) {
-		if (this.controls.hasOwnProperty(id)) throw new Error("Control already exists in the collapsable group");
+		if (Object.prototype.hasOwnProperty.call(this.controls, id)) {
+			throw new Error("Control already exists in the collapsable group");
+		}
 		
 		this.controls[id] = control;
 		

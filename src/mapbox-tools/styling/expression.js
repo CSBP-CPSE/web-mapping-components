@@ -1,15 +1,15 @@
 /**
  * expression.js
- * 
+ *
  * A collection of functions for generating mapbox expressions used for styling.
- * For additional information on mapbox expressions, see the mapbox documentation 
+ * For additional information on mapbox expressions, see the mapbox documentation
  * at, https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/
  */
 import Legend from '../controls/legend.js';
 
 /**
  * Converts a list of rgb numbers into an rgb or rgba string
- * @param {array} colourList 
+ * @param {array} colourList
  * @returns {string} rgb or rgba string
  * Examples:
  *   [50,150,250] -> "rgb(50,150,250)"
@@ -31,7 +31,7 @@ function colourListToRGBString(colourList) {
 }
 
 /**
- * 
+ *
  * Generate a list of opacity values for each legend item based on;
  * the checkbox state, and if the legend item has the property opacity
  * set to a predefined opacity value in the map config file.
@@ -49,7 +49,7 @@ function generateLegendOpacityValues(legend, storedOpacity) {
 			if (chkBox && chkBox.checkbox && !chkBox.checkbox.checked) {
 				legendOpacities.push(0);
 			} else if (chkBox && chkBox.item && chkBox.item.opacity && typeof(chkBox.item.opacity) === 'number') {
-				// Ensure that opacity value is between 1 and 0. 
+				// Ensure that opacity value is between 1 and 0.
 				if (chkBox.item.opacity > 1) {
 					chkBox.item.opacity = 1;
 				} else if (chkBox.item.opacity < 0) {
@@ -71,14 +71,14 @@ function generateLegendOpacityValues(legend, storedOpacity) {
  * @param {object} legend - object containing the legend details stored in
  * the map config file.
  * @retruns A style expression using legend style data.
- * 
- * Example: 
- * ["case", 
- * ["==", ["get","type"],"Hospital"], 
- * "rgba(255,25,167,1)", 
- * ["==", ["get","type"],"School"], 
+ *
+ * Example:
+ * ["case",
+ * ["==", ["get","type"],"Hospital"],
+ * "rgba(255,25,167,1)",
+ * ["==", ["get","type"],"School"],
  * "rgba(50,128,229,1)",
- * "rgba(255,214,10,1)"] 
+ * "rgba(255,214,10,1)"]
  */
 export function generateColourExpression(legend) {
 	var styleColor, i, styleItem, defaultColour, legendStyles, expression;
@@ -103,7 +103,7 @@ export function generateColourExpression(legend) {
 				// Add style case and color
 				if (styleItem.value && styleColor) {
 					// Add mapbox expression value is defined, add it to cases list
-					expression.push(styleItem.value);						
+					expression.push(styleItem.value);
 
 					// Add colour to cases list
 					expression.push(styleColor);
@@ -114,9 +114,9 @@ export function generateColourExpression(legend) {
 		}
 
 		// Add default colour as last item in colour cases
-		// This is required by mapbox to in sure errors 
+		// This is required by mapbox to in sure errors
 		// don't occur when the last item in the legend config
-		// is not the default colour (i.e. the one without a 
+		// is not the default colour (i.e. the one without a
 		// a defined mapbox expression value)
 		expression.push(defaultColour);
 
@@ -137,14 +137,14 @@ export function generateColourExpression(legend) {
  * the map config file.
  * @param {number} opacity an opacity value between 0 and 1
  * @retruns An style expression using opacity values.
- * 
- * Example: 
- * ["case", 
- * ["==", ["get","type"],"Hospital"], 
- * 0, 
- * ["==", ["get","type"],"School"], 
+ *
+ * Example:
+ * ["case",
+ * ["==", ["get","type"],"Hospital"],
+ * 0,
+ * ["==", ["get","type"],"School"],
  * 1,
- * 1] 
+ * 1]
  */
 export function generateOpacityExpression(legend, opacity) {
 	var styleOpacity, i, styleItem, defaultOpacity, legendStyles, expression, legendOpacities ;
@@ -167,7 +167,7 @@ export function generateOpacityExpression(legend, opacity) {
 			// Add style case and color
 			if (styleItem.value && styleOpacity >= 0 && styleOpacity <= 1) {
 				// Add mapbox expression value is defined, add it to cases list
-				expression.push(styleItem.value);						
+				expression.push(styleItem.value);
 
 				// Add opacity to cases list
 				expression.push(styleOpacity);
@@ -180,15 +180,15 @@ export function generateOpacityExpression(legend, opacity) {
 			}
 		}
 
-		// Add default colour as last item in expression 
-		// This is required by mapbox to in sure errors 
+		// Add default colour as last item in expression
+		// This is required by mapbox to in sure errors
 		// don't occur when the last item in the legend config
-		// is not the default colour (i.e. the one without a 
+		// is not the default colour (i.e. the one without a
 		// a defined mapbox expression value)
 		expression.push(defaultOpacity);
 
 	} else if (Array.isArray(legendStyles) && legendStyles.length == 1 && legendOpacities.length == 1) {
-		// If legend only includes 1 item, set style expression to the only legend opacity value 
+		// If legend only includes 1 item, set style expression to the only legend opacity value
 		expression = legendOpacities[0];
 	}
 	

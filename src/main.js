@@ -1,4 +1,4 @@
-// Aggregation of basic-tools modules 
+// Aggregation of basic-tools modules
 export { default as Util } from './basic-tools/tools/util.js';
 export { default as Core } from './basic-tools/tools/core.js';
 export { default as Dom } from './basic-tools/tools/dom.js';
@@ -11,7 +11,7 @@ export { default as Popup } from './basic-tools/components/popup.js'
 export { default as Tooltip } from './basic-tools/components/tooltip.js'
 export { default as Typeahead } from './basic-tools/components/typeahead.js'
 
-// Aggregation of mapbox-tools modules 
+// Aggregation of mapbox-tools modules
 export { default as Bookmarks } from './mapbox-tools/controls/bookmarks.js'
 export { default as Download } from './mapbox-tools/controls/download.js'
 export { default as Fullscreen } from './mapbox-tools/controls/fullscreen.js'

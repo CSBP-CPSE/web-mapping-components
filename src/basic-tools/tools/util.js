@@ -6,15 +6,15 @@
 export default class Util {
 	
 	/**
-	* Merges an object into another object. 
+	* Merges an object into another object.
 	*
-	* @param {object} a - the object that will receive the properties 
+	* @param {object} a - the object that will receive the properties
 	* @param {object} b - the object to merge into object A
 	* @returns the modified Object
 	*/
-	static Mixin(a, b) {				
+	static Mixin(a, b) {
 		for (var key in b) {
-			if (b.hasOwnProperty(key)) a[key] = b[key];
+			if (Object.prototype.hasOwnProperty.call(b,key)) a[key] = b[key];
 		}
 
 		// TODO : Why did I use arguments[0] instead of a?
@@ -22,7 +22,7 @@ export default class Util {
 	}
 	
 	/**
-	* Debounces a function. The function will be executed after a timeout 
+	* Debounces a function. The function will be executed after a timeout
 	* unless the function is called again in which case, the timeout will
 	* reset
 	*
@@ -38,19 +38,19 @@ export default class Util {
 			function delayed () {
 				delegate.apply(this, arguments);
 				
-				timeout = null; 
+				timeout = null;
 			}
-	 
+
 			if (timeout) clearTimeout(timeout);
-	 
-			timeout = setTimeout(delayed.bind(this), threshold || 100); 
+
+			timeout = setTimeout(delayed.bind(this), threshold || 100);
 		};
 	}
 	
 	/**
 	* Formats a String using substitute strings
 	*
-	* Example: 
+	* Example:
 	* Input: Format("Hello world! My name is {0} {1}", ["Foo", "Bar"])
 	* Output: "Hello world! My name is Foo Bar"
 	*
@@ -73,7 +73,7 @@ export default class Util {
 	
 	/**
 	 * Gets the value of the first property of a provided object
-	 * 
+	 *
 	 * @param {object} obj - object to get first property from
 	 * @returns the value of the first object
 	 */
@@ -91,15 +91,15 @@ export default class Util {
 	/**
 	 * ParseCsv takes a string containing csv data, and parses it to generate an array
 	 * containing each row of the csv.
-	 * 
+	 *
 	 * Example:
-	 * 
+	 *
 	 * Util.ParseCsv("name,age\nfoo,22\nbar,24") -> [["name","age"],["foo","22"],["bar","24"]]
-	 * 
+	 *
 	 * @param {string} csv - string containing csv data
 	 * @returns {array} a list containing each row of csv data
 	 */
-	static ParseCsv(csv) {		
+	static ParseCsv(csv) {
 		var e, e1, e2;
 		var s = 0;
 		var i = 0;
@@ -133,7 +133,7 @@ export default class Util {
 
 			// Add next list to the lines and increment the index when the end
 			// character is a new line character.
-			if (e == e2) {					
+			if (e == e2) {
 				lines.push([]);
 				
 				i++;
@@ -148,7 +148,7 @@ export default class Util {
 	/**
 	 * Sets the disabled property to true or false for a provided selection
 	 * of nodes if they are of a focusable type.
-	 * 
+	 *
 	 * @param {array} nodes - A list of DOM selections.
 	 * @param {boolean} disabled - true or false.
 	 */

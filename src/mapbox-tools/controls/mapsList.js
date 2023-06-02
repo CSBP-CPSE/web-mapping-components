@@ -7,9 +7,9 @@ import Tooltip from '../../basic-tools/components/tooltip.js';
  * Mapslist class
  * @class
  */
-export default class MapsList extends Control { 
-		
-	constructor(options) {	
+export default class MapsList extends Control {
+
+	constructor(options) {
 		super(options);
 		
 		this._container = this.Node('root');
@@ -29,12 +29,12 @@ export default class MapsList extends Control {
 	 * Set the list of map options
 	 * @param {object} val The collection of map configurations used to generate menu list items
 	 */
-	 set mapoptions(val) {
+	set mapoptions(val) {
 		if (typeof val === 'object' && val != null && Object.keys(val).length) {
 			this.options.maps = val;
 
 			Dom.Empty(this.Node('maps-ul'));
-		    this.updateMapsList(val);
+			this.updateMapsList(val);
 		}
    }
 
@@ -49,7 +49,10 @@ export default class MapsList extends Control {
 	}
 
 	AddMapItem(id, map) {
-		var li = Dom.Create('li', { className:"maps-list-item", innerHTML:String(map.title), tabIndex:0 }, this.Node("maps-ul"));
+		var li = Dom.Create('li', {
+			className:"maps-list-item",
+			innerHTML:String(map.title),
+			tabIndex:0 }, this.Node("maps-ul"));
 		
 		//li.addEventListener("mousemove", this.OnLiMouseMove_Handler.bind(this, id, map));
 		//li.addEventListener("mouseleave", this.OnLiMouseLeave_Handler.bind(this, id, map));
@@ -58,7 +61,7 @@ export default class MapsList extends Control {
 	}
 
 	/*
-	OnLiMouseMove_Handler(id, map, ev) {	
+	OnLiMouseMove_Handler(id, map, ev) {
 		this.tooltip.Node("content").innerHTML = map.description;
 		this.tooltip.Show(ev.pageX - window.scrollX + 20, ev.pageY - window.scrollY);
 	}
@@ -68,7 +71,7 @@ export default class MapsList extends Control {
 	}
 	*/
 
-	OnLiKeydown_Handler(id, map, ev) {		
+	OnLiKeydown_Handler(id, map, ev) {
 		// prevent default event on specifically handled keys
 		if (ev.keyCode != 13) return;
 		
@@ -77,18 +80,18 @@ export default class MapsList extends Control {
 		this.Emit("MapSelected", { id:id, map:map });
 	}
 	
-	OnLiClick_Handler(id, map, ev) {		
+	OnLiClick_Handler(id, map, ev) {
 		this.Emit("MapSelected", { id:id, map:map });
 	}
 	
 	Template() {
-		return "<div handle='root' class='maps'>" + 
-				  "<div class='maps-header-container'>" + 
-					 `<img class='maps-header-icon' src='${Core.root}assets/layers.png'></img>` +
-					 "<h2 handle='maps-header' class='maps-header'>Maps</h2>" +
-				  "</div>" +
-				  "<ul handle='maps-ul' class='maps-list'></ul>" + 
-				  // "<div handle='description' class='maps-description'></div>" +
-			   "</div>"
+		return "<div handle='root' class='maps'>" +
+					"<div class='maps-header-container'>" +
+						`<img class='maps-header-icon' src='${Core.root}assets/layers.png'></img>` +
+						"<h2 handle='maps-header' class='maps-header'>Maps</h2>" +
+					"</div>" +
+					"<ul handle='maps-ul' class='maps-list'></ul>" +
+					// "<div handle='description' class='maps-description'></div>" +
+				"</div>"
 	}
 }

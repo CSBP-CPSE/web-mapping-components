@@ -7,12 +7,12 @@ import Templated from './templated.js';
  * Popup class
  * @class
  */
-export default class Popup extends Templated { 
+export default class Popup extends Templated {
 	
 	get CloseBtnTitle() {
 		let label = {
 			en: "Close overlay (escape key)",
-			fr: "Fermer la fenêtre superposée (touche d\'échappement)"
+			fr: "Fermer la fenêtre superposée (touche d'échappement)"
 		};
 
 		return label[Core.locale] || ""
@@ -26,7 +26,7 @@ export default class Popup extends Templated {
 	
 	get Content() { return this.content; }
 	
-	constructor(classes, container) {	
+	constructor(classes, container) {
 		super(container || document.body);
 				
 		this.onBody_KeyUp_Bound = this.onBody_KeyUp.bind(this);
@@ -84,14 +84,13 @@ export default class Popup extends Templated {
 	
 	Template() {
 		return "<div handle='root' class='popup'>" +
-				  "<div class='popup-container'>" +
-					  "<div class='popup-header'>" +
-						  "<div class='popup-title' handle='title'></div>" +
-						  `<button title="${this.CloseBtnTitle}" class="close" handle="close">×</button>` +
-					  "</div>" +
-					
-					  "<div class='popup-body' handle='body'></div>" +
-				  "</div>" +
-			  "</div>";
+					"<div class='popup-container'>" +
+						"<div class='popup-header'>" +
+							"<div class='popup-title' handle='title'></div>" +
+							`<button title="${this.CloseBtnTitle}" class="close" handle="close">×</button>` +
+						"</div>" +
+						"<div class='popup-body' handle='body'></div>" +
+					"</div>" +
+				"</div>";
 	}
 }

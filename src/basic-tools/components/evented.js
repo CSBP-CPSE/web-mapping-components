@@ -4,7 +4,7 @@ import Util from '../tools/util.js';
  * Evented class
  * @class
  */
-export default class Evented { 
+export default class Evented {
 
 	constructor() {
 		this.listeners = {};
@@ -36,20 +36,21 @@ export default class Evented {
 	
 	dispatchEvent(event){
 		if (!(event.type in this.listeners)) return;
-
+		
+		var i;
 		var stack = this.listeners[event.type];
 
-		for (var i = 0; i < stack.length; i++) {
+		for (i = 0; i < stack.length; i++) {
 			stack[i].callback.call(this, event);
 		}
 		
-		for (var i = stack.length - 1; i >= 0; i--) {
-			if (!!stack[i].once) this.removeEventListener(event.type, stack[i].callback);
+		for (i = stack.length - 1; i >= 0; i--) {
+			if (stack[i].once) this.removeEventListener(event.type, stack[i].callback);
 		}
 	}
 	
 	Emit(type, data) {
-		// Let base event properties be overwritten by whatever was provided.	
+		// Let base event properties be overwritten by whatever was provided.
 		var event = { bubbles:true, cancelable:true };
 	
 		Util.Mixin(event, data);

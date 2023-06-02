@@ -4,13 +4,13 @@ import Evented from '../../basic-tools/components/evented.js';
  * Navigation class
  * @class
  */
-export default class Navigation extends Evented { 
+export default class Navigation extends Evented {
 	
 	set titleIn(value) { this._n._zoomInButton.title = value; }
 	
 	set titleOut(value) { this._n._zoomOutButton.title = value; }
 		
-	constructor(options) {	
+	constructor(options) {
 		super();
 		
 		this._n = new maplibregl.NavigationControl({ showCompass:options.showCompass, showZoom:options.showZoom });
@@ -18,20 +18,20 @@ export default class Navigation extends Evented {
 		this.options = options;
 	}
 			
-	onFullscreenClick_Handler(ev) {		
+	onFullscreenClick_Handler(ev) {
 		if (!this.fullscreen) this.Emit("enterFullscreen", {});
 		
 		else this.Emit("exitFullscreen", {});
 	}
 	
-	onAdd(map) {		
+	onAdd(map) {
 		this._container = this._n.onAdd(map);
 		
 		this._n._zoomInButton.removeAttribute("aria-label");
 		this._n._zoomOutButton.removeAttribute("aria-label");
 		
-		this.titleIn = this.options.titleIn; 
-		this.titleOut = this.options.titleOut; 
+		this.titleIn = this.options.titleIn;
+		this.titleOut = this.options.titleOut;
 		
         this._map = map;
 		
